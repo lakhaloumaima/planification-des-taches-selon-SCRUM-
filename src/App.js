@@ -13,7 +13,8 @@ import ListProjects from './components/ListProjects';
 import ListTaches from './components/listTaches';
 import Register from './components/register';
 import Auth from './components/auth';
-import ListDevelopper from './components/listDevelopper';
+import Taches from './components/gettachebyid';
+
 
 function App() {
   return (
@@ -27,8 +28,8 @@ function App() {
             <Route path="/Addproject" component={Addproject} />
             <Route path="/Addtache" component={Addtache} />
             
-            
-            <Route path="/listD" component={ListDevelopper} />
+            <Route path="/taches" component={Taches} />
+
             <Route path="/updateDev" component={updateDevelopper} />
             <Route path="/card" component={card} />
             <Route path="/ListT" component={ListTaches} />

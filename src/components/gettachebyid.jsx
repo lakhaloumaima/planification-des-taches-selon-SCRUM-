@@ -1,16 +1,14 @@
-import { Badge, Button, Form, Input, Modal, Table, Tag  } from 'antd';
+import { Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { deletetache, getprojects, selectauthedproject, selectprojects, updatetache } from '../features/project/projectsSlice';
-import {
-    CheckCircleOutlined, CloseCircleOutlined, CheckOutlined, EditOutlined 
-} from '@ant-design/icons';
-import { selectusers } from '../features/users/usersSlice';
+import { EditOutlined } from '@ant-design/icons';
+import { gettaches, selectauthedtaches , selecttachess} from '../features/tache/tachesSlice';
+import { getprojects, selectprojects } from '../features/project/projectsSlice';
+import { getusers, selectusers } from '../features/users/usersSlice';
 
 
-const ListTaches = () => {
+const Taches = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const users = useSelector(selectusers)
     const handleOk = () => {
         setIsModalVisible(false);
     };
@@ -21,67 +19,45 @@ const ListTaches = () => {
     const showModal = () => {
         setIsModalVisible(true);
     };
-/*
-    const update = (tache, value) => {
-        let data = {
-            id: tache._id,
-            data: {
-                etat: value
-            }
-        }
-
-        dispatch(updateproject(data))
-    }
-    */
-   
+    useEffect(() => {
+        
+        dispatch(getprojects())
+     
+    }, []);
     const onFinish = (values) => {   
        
-       console.log('Success:', values);
-        let data = {
-            tache_id : values.tache_id ,      
-        }
-        dispatch(deletetache(data))
-    }
-    const onFinish2 = (values) => {   
+        console.log('Success:', values);
+         let data = {
+             tache_id : values.tache_id ,      
+         }
+     dispatch(gettaches(data))
+     
+     //dispatch(getprojects(data))
+     }
+   /* const onFinish2 = (values) => {   
        
-        let dataa = {
+        let data = {
             tache_id : values.tache_id ,  
-            dataa : values,
+            data : values,
         }
-        dispatch(updatetache(dataa))
+        dispatch(updatetaches(data))
+        console.log(data)
         handleCancel() 
         //failed();
     };
-  
+  */
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    const addTache  = () => {
-        window.location.href = '/Addtache'
-       
-    }
     const dispatch = useDispatch()
+    const tache = useSelector(selectauthedtaches)
     const projects = useSelector(selectprojects)
-    const project = useSelector(selectauthedproject)
+    const users = useSelector(selectusers)
 
-    useEffect(() => {
-            dispatch(getprojects())
-    }, []);
-
+ /*
  const columns = [
-    {
-        title: 'Id project',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text, record) => (
-            <>
-                {record.id} <br></br>
-                
-
-            </>
-        ),
-    },
+   
     
     {
         title: 'Id tache',
@@ -89,7 +65,7 @@ const ListTaches = () => {
         key: 'tache_id',
         render: (text, record) => (
             <>
-                {record.tache[0]["tache_id"]} <br></br>
+                {record.tache_id} 
                 
 
             </>
@@ -101,7 +77,7 @@ const ListTaches = () => {
         key: 'tache',
         render: (text, record) => (
             <> 
-          { record.tache[0]["date_debut"] }
+          { record.date_debut}
               
                 
             <br></br>
@@ -115,7 +91,7 @@ const ListTaches = () => {
         key: 'tache',
         render: (text, record) => (
             <>
-                {record.tache[0].date_fin} <br></br>
+                {record.date_fin} <br></br>
                 
                 
 
@@ -129,8 +105,10 @@ const ListTaches = () => {
         render: (text, record) => (
             <>
                 
-                {record.tache[0].developer} <br></br>
-                
+            {
+                record.developer 
+            } 
+            
             </>
         ),
     },
@@ -141,46 +119,14 @@ const ListTaches = () => {
         render: (text, record) => (
             <>
                
-                {record.tache[0].tache_name} <br></br>
+                {record.tache_name} <br></br>
                 
 
             </>
         ),
     },
-    {
-        title: 'State',
-        dataIndex: 'tache',
-        key: 'tache',
-        render: (text, record) => (
-            <>
-                {record.tache[0].etat === "en_attente" && <Tag color="red">to do</Tag>}
-                {record.tache[0].etat === "en_cours" && <Tag color="cyan">in progress</Tag>}
-                {record.tache[0].etat === "terminee" && <Tag color="lime">terminated</Tag>} <br></br>
-                </>
-        ),
-       
-    },
-    {
-        title: 'Actions',
-        key: 'tache',
-        dataIndex: 'tache',
-        render: (text, record) => (
-            <>
-                {record.tache[0].etat === "en_attente" &&
-                    <>
-                        <CheckCircleOutlined /*onClick={() => update(record, 2)}*/ style={{ fontSize: "20px", color: "lime", cursor: "pointer" }} />
-                        <CloseCircleOutlined /*onClick={() => update(record, 3)}*/ style={{ fontSize: "20px", color: "cyan", marginLeft: "10px", cursor: "pointer" }} />
-                    </>
-                }
-
-                {record.tache[0].etat === "terminee" && <CheckOutlined style={{ color: "lime", fontSize: "20px" }} />}
-                {record.tache[0].etat === "en_cours" && < CloseCircleOutlined style={{ color: "cyan", fontSize: "20px" }} />}
-                <br></br>
-               
-            </>
-        ),
-    },
-    {
+    
+          {
         title: 'Update Tache',
         dataIndex: 'update',
         key: 'update',
@@ -188,22 +134,16 @@ const ListTaches = () => {
             <>
                
                <li><a onClick={() => showModal()} ><EditOutlined /></a></li>
-          
-                
-
             </>
         ),
     },
-
 ];
+*/
 
 return (
-    <div className="container" > 
-          <button style={{backgroundColor:"SteelBlue"}} class="btn btn-info" onClick={addTache}>
-        Add Tache
-      </button> 
+    <div className="container" >  
           
-          <Form
+      <Form
           style={{marginTop:"50px"}}
               name="basic"
               labelCol={{
@@ -222,7 +162,7 @@ return (
               
             
             <Form.Item
-                  label="Delete by Tache Id "
+                  label="get Tache By Id "
                   name="tache_id"
                   rules={[
                       {
@@ -241,17 +181,24 @@ return (
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      Delete 
+                      See 
                   </Button>
                   </Form.Item>
           </Form>
-          
-          <div> <br></br>
-        <h2>Taches <Badge count={projects.length} showZero /> </h2>
-        <Table columns={columns} dataSource={projects} />
-            
+          <div>
+       
+        <Descriptions style={{ marginTop: "50px" }} title="Taches">
+                <Descriptions.Item label="tache_id">{tache.tache_id}</Descriptions.Item>
+                <Descriptions.Item label="tache_name">{tache.tache_name}</Descriptions.Item>
+                <Descriptions.Item label="project_name">{tache.project_name}</Descriptions.Item>
+                <Descriptions.Item label="developer">{tache.developer}</Descriptions.Item>
+                <Descriptions.Item label="date_debut">{tache.date_debut}</Descriptions.Item>
+                <Descriptions.Item label="date_fin">{tache.date_fin}</Descriptions.Item>
+                <Descriptions.Item label="Etat">{tache.etat}</Descriptions.Item>
+        </Descriptions>  
         </div>
           <br></br>
+          
           <Modal footer={null} title="Update taches" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                     <Form
                         name="basic"
@@ -260,8 +207,8 @@ return (
                         initialValues={{ 
                             
                         }}
-                        onFinish={onFinish2}
-                        onFinishFailed={onFinishFailed}
+                       // onFinish={onFinish2}
+                       // onFinishFailed={onFinishFailed}
                     >
                         
                         <Form.Item
@@ -329,4 +276,4 @@ return (
     ) 
 } ;
 
-export default ListTaches
+export default Taches

@@ -2,14 +2,15 @@ import { Badge, Table, Tag } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectdeveloppers } from '../features/developper/developpersSlice';
-import {  selectusers  , filtredusers, getusers} from '../features/users/usersSlice';
+import {  selectusers  , filtredusers, getusers, selectseletestatus, deleteuser} from '../features/users/usersSlice';
 import 'antd/dist/antd.css'
-import { Form, Input, Button, Checkbox, Row, Col, Alert, message } from 'antd';
+import { Form, Input, Button, Checkbox, Row, Col, Alert, message  } from 'antd';
 
 
 const ListUsers = () => {
     const dispatch = useDispatch()
     const users = useSelector(selectusers)
+    const deleted = useSelector(selectseletestatus)
     //const developpers = useSelector(selectdeveloppers)
     const columns = [
         {
@@ -89,26 +90,37 @@ const onFinish = (values) => {
       console.log('Success:', values);
 
       let data = {
-          roll : values.roll,
-          
+          roll : values.roll,        
       }
 
       dispatch(getusers(data))
+      
       //failed();
   };
+  const onFinish2 = (values) => {
+    console.log('Success:', values);
+
+    let data = {
+        email : values.email ,
+    }
+    dispatch(deleteuser(data))
+    
+};
 
   const onFinishFailed = (errorInfo) => {
       console.log('Failed:', errorInfo);
   };
+  const onFinishFailed2 = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+};
 
   return (
       <div style={{ marginTop: "-200px" }}  >
-         
-         <h2>Users <Badge count={users.length} showZero />  </h2>
-            
           <div className='products-catagories-area clearfix' >
-          
-          <Form
+
+
+    <div  class="form-group row"  >                             
+        <Form
           style={{marginTop:"200px"}}
               name="basic"
               labelCol={{
@@ -116,17 +128,14 @@ const onFinish = (values) => {
                   offset:3
               }}
               wrapperCol={{
-                  span: 8,
+                  span: 15,
               }}
               initialValues={{
                   remember: true,
               }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
-          >
-             
-
-            
+          >   
               
               <Form.Item
                   label="Roll"
@@ -139,26 +148,64 @@ const onFinish = (values) => {
                   ]}
               >
                   <Input />
-              </Form.Item>
-
-             
-
-             
+              </Form.Item>   
 
               <Form.Item
                   wrapperCol={{
                       offset: 7,
-                      span: 8,
+                      span: 15,
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
                       List
                   </Button>
-                 
+                 </Form.Item>
+                
+          </Form>         
+         
+        <Form
+          style={{marginTop:"200px"}}
+              name="basic"
+              labelCol={{
+                  span: 4,
+                  offset:3
+              }}
+              wrapperCol={{
+                  span: 11,
+              }}
+              initialValues={{
+                  remember: true,
+              }}
+              onFinish={onFinish2}
+              onFinishFailed={onFinishFailed2}
+          >   
+              
+                  <Form.Item
+                  label="Delete User By Email"
+                  name="email"
+                  rules={[
+                      {
+                          required: true,
+                          message: 'Please input your email !',
+                      },
+                  ]}
+              >
+                  <Input />
               </Form.Item>
-          </Form>
-          
-          <div>
+              
+              <Form.Item
+                  wrapperCol={{
+                      offset: 7,
+                      span: 11,
+                  }}
+              >
+                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
+                      Delete User By Email
+                  </Button>
+                  </Form.Item>
+          </Form>  
+    </div>
+          <div> 
           <h2>Users <Badge count={users.length} showZero /> </h2>
         <Table columns={columns} dataSource={users} />
           </div>

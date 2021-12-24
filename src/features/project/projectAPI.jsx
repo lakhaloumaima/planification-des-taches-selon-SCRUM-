@@ -45,3 +45,23 @@ export function DeletePro() {
       return err;
     });
 }
+export function DeleteTache(id) {
+  return axiosInstance
+    .post(projectsapi + "/delltache" , id)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+export function UpdateTache(dataa) {
+  return axiosInstance
+    .post(projectsapi +'/tacheedit' , dataa.tache_id , dataa.dataa)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}

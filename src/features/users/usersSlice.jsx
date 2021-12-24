@@ -105,16 +105,13 @@ export const usersSlice = createSlice({
 
 
     builder.addCase(deleteuser.pending, (state, action) => {
-      state.deletestatus = "loading";
+      state.users = action.payload.data;
     });
 
     builder.addCase(deleteuser.fulfilled, (state, action) => {
       console.log(action.payload);
-      if (action.payload.status === 200) {
-        state.deletestatus = "success";
-      } else {
-        state.deletestatus = "failure";
-      }
+        state.users = action.payload.data;
+      
     });
 
 ///////////////////////////getme
