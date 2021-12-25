@@ -2,16 +2,21 @@ import { Badge, Table, Tag } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectdeveloppers } from '../features/developper/developpersSlice';
-import {  selectusers  , filtredusers, getusers, selectseletestatus, deleteuser} from '../features/users/usersSlice';
+import {  selectusers  , filtredusers, getusers, selectseletestatus, deleteuser, selectdatachenged} from '../features/users/usersSlice';
 import 'antd/dist/antd.css'
 import { Form, Input, Button, Checkbox, Row, Col, Alert, message  } from 'antd';
+import { CloseCircleOutlined } from '@ant-design/icons';
 
 
 const ListUsers = () => {
     const dispatch = useDispatch()
     const users = useSelector(selectusers)
     const deleted = useSelector(selectseletestatus)
+    const datachanged = useSelector(selectdatachenged)
     //const developpers = useSelector(selectdeveloppers)
+    useEffect(() => {
+       
+    }, [datachanged]);
     const columns = [
         {
             title: 'Id User ',
@@ -83,6 +88,17 @@ const ListUsers = () => {
                 </>
             ),
         },
+        {
+            title: 'delete user',
+            dataIndex: 'delete',
+            key: 'delete',
+            render: (text, record) => (
+                <>
+                    <CloseCircleOutlined onClick={() => dispatch(deleteuser(record.email))} style={{ color: 'red', cursor: 'pointer' }} />
+                    
+                </>
+            ),
+        },
     ];
 
     
@@ -104,6 +120,7 @@ const onFinish = (values) => {
         email : values.email ,
     }
     dispatch(deleteuser(data))
+   // window.location.reload()
     
 };
 

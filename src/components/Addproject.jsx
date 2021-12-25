@@ -1,108 +1,148 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, Checkbox, Descriptions, message } from 'antd';
-import { createproject, getprojects, selectaddstatus } from '../features/project/projectsSlice';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
+import { createproject, getprojects, selectaddstatus, selectprojects } from '../features/project/projectsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Addproject = () => {
-
+const AddProject = () => {
+  const addstatus = useSelector(selectprojects)
   const dispatch = useDispatch()
-  const addstatus = useSelector(selectaddstatus)
-
-  const [name, setname] = useState('');
-  const [description, setdescription] = useState('');
-  const [date_debut, setdated] = useState('');
-  const [date_fin, setdatef] = useState('');
-  const [emailclient, setemailc] = useState('');
-  const [emailmaster, setemailm] = useState('');
-
   useEffect(() => {
-    dispatch(getprojects())
-}, [addstatus]);
+  
+      dispatch(getprojects())
+  }, []);
 
+  const onFinish = (values) => {
+        console.log('Success:', values);
 
-const success = () => {
-    message.success('project successfuly created');
-};
+        let data = {
+            project_name : values.project_name,
+            description : values.description ,
+            date_debut : values.date_debut ,
+            date_fin : values.date_fin ,
+            emailclient : values.emailclient ,
+            emailmaster : values.emailmaster ,
+        }
 
-const error = () => {
-    message.error('project not created');
-};
+        dispatch(createproject(data))
+       console.log(data)
+    };
+    const onFinishFailed = (errorInfo) => {
+      console.log('Failed:', errorInfo);
+  };
 
+  return (   
+    <div className='products-catagories-area clearfix' style={{ marginTop: "-150px" }}  >   
+        <Form
+        style={{marginTop:"200px"  }}
+            name="basic"
+            labelCol={{
+                span: 4,
+                offset:3
+            }}
+            wrapperCol={{
+                span: 10,
+            }}
+            initialValues={{
+                remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+        >
 
-const addProject = () => {
- /* const data = {
-    name: project.name,
-    total_price: total,
-    products: getproductstable()
-}
+            
+            <Form.Item
+                label="Project name"
+                name="project_name"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your project_name !',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
 
-    dispatch(createproject(data))
-    console.log(data)
-    success()
-
-    //window.location.href = '/listProjects'
-   */
-    const data = new FormData()
-    data.append('projectname', name)
-    data.append('description', description)
-    data.append('date_debut', date_debut)
-    data.append('date_fin', date_fin)
-    data.append('emailclient', emailclient)
-    data.append('emailmaster', emailmaster)
-    console.log(data)
-    dispatch(createproject(data))
-    console.log(data)
-    success()
-
-    //window.location.href = '/listProjects'
-
-}
+            <Form.Item
+                label="description "
+                name="description"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your description !',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
            
-return (
-    <div className="container" style={{ backgroundColor:"steelblue" }} >
-        <div  > <center><br></br>
-          <h3>Add Project </h3> 
-          </center><br></br>
-        <form>
-
-  <div className="form-group">
-    <label htmlFor="exampleInputEmail1">Project Name </label>
-    <input value={name} onChange={(e) => setname(e.target.value)}  type="text" className="form-control" />
-  </div>
-  <div className="form-group">
-      <label htmlFor="exampleInputPassword1">Email Master  </label>
-      <input value={emailmaster} onChange={(e) => setemailm(e.target.value)}  type="text" className="form-control" />       
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleInputEmail1">Description </label>
-    <input value={description} onChange={(e) => setdescription(e.target.value)} type="text" className="form-control" />
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleInputPassword1">Date debut </label>
-    <input value={date_debut} onChange={(e) => setdated(e.target.value)} type="date" className="form-control" id="nameM" />
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleInputEmail1">Date fin </label>
-    <input value={date_fin} onChange={(e) => setdatef(e.target.value)} type="date" className="form-control" />
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleInputPassword1">Email Client</label>
-    <input value={emailclient} onChange={(e) => setemailc(e.target.value)} type="text" className="form-control" id="nameM" />
-  </div> <br /> <center>
-  <button onClick={() => addProject()} type="button" className="btn btn-light"> Add </button>
-  </center>
-</form>
-
-<br></br>
-
- 
+            <Form.Item
+                label="date_debut "
+                name="date_debut"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your date_debut !',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                label="date_fin"
+                name="date_fin"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your date_fin !',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                label="email client"
+                name="emailclient"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your emailclient !',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                label="email master"
+                name="emailmaster"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your emailmaster !',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                wrapperCol={{
+                    offset: 7,
+                    span: 8,
+                }}
+            >
+                <Button style={{background: "steelblue" ,outline:"none",width:'125%',border:'none'}} type="primary" htmlType="submit">
+                    Add
+                </Button>
+                
+            </Form.Item>
+        </Form>
+        
     </div>
-    </div>
+  
 )
-};
+} ;
 
 
-export default Addproject 
+export default AddProject
 
 

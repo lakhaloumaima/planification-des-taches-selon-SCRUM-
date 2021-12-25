@@ -34,9 +34,9 @@ export function DeletetTache(id) {
       return err;
     });
 }
-export function UpdateTaches(dataa) {
+export function UpdateTaches(data) {
   return axiosInstance
-    .post(tachesapi +'/tacheedit' , dataa.tache_id , dataa.dataa)
+    .post(tachesapi +'/tacheedit' , data.id, data.data)
     .then((res) => {
       return res;
     })

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Login, GetUsers, DeletetUser, UpdateUser } from "./usersAPI";
+import { Login, GetUsers, DeletetUser, UpdateUser, GetUserByemail } from "./usersAPI";
 
 const initialState = {
   user: null,
@@ -13,8 +13,14 @@ const initialState = {
   users: [],
   deletestatus: "",
   addstatus: "",
+  datachanged : "" ,
 };
-
+//get user by id
+export const getuser = createAsyncThunk("oneuser", async (data) => {
+  const response = await GetUserByemail(data);
+  console.log("user : " + response.data)
+  return response.data;
+});
 //login user
 export const login = createAsyncThunk("login", async (data) => {
   const response = await Login(data);
@@ -29,8 +35,9 @@ export const getusers = createAsyncThunk("getuser", async (data) => {
 });
 
 //delete user by id
-export const deleteuser = createAsyncThunk("users/delete/id", async (id) => {
-  const response = await DeletetUser(id);
+export const deleteuser = createAsyncThunk("delluser", async (data) => {
+  const response = await DeletetUser(data);
+  console.log("delete" + response.data);
   return response.data;
 });
 
@@ -104,13 +111,10 @@ export const usersSlice = createSlice({
 
 
 
-    builder.addCase(deleteuser.pending, (state, action) => {
-      state.users = action.payload.data;
-    });
 
     builder.addCase(deleteuser.fulfilled, (state, action) => {
       console.log(action.payload);
-        state.users = action.payload.data;
+      state.datachanged = action.payload;
       
     });
 
@@ -125,7 +129,11 @@ export const usersSlice = createSlice({
     builder.addCase(updateuser.fulfilled, (state, action) => {
       console.log(action.payload);
       state.user = action.payload.data;
+    });
 
+    builder.addCase(getuser.fulfilled, (state, action) => {
+      console.log(action.payload);
+     state.users = action.payload.data;
     });
   },
    
@@ -144,6 +152,6 @@ export const selectauthstatus = (state) => state.users.authstatus;
 export const selectautherror = (state) => state.users.autherror;
 export const selectisauth = (state) => state.users.isauth;
 export const selectseletestatus = (state) => state.users.deletestatus;
-
+export const selectdatachenged = (state) => state.users.datachanged;
 
 export default usersSlice.reducer;

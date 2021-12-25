@@ -24,9 +24,9 @@ export function GetUsers(data) {
     });
 }
 
-export function DeletetUser(id) {
+export function DeletetUser(data) {
   return axiosInstance
-    .delete(usersapi + "/" + id)
+    .post(usersapi + "/delluser" , data)
     .then((res) => {
       return res;
     })
@@ -46,6 +46,16 @@ export function UpdateUser(data) {
     });
 }
 
+export function GetUserByemail(data) {
+  return axiosInstance
+    .post(usersapi + "/oneuser" , data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
 /* export function GetMe() {
   return axiosInstance
     .get(usersapi + "/me")

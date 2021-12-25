@@ -1,8 +1,9 @@
-import { Badge, Table, Space } from 'antd'
-import React, { useEffect } from 'react'
+import { Badge, Table, Space , Button , Form , Input , Modal } from 'antd'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteproject, getprojects,  selectdatachanged,  selectprojects } from '../features/project/projectsSlice';
-import { CloseCircleOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined , EditOutlined } from '@ant-design/icons';
+import { selectauthedtaches, updatetaches } from '../features/tache/tachesSlice';
 
 
 
@@ -16,9 +17,45 @@ const ListProjects = () => {
     }, [datachanged]);
 
     const addproject  = () => {
-        window.location.href = '/Addproject'
-       
+        window.location.href = '/Addproject'    
     }
+
+    const tache = useSelector(selectauthedtaches)
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+/*
+    const onFinish2 = (values) => {
+        console.log('Success:', values);
+
+        let data = {
+            tache_id : tache.tache_id,
+            //date_debut : tache.date_debut ,
+            //tache_id : values.tache_id ,  
+            data : values,
+        }
+        dispatch(updatetaches(data))
+        console.log(data)
+        setIsModalVisible(false)
+        //window.location.reload()
+    }; 
+  
+    
+const onFinishFailed2 = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+*/
 
  const columns = [
     {
@@ -120,19 +157,31 @@ const ListProjects = () => {
                  </Space>
         ),
     },
+    {
+        title: 'Update',
+        key: 'update',
+        render: (text, record) => (
+            <Space size="middle">
+                
+               
+                <EditOutlined onClick={() => dispatch(showModal())} style={{ color: 'green', cursor: 'pointer' }} />
+                
+                 </Space>
+        ),
+    },
 
 ];
 return (
     <div className="container"  >
          <div> 
           <button style={{backgroundColor:"SteelBlue"}} class="btn btn-info" onClick={addproject}>
-        Add Master
+        Add Project
       </button> 
           </div> <br></br>
         <h2>Projects <Badge count={projects.length} showZero /> </h2>
         <Table columns={columns} dataSource={projects} />
         <br></br>
-         
+        
     </div>
 )
 

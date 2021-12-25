@@ -8,12 +8,14 @@ import Addproject from './components/Addproject';
 import card from './components/card';
 import Addtache from './components/Addtache';
 import updateDevelopper from './components/updateDevelopper';
-import ListUsers from './components/ListeUsers';
+import ListUsers from './components/listeusers';
 import ListProjects from './components/ListProjects';
 import ListTaches from './components/listTaches';
 import Register from './components/register';
 import Auth from './components/auth';
 import Taches from './components/gettachebyid';
+import Projectt from './components/getprojectbyid';
+import Userr from './components/getuserbyemail';
 
 
 function App() {
@@ -29,11 +31,14 @@ function App() {
             <Route path="/Addtache" component={Addtache} />
             
             <Route path="/taches" component={Taches} />
-
+            <Route path="/project" component={Projectt} />
+            <Route path="/userbyemail" component={Userr} />
             <Route path="/updateDev" component={updateDevelopper} />
             <Route path="/card" component={card} />
             <Route path="/ListT" component={ListTaches} />
             <Route path="/listUsers" component={ListUsers} />
+           
+
             <Route path="/listProjects" component={ListProjects} />
             <Route path="/Register" component={Register} />
             <Route path="/Auth" component={Auth} />

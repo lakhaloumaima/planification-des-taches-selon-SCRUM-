@@ -7,9 +7,12 @@ const Navbar = () => {
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <a className="navbar-brand" href="/Home">Home</a>
     <a className="navbar-brand" href="/listUsers">List Users</a>
+    
     <a className="navbar-brand" href="/listProjects">List Projects</a>
     <a className="navbar-brand" href="/ListT">List Taches</a>
-    <a className="navbar-brand" href="/taches"> Taches</a>
+    <a className="navbar-brand" href="/taches"> Tache</a>
+    <a className="navbar-brand" href="/project"> Project</a>
+    <a className="navbar-brand" href="/userbyemail"> User</a>
     <a className="navbar-brand" href="/updateDev"> update dev</a>
 
     

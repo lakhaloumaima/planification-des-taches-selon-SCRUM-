@@ -12,7 +12,7 @@ const initialState = {
 //get all users
 export const gettaches = createAsyncThunk("onetache", async (data) => {
   const response = await GetTaches(data);
-  console.log("tache : " +response.data)
+  console.log("tache : " + response.data)
   return response.data;
 });
 
@@ -80,11 +80,6 @@ export const tachesSlice = createSlice({
     }
   });
 
-  /////////updateuser
-  builder.addCase(updatetaches.pending, (state, action) => {
-    console.log(action.payload);
-    
-  });
   builder.addCase(updatetaches.fulfilled, (state, action) => {
     console.log(action.payload.data);
     state.tache = action.payload.data;

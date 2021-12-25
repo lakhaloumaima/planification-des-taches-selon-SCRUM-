@@ -12,18 +12,7 @@ export function Create(data) {
       return err;
     });
 }
-/*
-export function Create(data) {
-  return axiosInstance
-    .post(projectapi  , data)
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-}
-*/
+
 export function GetProjects() {
   return axiosInstance
     .get(projectsapi + "/getproject")
@@ -58,6 +47,27 @@ export function DeleteTache(id) {
 export function UpdateTache(dataa) {
   return axiosInstance
     .post(projectsapi +'/tacheedit' , dataa.tache_id , dataa.dataa)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+
+export function GetProjectByid(data) {
+  return axiosInstance
+    .post(projectsapi + "/oneproject" , data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+export function GetProjectByclient(data) {
+  return axiosInstance
+    .post(projectsapi + "/getprojectbyclient" ,data)
     .then((res) => {
       return res;
     })

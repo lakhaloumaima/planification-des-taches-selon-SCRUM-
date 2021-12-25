@@ -2,143 +2,60 @@ import { Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'an
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { EditOutlined } from '@ant-design/icons';
-import { gettaches, selectauthedtaches , selecttachess} from '../features/tache/tachesSlice';
-import { getprojects, selectprojects } from '../features/project/projectsSlice';
-import { getusers, selectusers } from '../features/users/usersSlice';
+import { gettaches, selectauthedtaches , updatetaches} from '../features/tache/tachesSlice';
+import { getprojects } from '../features/project/projectsSlice';
 
 
 const Taches = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
 
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
+    const dispatch = useDispatch()
+    const tache = useSelector(selectauthedtaches)
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
     const showModal = () => {
         setIsModalVisible(true);
     };
-    useEffect(() => {
-        
-        dispatch(getprojects())
-     
-    }, []);
-    const onFinish = (values) => {   
-       
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+    useEffect(() => {    
+        dispatch(getprojects())  
+    } , []);
+
+    const onFinish = (values) => {     
         console.log('Success:', values);
          let data = {
              tache_id : values.tache_id ,      
          }
      dispatch(gettaches(data))
-     
+     console.log("data one tache :" + data)
      //dispatch(getprojects(data))
      }
-   /* const onFinish2 = (values) => {   
-       
+
+    const onFinish2 = (values) => {
+        console.log('Success:', values);
+
         let data = {
-            tache_id : values.tache_id ,  
+            tache_id : tache.tache_id,
+            //date_debut : tache.date_debut ,
+            //tache_id : values.tache_id ,  
             data : values,
         }
         dispatch(updatetaches(data))
         console.log(data)
-        handleCancel() 
-        //failed();
-    };
-  */
+        setIsModalVisible(false)
+        //window.location.reload()
+    }; 
+  
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
-    const dispatch = useDispatch()
-    const tache = useSelector(selectauthedtaches)
-    const projects = useSelector(selectprojects)
-    const users = useSelector(selectusers)
-
- /*
- const columns = [
-   
-    
-    {
-        title: 'Id tache',
-        dataIndex: 'tache_id',
-        key: 'tache_id',
-        render: (text, record) => (
-            <>
-                {record.tache_id} 
-                
-
-            </>
-        ),
-    },
-    {
-        title: 'Date_debut',
-        dataIndex: 'tache',
-        key: 'tache',
-        render: (text, record) => (
-            <> 
-          { record.date_debut}
-              
-                
-            <br></br>
-
-            </>
-        ),
-    },
-    {
-        title: 'Date_fin',
-        dataIndex: 'tache',
-        key: 'tache',
-        render: (text, record) => (
-            <>
-                {record.date_fin} <br></br>
-                
-                
-
-            </>
-        ),
-    },
-    {
-        title: 'Developer Name',
-        dataIndex: 'tache',
-        key: 'tache',
-        render: (text, record) => (
-            <>
-                
-            {
-                record.developer 
-            } 
-            
-            </>
-        ),
-    },
-    {
-        title: 'Tache Name',
-        dataIndex: 'tache',
-        key: 'tache',
-        render: (text, record) => (
-            <>
-               
-                {record.tache_name} <br></br>
-                
-
-            </>
-        ),
-    },
-    
-          {
-        title: 'Update Tache',
-        dataIndex: 'update',
-        key: 'update',
-        render: (text, record) => (
-            <>
-               
-               <li><a onClick={() => showModal()} ><EditOutlined /></a></li>
-            </>
-        ),
-    },
-];
-*/
+const onFinishFailed2 = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
 
 return (
     <div className="container" >  
@@ -187,15 +104,19 @@ return (
           </Form>
           <div>
        
-        <Descriptions style={{ marginTop: "50px" }} title="Taches">
+        <Descriptions style={{ marginTop: "50px" }} title="Tache ">
                 <Descriptions.Item label="tache_id">{tache.tache_id}</Descriptions.Item>
+                
                 <Descriptions.Item label="tache_name">{tache.tache_name}</Descriptions.Item>
                 <Descriptions.Item label="project_name">{tache.project_name}</Descriptions.Item>
                 <Descriptions.Item label="developer">{tache.developer}</Descriptions.Item>
                 <Descriptions.Item label="date_debut">{tache.date_debut}</Descriptions.Item>
                 <Descriptions.Item label="date_fin">{tache.date_fin}</Descriptions.Item>
                 <Descriptions.Item label="Etat">{tache.etat}</Descriptions.Item>
-        </Descriptions>  
+        </Descriptions> 
+
+        <a onClick={() => showModal()} style={{ fontSize: "25px", color: "SteelBlue", cursor: 'pointer' }}><i class="glyphicon glyphicon-pencil"></i>Update</a>
+        
         </div>
           <br></br>
           
@@ -205,19 +126,17 @@ return (
                         style={{marginTop:"20px"}}
                         layout="vertical"
                         initialValues={{ 
-                            
+                            tache_id : tache.tache_id,
+                            date_debut : tache.date_debut ,
+                            date_fin : tache.date_fin ,
+                            developer : tache.developer ,
+                            tache_name : tache.tache_name ,
+                            etat : tache.etat ,
                         }}
-                       // onFinish={onFinish2}
-                       // onFinishFailed={onFinishFailed}
+                        onFinish={onFinish2}
+                        onFinishFailed={onFinishFailed2}
                     >
                         
-                        <Form.Item
-                           label="project_id"
-                            name="id"
-                            rules={[{ required: true, message: 'Please input your project_id !' }]}
-                        >
-                            <Input />
-                        </Form.Item>
                         <Form.Item
                            label="tache_id"
                             name="tache_id"
