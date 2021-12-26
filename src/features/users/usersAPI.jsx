@@ -37,7 +37,7 @@ export function DeletetUser(data) {
 
 export function UpdateUser(data) {
   return axiosInstance
-    .put(usersapi+'/'+ data.id , data.data)
+    .post(usersapi+'/useredit' , data.data)
     .then((res) => {
       return res;
     })

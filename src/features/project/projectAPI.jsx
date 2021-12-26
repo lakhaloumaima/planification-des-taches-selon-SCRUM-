@@ -44,9 +44,11 @@ export function DeleteTache(id) {
       return err;
     });
 }
-export function UpdateTache(dataa) {
+
+
+export function UpdateProject(data) {
   return axiosInstance
-    .post(projectsapi +'/tacheedit' , dataa.tache_id , dataa.dataa)
+    .post(projectsapi +'/projectedit' , data.data)
     .then((res) => {
       return res;
     })
@@ -54,7 +56,6 @@ export function UpdateTache(dataa) {
       return err;
     });
 }
-
 export function GetProjectByid(data) {
   return axiosInstance
     .post(projectsapi + "/oneproject" , data)

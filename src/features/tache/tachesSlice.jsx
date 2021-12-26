@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { GetTaches , Create, DeletetTache, UpdateTaches} from "./tachesAPI";
+import { GetTaches , Create, DeletetTache, GetTacheBydeveloper, UpdateTache} from "./tachesAPI";
 
 
 const initialState = {
@@ -9,13 +9,24 @@ const initialState = {
   deletestatus : "" ,
 
 };
+//update user  by id
+export const updatetache = createAsyncThunk("tacheedit", async (data) => {
+  const response = await UpdateTache(data);
+  return response.dataa;
+});
+
 //get all users
 export const gettaches = createAsyncThunk("onetache", async (data) => {
   const response = await GetTaches(data);
   console.log("tache : " + response.data)
   return response.data;
 });
-
+//get all users
+export const gettachebydeveloper = createAsyncThunk("gettachebydeveloper", async (data) => {
+  const response = await GetTacheBydeveloper(data);
+  console.log("tache by developer : " + response.data)
+  return response.data;
+});
 
 
 //get all users
@@ -30,13 +41,7 @@ export const deletetache = createAsyncThunk("delltache", async (id) => {
   const response = await DeletetTache(id);
   return response.data;
 });
-//update user  by id
-export const updatetaches = createAsyncThunk("tacheedit", async (data) => {
-  console.log(response.data) ;
-  const response = await UpdateTaches(data);
-  console.log(response.data) ;
-  return response.data;
-});
+
 
 //get me
 /* export const getme = createAsyncThunk("users/me", async () => {
@@ -54,6 +59,10 @@ export const tachesSlice = createSlice({
 
    
     builder.addCase(gettaches.fulfilled, (state, action) => {
+      console.log(action.payload.data);
+      state.tache = action.payload.data;
+    });
+    builder.addCase(gettachebydeveloper.fulfilled, (state, action) => {
       console.log(action.payload.data);
       state.tache = action.payload.data;
     });
@@ -79,12 +88,23 @@ export const tachesSlice = createSlice({
       state.deletestatus = "failure";
     }
   });
-
+/*
   builder.addCase(updatetaches.fulfilled, (state, action) => {
     console.log(action.payload.data);
     state.tache = action.payload.data;
 
   });
+  */
+ /////////updateuser
+ builder.addCase(updatetache.pending, (state, action) => {
+  console.log(action.payload);
+  
+});
+builder.addCase(updatetache.fulfilled, (state, action) => {
+  console.log(action.payload);
+  state.taches = action.payload;
+
+});
 
   },
    
@@ -95,5 +115,6 @@ export const {  } =tachesSlice.actions;
 export const selecttachess = (state) => state.taches.taches;
 export const selectseletestatus = (state) => state.taches.deletestatus;
 export const selectauthedtaches = (state) => state.taches.tache;
+export const selecttache = (state) => state.taches.tache;
 
 export default tachesSlice.reducer;

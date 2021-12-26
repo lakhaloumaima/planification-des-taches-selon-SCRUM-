@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import {  login } from '../features/users/usersSlice';
+import {  getuser, login, selectautheduser, selectauthstatus } from '../features/users/usersSlice';
 import 'antd/dist/antd.css'
 import { Form, Input, Button, Checkbox, Row, Col, Alert, message } from 'antd';
+import { useSelector } from 'react-redux';
+import { gettachebydeveloper } from '../features/tache/tachesSlice';
+import { getprojectbyclient } from '../features/project/projectsSlice';
 
 const Auth = () => {
-  
+  const authstatuss = useSelector(selectauthstatus)
   const dispatch = useDispatch()
   const onFinish = (values) => {
         console.log('Success:', values);
@@ -14,10 +17,22 @@ const Auth = () => {
             email : values.email,
             password : values.password
         }
+     
+      //  dispatch(getprojectbyclient(data))
+       // dispatch(gettachebydeveloper(data))
+        dispatch(getuser(data))
 
         dispatch(login(data))
+       /*
+        if (authstatuss == 'success') {
+             window.location.href = '/Home'
+             dispatch(getuser(data))
+
+        }
+        */
         //failed();
     };
+   
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

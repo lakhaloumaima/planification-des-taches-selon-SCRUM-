@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Create, DeletePro, DeleteTache, GetProjectByclient, GetProjectByid, GetProjects, UpdateTache } from "./projectAPI";
+import { Create, DeletePro, DeleteTache, GetProjectByclient, GetProjectByid, GetProjects, UpdateProject } from "./projectAPI";
 
 
 const initialState = {
@@ -10,6 +10,12 @@ const initialState = {
   deletestatus : "" ,
   
 };
+//update prroject  by id
+export const updateproject = createAsyncThunk("projectedit", async (data) => {
+  const response = await UpdateProject(data);
+  console.log("project updated :"+ data)
+  return response.data;
+});
 //get project by id
 export const getprojectbyclient = createAsyncThunk("getprojectbyclient", async (data) => {
   const response = await GetProjectByclient(data);
@@ -53,11 +59,6 @@ export const deleteproject = createAsyncThunk(
   }
 );
 
-//update user  by id
-export const updatetache = createAsyncThunk("tacheedit", async (dataa) => {
-  const response = await UpdateTache(dataa);
-  return response.dataa;
-});
 
 
 export const projectsSlice = createSlice({
@@ -105,23 +106,21 @@ builder.addCase(getprojects.pending, (state, action) => {
     }
   });
 
-  /////////updateuser
-  builder.addCase(updatetache.pending, (state, action) => {
-    console.log(action.payload);
-    
-  });
-  builder.addCase(updatetache.fulfilled, (state, action) => {
-    console.log(action.payload.dataa);
-    state.project = action.payload.dataa;
-
-  });
+ 
   builder.addCase(getproject.fulfilled, (state, action) => {
     console.log(action.payload.data);
     state.projects = action.payload.data;
   });
   builder.addCase(getprojectbyclient.fulfilled, (state, action) => {
     console.log(action.payload);
-   state.projects = action.payload.data;
+   state.project = action.payload.data;
+  });
+
+   /////////update project
+  builder.addCase(updateproject.fulfilled, (state, action) => {
+    console.log(action.payload);
+   // state.projects = action.payload;
+
   });
   },
    
@@ -135,4 +134,5 @@ export const selectdatachanged = (state) => state.projects.datachanged;
 export const selectseletestatus = (state) => state.projects.deletestatus; 
 export const selectauthedproject = (state) => state.projects.project;
 export const selectproject = (state) => state.projects.project;
+
 export default projectsSlice.reducer;

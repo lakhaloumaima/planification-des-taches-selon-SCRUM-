@@ -13,6 +13,16 @@ export function GetTaches(data) {
       return err;
     });
 }
+export function GetTacheBydeveloper(data) {
+  return axiosInstance
+    .post(tachesapi + "/gettachebydeveloper" , data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
 
 export function Create(data) {
   return axiosInstance
@@ -34,9 +44,21 @@ export function DeletetTache(id) {
       return err;
     });
 }
+/*
 export function UpdateTaches(data) {
   return axiosInstance
     .post(tachesapi +'/tacheedit' , data.id, data.data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+*/
+export function UpdateTache(data) {
+  return axiosInstance
+    .post(tachesapi +'/tacheedit' ,data)
     .then((res) => {
       return res;
     })

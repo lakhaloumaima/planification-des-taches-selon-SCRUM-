@@ -9,9 +9,10 @@ const Projectt = () => {
 
     const dispatch = useDispatch()
     const project = useSelector(selectprojects)
+   
     const user = useSelector(selectusers)
     const [isModalVisible, setIsModalVisible] = useState(false);
-
+    
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -38,23 +39,7 @@ const Projectt = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    const onFinish2 = (values) => {     
-        console.log('Success:', values);
-         let data = {
-             email : values.email , 
-             project_id : values.project_id,     
-         }
-         dispatch(getprojectbyclient(data))
-         dispatch(getuser(data))  
-         
-      
-     console.log("data one project by email :" + data)
-     //dispatch(getprojects(data))
-     }
- 
-    const onFinishFailed2 = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
+   
 
 return (
     <div className="container" >  
@@ -101,55 +86,14 @@ return (
                   </Button>
                   </Form.Item>
           </Form>
-          <Form
-          style={{marginTop:"50px"}}
-              name="basic"
-              labelCol={{
-                  span: 4,
-                  offset:3
-              }}
-              wrapperCol={{
-                  span: 15,
-              }}
-              initialValues={{
-                  remember: true,
-              }}
-              onFinish={onFinish2}
-              onFinishFailed={onFinishFailed2}
-          >   
-              
-            
-            <Form.Item
-                  label="get Project By email "
-                  name="email"
-                  rules={[
-                      {
-                          required: true,
-                          message: 'Please input your email !',
-                      },
-                  ]}
-              >
-                  <Input />
-              </Form.Item>
-              
-              <Form.Item
-                  wrapperCol={{
-                      offset: 7,
-                      span: 15,
-                  }}
-              >
-                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      See 
-                  </Button>
-                  </Form.Item>
-          </Form>
+         
           </div>
           <div>
        
         <Descriptions style={{ marginTop: "50px" }} title="Project ">
                
                 <Descriptions.Item label="client">{project.client}</Descriptions.Item>
-                <Descriptions.Item label="email">{user.email}</Descriptions.Item>
+                
                 <Descriptions.Item label="project_name">{project.projectname}</Descriptions.Item>
                 <Descriptions.Item label="scrum_master">{project.scrum_master}</Descriptions.Item>
                 <Descriptions.Item label="date_debut">{project.date_debut}</Descriptions.Item>

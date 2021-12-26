@@ -49,8 +49,10 @@ export const deleteuser = createAsyncThunk("delluser", async (data) => {
 
 
 //update user  by id
-export const updateuser = createAsyncThunk("users/update", async (data) => {
+export const updateuser = createAsyncThunk("useredit", async (data) => {
   const response = await UpdateUser(data);
+  console.log('user updated : '  + response.data)
+
   return response.data;
 });
 
@@ -58,6 +60,7 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    /*
     filtredusers : (state, action) => {
       if (action.payload.id === "all") {
         state.filtredusers = state.users;
@@ -69,7 +72,7 @@ export const usersSlice = createSlice({
         state.filtredusers = data;
       }
     },
-
+*/
     logout : (state,action) => {
       state.user = null
       state.isauth = false
@@ -80,13 +83,11 @@ export const usersSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-   
-
     builder.addCase(login.fulfilled, (state, action) => {
       console.log(action.payload);
       // Add user to the state array
       if (action.payload) {
-        localStorage.setItem("token", action.payload.token);
+       localStorage.setItem("token", action.payload.token);
         state.isauth = true;
         state.user = action.payload.user
         state.autherror.iserror = false;
@@ -102,15 +103,12 @@ export const usersSlice = createSlice({
 
     builder.addCase(getusers.pending, (state, action) => {
       console.log(action.payload);
-      //state.projects = action.payload.data;
+     // state.users = action.payload.data;
     });
     builder.addCase(getusers.fulfilled, (state, action) => {
       console.log(action.payload.data);
       state.users = action.payload.data;
     });
-
-
-
 
     builder.addCase(deleteuser.fulfilled, (state, action) => {
       console.log(action.payload);
@@ -128,7 +126,7 @@ export const usersSlice = createSlice({
     /////////updateuser
     builder.addCase(updateuser.fulfilled, (state, action) => {
       console.log(action.payload);
-      state.user = action.payload.data;
+     state.users = action.payload;
     });
 
     builder.addCase(getuser.fulfilled, (state, action) => {

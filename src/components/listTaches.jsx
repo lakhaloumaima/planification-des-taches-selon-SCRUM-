@@ -1,16 +1,19 @@
-import { Badge, Button, Form, Input, Modal, Table, Tag  } from 'antd';
+
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { deletetache, getprojects, selectauthedproject, selectprojects, updatetache } from '../features/project/projectsSlice';
+import { deletetache, getprojects, selectauthedproject, selectprojects } from '../features/project/projectsSlice';
 import {
     CheckCircleOutlined, CloseCircleOutlined, CheckOutlined, EditOutlined 
 } from '@ant-design/icons';
 import { selectusers } from '../features/users/usersSlice';
-
+import { Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'antd'
+import  { gettachebydeveloper, gettaches, selectauthedtaches , selecttache, selecttachess, updatetache} from '../features/tache/tachesSlice';
 
 const ListTaches = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const users = useSelector(selectusers)
+    const tache = useSelector(selecttache)
+    const taches = useSelector(selecttachess)
     const handleOk = () => {
         setIsModalVisible(false);
     };
@@ -44,16 +47,29 @@ const ListTaches = () => {
     }
     const onFinish2 = (values) => {   
        
-        let dataa = {
+        let data = {
             tache_id : values.tache_id ,  
-            dataa : values,
+            data : values,
         }
-        dispatch(updatetache(dataa))
+        dispatch(updatetache(data))
         handleCancel() 
         //failed();
     };
-  
+    const onFinish3 = (values) => {     
+        console.log('Success:', values);
+         let data = {
+             tache_id : values.tache_id ,      
+         }
+     dispatch(gettaches(data))
+     console.log("data one tache :" + data)
+     }
+     const onFinishFailed3 = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
     const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+    const onFinishFailed2 = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -156,7 +172,7 @@ const ListTaches = () => {
                 {record.tache[0].etat === "en_attente" && <Tag color="red">to do</Tag>}
                 {record.tache[0].etat === "en_cours" && <Tag color="cyan">in progress</Tag>}
                 {record.tache[0].etat === "terminee" && <Tag color="lime">terminated</Tag>} <br></br>
-                </>
+            </>
         ),
        
     },
@@ -247,6 +263,62 @@ return (
           </Form>
           
           <div> <br></br>
+          <div>
+          <Form
+          style={{marginTop:"50px"}}
+              name="basic"
+              labelCol={{
+                  span: 4,
+                  offset:3
+              }}
+              wrapperCol={{
+                  span: 8,
+              }}
+              initialValues={{
+                  remember: true,
+              }}
+              onFinish={onFinish3}
+              onFinishFailed={onFinishFailed3}
+          >   
+              
+            
+            <Form.Item
+                  label="id_tache get Tache By Id "
+                  name="tache_id"
+                  rules={[
+                      {
+                          required: true,
+                          message: 'Please input your id !',
+                      },
+                  ]}
+              >
+                  <Input />
+              </Form.Item>
+              
+              <Form.Item
+                  wrapperCol={{
+                      offset: 7,
+                      span: 8,
+                  }}
+              >
+                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
+                      See 
+                  </Button>
+                  </Form.Item>
+          </Form>
+        <Descriptions style={{ marginTop: "50px" }} title="Tache ">
+                <Descriptions.Item label="tache_id">{tache.tache_id}</Descriptions.Item>
+                
+                <Descriptions.Item label="tache_name">{tache.tache_name}</Descriptions.Item>
+                <Descriptions.Item label="project_name">{tache.project_name}</Descriptions.Item>
+                <Descriptions.Item label="developer">{tache.developer}</Descriptions.Item>
+                <Descriptions.Item label="date_debut">{tache.date_debut}</Descriptions.Item>
+                <Descriptions.Item label="date_fin">{tache.date_fin}</Descriptions.Item>
+                <Descriptions.Item label="Etat">{tache.etat}</Descriptions.Item>
+        </Descriptions> 
+
+        </div>
+          <br></br>
         <h2>Taches <Badge count={projects.length} showZero /> </h2>
         <Table columns={columns} dataSource={projects} />
             
@@ -261,7 +333,7 @@ return (
                             
                         }}
                         onFinish={onFinish2}
-                        onFinishFailed={onFinishFailed}
+                        onFinishFailed={onFinishFailed2}
                     >
                         
                         <Form.Item
