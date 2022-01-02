@@ -38,6 +38,7 @@ const Taches = () => {
             email : values.email,    
         }
         dispatch(getuser(data))
+        dispatch(getprojects())
         dispatch(gettachebydeveloper(data))
         console.log("tache by de : " + data)
         

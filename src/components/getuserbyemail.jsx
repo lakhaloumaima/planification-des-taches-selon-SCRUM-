@@ -1,6 +1,8 @@
 import { Avatar, Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { getprojects, selectprojects } from '../features/project/projectsSlice';
+import { selecttache } from '../features/tache/tachesSlice';
 import { getuser, getusers, selectautheduser, selectusers } from '../features/users/usersSlice';
 
 
@@ -11,7 +13,7 @@ const Userr = () => {
     const user = useSelector(selectusers)
    
     const [isModalVisible, setIsModalVisible] = useState(false);
-
+  
     useEffect(() => {    
        // dispatch(getusers())  
     } , []);
@@ -48,7 +50,7 @@ return (
                 <Descriptions.Item label="phoneNumber">{user.phoneNumber}</Descriptions.Item>
                
                 <Descriptions.Item label="age">{user.age}</Descriptions.Item>
-                 </Descriptions> 
+        </Descriptions> 
         </div>
           <br></br>
           
