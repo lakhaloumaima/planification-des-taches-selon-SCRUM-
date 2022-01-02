@@ -108,6 +108,7 @@ const UpdateUsers = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    /*
     const onFinish = (values) => {
         console.log('Success:', values);
   
@@ -122,6 +123,7 @@ const UpdateUsers = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    */
     const onFinish2 = (values) => {
         console.log('Success:', values);
 
@@ -147,48 +149,6 @@ const UpdateUsers = () => {
 
 return (
     <div className="container"  >
-           <Form
-          style={{marginTop:"200px"}}
-              name="basic"
-              labelCol={{
-                  span: 4,
-                  offset:3
-              }}
-              wrapperCol={{
-                  span: 15,
-              }}
-              initialValues={{
-                  remember: true,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-          >   
-              
-              <Form.Item
-                  label="Roll"
-                  name="roll"
-                  rules={[
-                      {
-                          required: true,
-                          message: 'Please input your roll !',
-                      },
-                  ]}
-              >
-                  <Input />
-              </Form.Item>   
-
-              <Form.Item
-                  wrapperCol={{
-                      offset: 7,
-                      span: 15,
-                  }}
-              >
-                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      List
-                  </Button>
-                 </Form.Item>
-                
-          </Form>         
          
         <h2>Users  </h2>
         <Table columns={columns} dataSource={users} />

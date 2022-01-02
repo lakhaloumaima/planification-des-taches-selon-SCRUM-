@@ -7,14 +7,13 @@ import { selectauthedtaches, updatetaches } from '../features/tache/tachesSlice'
 import { getuser, selectseletestatus } from '../features/users/usersSlice';
 
 
-
-const ListProjects = () => {
+const ListsProjects = () => {
     const dispatch = useDispatch()
     const projects = useSelector(selectprojects)
     const project = useSelector(selectproject)
   const datachanged = useSelector(selectdatachanged)
     useEffect(() => {
-            dispatch(getprojects())
+            
     }, [datachanged]);
 
     const tache = useSelector(selectauthedtaches)
@@ -30,60 +29,23 @@ const ListProjects = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    const onFinish2 = (values) => {
-        console.log('Success:', values);
-    
-        let data = {
-            id_project : values.id_project ,
-        }
-        dispatch(deleteproject(data))
-       // window.location.reload()
-        
-    };
-    
-      const onFinishFailed2 = (errorInfo) => {
-          console.log('Failed:', errorInfo);
-      };
-    /*
-    const onFinish = (values) => {     
+
+    const onFinish2 = (values) => {     
         console.log('Success:', values);
          let data = {
              email : values.email , 
-             project_id : values.project_id,     
+               
          }
          dispatch(getprojectbyclient(data))
-         dispatch(getuser(data))        
+        // dispatch(getuser(data))        
       
      console.log("data one project by email :" + data)
      //dispatch(getprojects(data))
      }
  
-    const onFinishFailed = (errorInfo) => {
+    const onFinishFailed2 = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-*/
-/*
-    const onFinish2 = (values) => {
-        console.log('Success:', values);
-
-        let data = {
-            tache_id : tache.tache_id,
-            //date_debut : tache.date_debut ,
-            //tache_id : values.tache_id ,  
-            data : values,
-        }
-        dispatch(updatetaches(data))
-        console.log(data)
-        setIsModalVisible(false)
-        //window.location.reload()
-    }; 
-  
-    
-const onFinishFailed2 = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-
-*/
 
  const columns = [
     {
@@ -198,120 +160,6 @@ const onFinishFailed2 = (errorInfo) => {
 
 ];
 
-const columns2 = [
-    {
-        title: 'ID Project ',
-        dataIndex: 'id',
-        key: 'id',
-        render: (text, record) => (
-            <>
-                {record.id}
-               
-            </>
-        ),
-    },
-    {
-        title: 'Project Name',
-        dataIndex: 'projectname',
-        key: 'projectname',
-        render: (text, record) => (
-            <>
-                {record.projectname}
-            </>
-        ),
-    },
-   
-    {
-        title: 'Client Name',
-        dataIndex: 'client',
-        key: 'client',
-        render: (text, record) => (
-            <>
-                {record.client}
-            </>
-        ),
-    },
-    {
-        title: 'Scrum Master',
-        dataIndex: 'scrum_master',
-        key: 'scrum_master',
-        render: (text, record) => (
-            <>
-                {record.scrum_master}
-            </>
-        ),
-    },
-    {
-        title: 'Date Debut',
-        dataIndex: 'date_debut',
-        key: 'date_debut',
-        render: (text, record) => (
-            <>
-                {record.date_debut}
-            </>
-        ),
-    },
-    {
-        title: 'Date Fin',
-        dataIndex: 'date_fin',
-        key: 'date_fin',
-        render: (text, record) => (
-            <>
-                {record.date_fin}
-            </>
-        ),
-    },
-    {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
-        render: (text, record) => (
-            <>
-                {record.description}
-            </>
-        ),
-    },
-   /* {
-        title: 'Tache',
-        dataIndex: 'tache',
-        key: 'tache',
-        render: (text, record) => (
-            <>
-                {record.tache[0].date_debut} <br></br>
-                {record.tache[0].developer} <br></br>
-                {record.tache[0].tache_name} <br></br>
-                {record.tache[0].etat} <br></br>
-
-            </>
-        ),
-    },
-   */
-    {
-        title: 'Action',
-        key: 'action',
-        render: (text, record) => (
-            <Space size="middle">
-                
-               
-                <CloseCircleOutlined onClick={() => dispatch(deleteproject())} style={{ color: 'red', cursor: 'pointer' }} />
-                
-                 </Space>
-        ),
-    },
-    {
-        title: 'Update',
-        key: 'update',
-        render: (text, record) => (
-            <Space size="middle">
-                
-               
-                <EditOutlined onClick={() => dispatch(showModal())} style={{ color: 'green', cursor: 'pointer' }} />
-                
-                 </Space>
-        ),
-    },
-
-];
 return (
     <div className="container"  >        
   <Form
@@ -332,12 +180,12 @@ return (
           >   
               
                   <Form.Item
-                  label="Delete Project By id"
-                  name="id_project"
+                  label="get Project"
+                  name="email"
                   rules={[
                       {
                           required: true,
-                          message: 'Please input your id_project !',
+                          message: 'Please input your email !',
                       },
                   ]}
               >
@@ -351,12 +199,12 @@ return (
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      Delete
+                      See
                   </Button>
                   </Form.Item>
           </Form>  
-        <h2>Projects <Badge count={projects.length} showZero /> </h2>
-        <Table columns={columns} dataSource={projects} />
+        <h2>Projects <Badge count={project.length} showZero /> </h2>
+        <Table columns={columns} dataSource={project} />
 
         <br></br>
         
@@ -364,4 +212,4 @@ return (
 )
 
 }
-export default ListProjects
+export default ListsProjects

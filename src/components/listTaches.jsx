@@ -179,26 +179,7 @@ const ListTaches = () => {
         ),
        
     },
-    {
-        title: 'Actions',
-        key: 'tache',
-        dataIndex: 'tache',
-        render: (text, record) => (
-            <>
-                {record.tache[0].etat === "en_attente" &&
-                    <>
-                        <CheckCircleOutlined /*onClick={() => update(record, 2)}*/ style={{ fontSize: "20px", color: "lime", cursor: "pointer" }} />
-                        <CloseCircleOutlined /*onClick={() => update(record, 3)}*/ style={{ fontSize: "20px", color: "cyan", marginLeft: "10px", cursor: "pointer" }} />
-                    </>
-                }
-
-                {record.tache[0].etat === "terminee" && <CheckOutlined style={{ color: "lime", fontSize: "20px" }} />}
-                {record.tache[0].etat === "en_cours" && < CloseCircleOutlined style={{ color: "cyan", fontSize: "20px" }} />}
-                <br></br>
-               
-            </>
-        ),
-    },
+    
     {
         title: 'Update Tache',
         dataIndex: 'update',
@@ -356,28 +337,28 @@ return (
                         <Form.Item
                            label="tache name"
                             name="tache_name"
-                            rules={[{ required: true, message: 'Please input your tache_name !' }]}
+                            rules={[{ required: false, message: 'Please input your tache_name !' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                            label="date debut"
                             name="date_debut"
-                            rules={[{ required: true, message: 'Please input your date_debut !' }]}
+                            rules={[{ required: false, message: 'Please input your date_debut !' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                            label="date fin"
                             name="date_fin"
-                            rules={[{ required: true, message: 'Please input your date_fin !' }]}
+                            rules={[{ required: false, message: 'Please input your date_fin !' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                            label="developper"
                             name="developer"
-                            rules={[{ required: true, message: 'Please input your developer !' }]}
+                            rules={[{ required: false, message: 'Please input your developer !' }]}
                         >
                             <Input />
                         </Form.Item>

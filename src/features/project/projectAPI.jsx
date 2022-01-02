@@ -4,7 +4,7 @@ import { projectsapi  } from "../config/requests";
 
 export function Create(data) {
   return axiosInstance
-    .post(projectsapi + "/projectupdate" , data)
+    .post(projectsapi + "/projectupdate" ,data)
     .then((res) => {
       return res;
     })
@@ -24,9 +24,9 @@ export function GetProjects() {
     });
 }
 
-export function DeletePro() {
+export function DeletePro(id) {
   return axiosInstance
-    .post(projectsapi+'/dellproject'  )
+    .post(projectsapi+'/dellproject' , id )
     .then((res) => {
       return res;
     })

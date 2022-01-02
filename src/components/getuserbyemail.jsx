@@ -1,4 +1,4 @@
-import { Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'antd';
+import { Avatar, Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getuser, getusers, selectautheduser, selectusers } from '../features/users/usersSlice';
@@ -15,7 +15,7 @@ const Userr = () => {
     useEffect(() => {    
        // dispatch(getusers())  
     } , []);
-
+/*
     const onFinish = (values) => {     
         console.log('Success:', values);
          let data = {
@@ -29,54 +29,17 @@ const Userr = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
+*/
 return (
     <div className="container" >  
           
-      <Form
-          style={{marginTop:"50px"}}
-              name="basic"
-              labelCol={{
-                  span: 4,
-                  offset:3
-              }}
-              wrapperCol={{
-                  span: 8,
-              }}
-              initialValues={{
-                  remember: true,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-          >   
-              
-            
-            <Form.Item
-                  label="get User By email "
-                  name="email"
-                  rules={[
-                      {
-                          required: true,
-                          message: 'Please input your email !',
-                      },
-                  ]}
-              >
-                  <Input />
-              </Form.Item>
-              
-              <Form.Item
-                  wrapperCol={{
-                      offset: 7,
-                      span: 8,
-                  }}
-              >
-                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      See 
-                  </Button>
-                  </Form.Item>
-          </Form>
+    
           <div>
-       
+         
+                        
+            <img className="profile-img" style={{width:"10%" }} src="../images/avatarr.png" alt />
+        
+                  
         <Descriptions style={{ marginTop: "50px" }} title="User ">
                 <Descriptions.Item label="username">{user.username}</Descriptions.Item>
                 <Descriptions.Item label="roll">{user.roll}</Descriptions.Item>
@@ -85,7 +48,6 @@ return (
                 <Descriptions.Item label="phoneNumber">{user.phoneNumber}</Descriptions.Item>
                
                 <Descriptions.Item label="age">{user.age}</Descriptions.Item>
-                <Descriptions.Item label="description">{user.description}</Descriptions.Item>
                  </Descriptions> 
         </div>
           <br></br>

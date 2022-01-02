@@ -20,6 +20,7 @@ import UpdateProject from './components/updateproject';
 import UpdateUsers from './components/updateuser';
 import PublicRoute from './components/PublicRoute';
 import PrivateRoute from './components/PrivateRoute';
+import ListsProjects from './components/listeprojetleluser';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           
           <PublicRoute restricted={false} path='/listProjects' component={ListProjects} ></PublicRoute>
           <PublicRoute restricted={false} path='/taches' component={Taches} ></PublicRoute>
+          <PublicRoute restricted={false} path='/listspr' component={ListsProjects} ></PublicRoute>
 
             <PublicRoute restricted={false} path='/Register' component={Register} ></PublicRoute>
             <PublicRoute restricted={false} path='/Auth' component={Auth} ></PublicRoute>

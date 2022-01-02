@@ -10,6 +10,7 @@ const initialState = {
   deletestatus : "" ,
   
 };
+
 //update prroject  by id
 export const updateproject = createAsyncThunk("projectedit", async (data) => {
   const response = await UpdateProject(data);
@@ -38,7 +39,7 @@ export const createproject = createAsyncThunk("projectupdate", async (data) => {
   console.log(data);
   const response = await Create(data);
   console.log(" project : "+ data) ;
-  return response;
+  return response.data;
 });
 
 
@@ -52,9 +53,9 @@ export const getprojects = createAsyncThunk("getproject", async () => {
 //delete project by id
 export const deleteproject = createAsyncThunk(
   "dellproject",
-  async () => {
-    const response = await DeletePro();
-    console.log("deleted " + response.data);
+  async (id) => {
+    const response = await DeletePro(id);
+    console.log("deleted "  + id);
     return response.data;
   }
 );
@@ -69,9 +70,11 @@ export const projectsSlice = createSlice({
   extraReducers: (builder) => {
    
     builder.addCase(createproject.fulfilled, (state, action) => {
-      console.log(action.payload);
-      state.addstatus = "success";
-     state.projects = action.payload;
+      
+      if (state.addstatus = "success") {
+        console.log(action.payload);
+      }
+     //state.projects = action.payload;
 
      state.project = action.payload ;
     // state.addstatus = action.payload.data;
@@ -86,13 +89,13 @@ builder.addCase(getprojects.pending, (state, action) => {
     state.projects = action.payload.data;
   });
   //////////////////////////// delete 
-  builder.addCase(deleteproject.pending, (state, action) => {
-    console.log(action.payload);
-    
-  });
+
   builder.addCase(deleteproject.fulfilled, (state, action) => {
     console.log(action.payload);
-   state.datachanged = action.payload.data;
+    state.datachanged = "success" ;
+   
+  
+   
   });
   
   builder.addCase(deletetache.pending, (state, action) => {

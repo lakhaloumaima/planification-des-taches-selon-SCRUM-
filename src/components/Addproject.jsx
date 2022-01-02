@@ -20,14 +20,13 @@ useEffect(() => {
   const onFinish = (values) => {
         console.log('Success:', values);
         let data = {       
-            project_name : values.project_name,
+            projectname : values.projectname,
             description : values.description ,
             date_debut : values.date_debut ,
             date_fin : values.date_fin ,
-           // emailclient : values.emailclient ,
-           // emailmaster : values.emailmaster 
-            scrum_master : values.scrum_master ,
-            client : values.client
+           emailclient : values.emailclient ,
+           emailmaster : values.emailmaster ,
+           data : values 
         }
 
         dispatch(createproject(data))
@@ -58,7 +57,7 @@ useEffect(() => {
         >      
             <Form.Item
                 label="Project name"
-                name="project_name"
+                name="projectname"
                 rules={[
                     {
                         required: true,
@@ -108,7 +107,7 @@ useEffect(() => {
             </Form.Item>
             <Form.Item
                 label="email client"
-                name="client"
+                name="emailclient"
                 rules={[
                     {
                         required: true,
@@ -120,7 +119,7 @@ useEffect(() => {
             </Form.Item>
             <Form.Item
                 label="email master"
-                name="scrum_master"
+                name="emailmaster"
                 rules={[
                     {
                         required: true,
