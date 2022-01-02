@@ -40,10 +40,19 @@ let usersauthstatus = createTransform((inboundstate, key) => {
     return inboundstate;
   }
 });
+
+
+let projectsauthstatus = createTransform((inboundstate, key) => {
+  if (key === "projects") {
+    return omit(inboundstate, ["addstatus", "authstatus"]);
+  } else {
+    return inboundstate;
+  }
+});
 const persistConfig = {
   key: "root",
   storage,
-  trasnforms: [usersBalcklist, usersauthstatus],
+  trasnforms: [usersBalcklist, usersauthstatus , projectsauthstatus ],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -8,7 +8,9 @@ const initialState = {
   projects: [],
   datachanged:"",
   deletestatus : "" ,
-  
+  clientprojects : {
+    clientproject : []
+  }
 };
 
 //update prroject  by id
@@ -118,7 +120,7 @@ builder.addCase(getprojects.pending, (state, action) => {
   });
   builder.addCase(getprojectbyclient.fulfilled, (state, action) => {
     console.log(action.payload);
-   state.project = action.payload.data;
+   state.projects = action.payload.data;
   });
 
    /////////update project
@@ -138,6 +140,8 @@ export const selectaddstatus = (state) => state.projects.addstatus;
 export const selectdatachanged = (state) => state.projects.datachanged;
 export const selectseletestatus = (state) => state.projects.deletestatus; 
 export const selectauthedproject = (state) => state.projects.project;
+
 export const selectproject = (state) => state.projects.project;
+//export const selectprojectclient = (state) => state.projects.clientprojects.clientproject;
 
 export default projectsSlice.reducer;

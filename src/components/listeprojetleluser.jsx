@@ -1,7 +1,7 @@
 import { Badge, Table, Space , Button , Form , Input , Modal, Descriptions } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteproject, getprojectbyclient, getprojects,  selectdatachanged,  selectproject,  selectprojects } from '../features/project/projectsSlice';
+import { deleteproject, getprojectbyclient, getprojects,  selectdatachanged,  selectproject,  selectprojectclient,  selectprojects } from '../features/project/projectsSlice';
 import { CloseCircleOutlined , EditOutlined } from '@ant-design/icons';
 import { selectauthedtaches, updatetaches } from '../features/tache/tachesSlice';
 import { getuser, selectseletestatus } from '../features/users/usersSlice';
@@ -10,7 +10,7 @@ import { getuser, selectseletestatus } from '../features/users/usersSlice';
 const ListsProjects = () => {
     const dispatch = useDispatch()
     const projects = useSelector(selectprojects)
-    const project = useSelector(selectproject)
+   // const projectsclient = useSelector(selectprojectclient)
   const datachanged = useSelector(selectdatachanged)
     useEffect(() => {
             
@@ -137,15 +137,6 @@ const ListsProjects = () => {
     },
  */
     {
-        title: 'Action',
-        key: 'action',
-        render: (text, record) => (
-            <Space size="middle">         
-                <CloseCircleOutlined onClick={() => dispatch(deleteproject(record.id))} style={{ color: 'red', cursor: 'pointer' }} /> 
-            </Space>
-        ),
-    },
-    {
         title: 'Update',
         key: 'update',
         render: (text, record) => (
@@ -203,8 +194,8 @@ return (
                   </Button>
                   </Form.Item>
           </Form>  
-        <h2>Projects <Badge count={project.length} showZero /> </h2>
-        <Table columns={columns} dataSource={project} />
+        <h2>Projects <Badge count={projects.length} showZero /> </h2>
+        <Table columns={columns} dataSource={projects} />
 
         <br></br>
         
