@@ -179,7 +179,7 @@ const onFinishFailed2 = (errorInfo) => {
         title: 'Update',
         key: 'update',
         render: (text, record) => (
-            <Space size="middle">
+            <Space >
                 
                
                 <EditOutlined onClick={() => dispatch(showModal())} style={{ color: 'green', cursor: 'pointer' }} />

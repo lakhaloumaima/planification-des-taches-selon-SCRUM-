@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import {  getuser, login, selectautheduser, selectauthstatus } from '../features/users/usersSlice';
+import {  getuser, login, selectauthstatus, selectusers } from '../features/users/usersSlice';
 import 'antd/dist/antd.css'
 import { Form, Input, Button, Checkbox, Row, Col, Alert, message } from 'antd';
 import { useSelector } from 'react-redux';
-import { gettachebydeveloper } from '../features/tache/tachesSlice';
-import { getprojectbyclient } from '../features/project/projectsSlice';
 
 const Auth = () => {
   const authstatuss = useSelector(selectauthstatus)
   const dispatch = useDispatch()
+  const user = useSelector(selectusers)
+  useEffect(() => {
+    // storing input name
+    localStorage.setItem("email", JSON.stringify(user.email));
+  }, [user.email]);
+
+
   const onFinish = (values) => {
         console.log('Success:', values);
 
@@ -23,6 +28,8 @@ const Auth = () => {
         dispatch(getuser(data))
 
         dispatch(login(data))
+        //window.location.reload('/Home') ;
+        
        /*
         if (authstatuss == 'success') {
              window.location.href = '/Home'

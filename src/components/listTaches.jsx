@@ -14,6 +14,9 @@ const ListTaches = () => {
     const users = useSelector(selectusers)
     const tache = useSelector(selecttache)
     const taches = useSelector(selecttachess)
+    const user = useSelector(selectusers)
+
+
     const handleOk = () => {
         setIsModalVisible(false);
     };

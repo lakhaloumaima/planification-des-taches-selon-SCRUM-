@@ -30,26 +30,27 @@ function App() {
           <Switch>
           <PublicRoute restricted={false} path='/Home' component={Home} ></PublicRoute>
             
-          <PrivateRoute path="/Addtache" roles={["scrum_master"]} component={Addtache} />
-          <PrivateRoute path="/Addproject" roles={["admin"]} component={Addproject} />
-          <PrivateRoute path="/taches" roles={["scrum_master"]} component={Taches} />
-         
-          <PrivateRoute path="/project" roles={["admin"]} component={Projectt} />
-          <PrivateRoute path="/userbyemail" roles={["admin"]} component={Userr} />
-          <PrivateRoute path="/updateDev" roles={["admin"]} component={updateDevelopper} />
-          <PrivateRoute path="/updatePro" roles={["admin"]} component={UpdateProject} />
+          <PublicRoute restricted={false} path='/Addtache' component={Addtache} ></PublicRoute>
 
-          <PrivateRoute path="/updateUser" roles={["admin"]} component={UpdateUsers} />
-          <PrivateRoute path="/ListT" roles={["admin"]} component={ListTaches} />
-          <PublicRoute restricted={false} path='/listUsers' component={ListUsers} ></PublicRoute>
- 
-          <PrivateRoute path="/listProjects" roles={["admin"]} component={ListProjects} />
-           
+          <PublicRoute restricted={false} path='/Addproject' component={Addproject} ></PublicRoute>
+
+          <PublicRoute restricted={false} path='/updatePro' component={UpdateProject} ></PublicRoute>
+          <PublicRoute restricted={false} path='/updateDev' component={updateDevelopper} ></PublicRoute>
+          <PublicRoute restricted={false} path='/userbyemail' component={Userr} ></PublicRoute>
+          <PublicRoute restricted={false} path='/project' component={Projectt} ></PublicRoute>
+          <PublicRoute restricted={false} path='/Addtache' component={Addtache} ></PublicRoute>
+          <PublicRoute restricted={false} path='/updateUser' component={UpdateUsers} ></PublicRoute>
+
+
+           <PublicRoute restricted={false} path='/listUsers' component={ListUsers} ></PublicRoute>
+          <PublicRoute restricted={false} path='/ListT' component={ListTaches} ></PublicRoute>
+          
+          <PublicRoute restricted={false} path='/listProjects' component={ListProjects} ></PublicRoute>
+          <PublicRoute restricted={false} path='/taches' component={Taches} ></PublicRoute>
+
             <PublicRoute restricted={false} path='/Register' component={Register} ></PublicRoute>
             <PublicRoute restricted={false} path='/Auth' component={Auth} ></PublicRoute>
             
-            <Route path="/card" component={card} />
-            <Route path="/Addmaster" component={Addmaster} />
 
             <PublicRoute restricted={false} path='/' component={Home} ></PublicRoute>
             </Switch>    

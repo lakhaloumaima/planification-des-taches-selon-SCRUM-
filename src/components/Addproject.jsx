@@ -1,30 +1,38 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
-import { createproject, getprojects, selectaddstatus, selectprojects } from '../features/project/projectsSlice';
+import { Form, Input, Button, message } from 'antd';
+import { createproject, getprojects, selectaddstatus  } from '../features/project/projectsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
+
 const AddProject = () => {
-  const addstatus = useSelector(selectprojects)
   const dispatch = useDispatch()
-  useEffect(() => {
-  
-      dispatch(getprojects())
-  }, []);
+  const addstatus = useSelector(selectaddstatus)
+  const success = () => {
+    message.success('project successfuly created');
+};
+useEffect(() => {
+    if (addstatus === 'success') {
+        dispatch(getprojects())
+        
+    }
+}, [addstatus]);
 
   const onFinish = (values) => {
         console.log('Success:', values);
-
-        let data = {
+        let data = {       
             project_name : values.project_name,
             description : values.description ,
             date_debut : values.date_debut ,
             date_fin : values.date_fin ,
-            emailclient : values.emailclient ,
-            emailmaster : values.emailmaster ,
+           // emailclient : values.emailclient ,
+           // emailmaster : values.emailmaster 
+            scrum_master : values.scrum_master ,
+            client : values.client
         }
 
         dispatch(createproject(data))
        console.log(data)
+     //  success()
     };
     const onFinishFailed = (errorInfo) => {
       console.log('Failed:', errorInfo);
@@ -47,9 +55,7 @@ const AddProject = () => {
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
-        >
-
-            
+        >      
             <Form.Item
                 label="Project name"
                 name="project_name"
@@ -102,7 +108,7 @@ const AddProject = () => {
             </Form.Item>
             <Form.Item
                 label="email client"
-                name="emailclient"
+                name="client"
                 rules={[
                     {
                         required: true,
@@ -114,7 +120,7 @@ const AddProject = () => {
             </Form.Item>
             <Form.Item
                 label="email master"
-                name="emailmaster"
+                name="scrum_master"
                 rules={[
                     {
                         required: true,

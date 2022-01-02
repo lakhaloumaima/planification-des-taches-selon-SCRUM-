@@ -2,7 +2,7 @@ import { Badge, Table, Tag } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectdeveloppers } from '../features/developper/developpersSlice';
-import {  selectusers  , filtredusers, getusers, selectseletestatus, deleteuser, selectdatachenged} from '../features/users/usersSlice';
+import {  selectusers  , filtredusers, getusers, selectseletestatus, deleteuser, selectdatachenged, selectuserss} from '../features/users/usersSlice';
 import 'antd/dist/antd.css'
 import { Form, Input, Button, Checkbox, Row, Col, Alert, message  } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
@@ -10,9 +10,11 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 
 const ListUsers = () => {
     const dispatch = useDispatch()
-    const users = useSelector(selectusers)
+    const users = useSelector(selectuserss)
     const deleted = useSelector(selectseletestatus)
     const datachanged = useSelector(selectdatachenged)
+    const user = useSelector(selectusers)
+   
     //const developpers = useSelector(selectdeveloppers)
     useEffect(() => {
        
@@ -68,16 +70,7 @@ const ListUsers = () => {
                 </>
             ),
         },
-        {
-            title: 'Description ',
-            dataIndex: 'description',
-            key: 'description',
-            render: (text, record) => (
-                <>
-                    {record.description}
-                </>
-            ),
-        },
+        
         {
             title: 'Roll user',
             dataIndex: 'roll',
@@ -88,17 +81,7 @@ const ListUsers = () => {
                 </>
             ),
         },
-        {
-            title: 'delete user',
-            dataIndex: 'delete',
-            key: 'delete',
-            render: (text, record) => (
-                <>
-                    <CloseCircleOutlined onClick={() => dispatch(deleteuser(record.email))} style={{ color: 'red', cursor: 'pointer' }} />
-                    
-                </>
-            ),
-        },
+       
     ];
 
     

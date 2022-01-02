@@ -5,6 +5,8 @@ const initialState = {
   user: null,
   filtredusers: [],
   isauth: false,
+  
+  authstatus: "",
   autherror: {
     iserror: false,
     message: "",
@@ -60,19 +62,6 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    /*
-    filtredusers : (state, action) => {
-      if (action.payload.id === "all") {
-        state.filtredusers = state.users;
-      } else if (action.payload.id === "developper") {
-        let arr = [...state.users];
-        console.log(action.payload.id);
-        let data = arr.filter((p) => p.developper._id === action.payload.id);
-
-        state.filtredusers = data;
-      }
-    },
-*/
     logout : (state,action) => {
       state.user = null
       state.isauth = false
@@ -87,7 +76,7 @@ export const usersSlice = createSlice({
       console.log(action.payload);
       // Add user to the state array
       if (action.payload) {
-       localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("token", action.payload.token);
         state.isauth = true;
         state.user = action.payload.user
         state.autherror.iserror = false;
@@ -100,20 +89,20 @@ export const usersSlice = createSlice({
     
     });
 
-
     builder.addCase(getusers.pending, (state, action) => {
       console.log(action.payload);
-     // state.users = action.payload.data;
+    
     });
     builder.addCase(getusers.fulfilled, (state, action) => {
       console.log(action.payload.data);
-      state.users = action.payload.data;
+      state.filtredusers = action.payload.data;
+     // state.user = action.payload.user
     });
 
     builder.addCase(deleteuser.fulfilled, (state, action) => {
       console.log(action.payload);
       state.datachanged = action.payload;
-      
+    //  state.user = action.payload.user
     });
 
 ///////////////////////////getme
@@ -126,12 +115,15 @@ export const usersSlice = createSlice({
     /////////updateuser
     builder.addCase(updateuser.fulfilled, (state, action) => {
       console.log(action.payload);
-     state.users = action.payload;
+     state.filtredusers = action.payload;
+    // state.user = action.payload.user
     });
 
     builder.addCase(getuser.fulfilled, (state, action) => {
       console.log(action.payload);
      state.users = action.payload.data;
+    // state.user = action.payload.user
+    
     });
   },
    
@@ -151,5 +143,6 @@ export const selectautherror = (state) => state.users.autherror;
 export const selectisauth = (state) => state.users.isauth;
 export const selectseletestatus = (state) => state.users.deletestatus;
 export const selectdatachenged = (state) => state.users.datachanged;
+
 
 export default usersSlice.reducer;

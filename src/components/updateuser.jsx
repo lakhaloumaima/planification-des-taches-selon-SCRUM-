@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteproject, getprojectbyclient, getprojects,  selectauthedproject,  selectdatachanged,  selectproject,  selectprojects, updateproject } from '../features/project/projectsSlice';
 import { CloseCircleOutlined , EditOutlined } from '@ant-design/icons';
 import { selectauthedtaches, updatetaches } from '../features/tache/tachesSlice';
-import { getuser, getusers, selectautheduser, selectdatachenged, selectusers, updateuser } from '../features/users/usersSlice';
+import { getuser, getusers, selectautheduser, selectdatachenged, selectusers, selectuserss, updateuser } from '../features/users/usersSlice';
 
 
 
 const UpdateUsers = () => {
     const dispatch = useDispatch()
     const projects = useSelector(selectprojects)
-    const users = useSelector(selectusers)
+    const users = useSelector(selectuserss)
     const user = useSelector(selectautheduser)
     const datachanged = useSelector(selectdatachenged)
     //const developpers = useSelector(selectdeveloppers)
@@ -71,16 +71,7 @@ const UpdateUsers = () => {
                 </>
             ),
         },
-        {
-            title: 'Description ',
-            dataIndex: 'description',
-            key: 'description',
-            render: (text, record) => (
-                <>
-                    {record.description}
-                </>
-            ),
-        },
+        
         {
             title: 'Roll user',
             dataIndex: 'roll',

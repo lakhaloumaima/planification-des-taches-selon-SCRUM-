@@ -2,7 +2,7 @@ import { Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'an
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { EditOutlined } from '@ant-design/icons';
-import tachesSlice, { gettachebydeveloper, gettaches, selectauthedtaches , selecttache, selecttachess, updatetaches} from '../features/tache/tachesSlice';
+import tachesSlice, { gettachebydeveloper, gettaches, selectauthedtaches , selecttache, selecttachess, updatetache, updatetaches} from '../features/tache/tachesSlice';
 import { getprojects, selectproject, selectprojects } from '../features/project/projectsSlice';
 import {getuser, getusers, selectusers} from '../features/users/usersSlice';
 
@@ -13,18 +13,31 @@ const Taches = () => {
     const dispatch = useDispatch()
     const tache = useSelector(selecttache)
     const user = useSelector(selectusers)
+    const [isModalVisible, setIsModalVisible] = useState(false);
+  
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+
     useEffect(() => {    
         dispatch(getprojects())  
     } , []);
-
-  
 
     const onFinish2 = (values) => {
         console.log('Success:', values);
         let data = { 
             email : values.email,    
         }
-       
+        dispatch(getuser(data))
         dispatch(gettachebydeveloper(data))
         console.log("tache by de : " + data)
         
@@ -33,8 +46,20 @@ const Taches = () => {
     const onFinishFailed2 = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    
-
+    const onFinish = (values) => {   
+       
+        let data = {
+            tache_id : values.tache_id ,  
+            data : values,
+        }
+       // dispatch(gettachebydeveloper(data))
+        dispatch(updatetache(data))
+        handleCancel() 
+        //failed();
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
     const columns = [
         
         {
@@ -131,6 +156,18 @@ const Taches = () => {
                 </>
             ),
         },
+        {
+            title: 'Update',
+            dataIndex: 'Update',
+            key: 'Update',
+            render: (text, record) => (
+                <>
+                   
+                   <li><a onClick={() => showModal()} ><EditOutlined /></a></li>
+    
+                </>
+            ),
+        },
     
     ];
 return (
@@ -186,6 +223,42 @@ return (
           <h2>Taches by developer</h2>
         <Table columns={columns} dataSource={tache} />
           </div>
+          <Modal footer={null} title="Update taches" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                    <Form
+                        name="basic"
+                        style={{marginTop:"20px"}}
+                        layout="vertical"
+                        initialValues={{ 
+                           // id : project.id ,
+                           //tache_id : tache.tache_id,
+                           //etat : tache.etat ,
+                        }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                    >
+                        <Form.Item
+                           label="tache_id"
+                            name="tache_id"
+                            rules={[{ required: true, message: 'Please input your tache_id !' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                           label=" etat"
+                            name="etat"
+                            rules={[{ required: true, message: 'Please input your etat !' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit">
+                                Update
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                
+               
+            </Modal>
         </div>
         
     ) 

@@ -96,13 +96,10 @@ export const tachesSlice = createSlice({
   });
   */
  /////////updateuser
- builder.addCase(updatetache.pending, (state, action) => {
-  console.log(action.payload);
-  
-});
 builder.addCase(updatetache.fulfilled, (state, action) => {
   console.log(action.payload);
-  state.taches = action.payload;
+  state.taches = action.payload ;
+ // state.tache = action.payload.tache;
 
 });
 

@@ -13,7 +13,7 @@ const initialState = {
 //update prroject  by id
 export const updateproject = createAsyncThunk("projectedit", async (data) => {
   const response = await UpdateProject(data);
-  console.log("project updated :"+ data)
+  console.log("project updated :"+ response.data)
   return response.data;
 });
 //get project by id
@@ -38,7 +38,7 @@ export const createproject = createAsyncThunk("projectupdate", async (data) => {
   console.log(data);
   const response = await Create(data);
   console.log(" project : "+ data) ;
-  return response.data;
+  return response;
 });
 
 
@@ -67,12 +67,14 @@ export const projectsSlice = createSlice({
   reducers: { },
 
   extraReducers: (builder) => {
-    builder.addCase(createproject.pending, (state, action) => {
-      console.log(action.payload);  
-    });
+   
     builder.addCase(createproject.fulfilled, (state, action) => {
       console.log(action.payload);
-      state.projects = action.payload.data;
+      state.addstatus = "success";
+     state.projects = action.payload;
+
+     state.project = action.payload ;
+    // state.addstatus = action.payload.data;
     });
 
 builder.addCase(getprojects.pending, (state, action) => {

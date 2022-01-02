@@ -58,7 +58,7 @@ export function UpdateTaches(data) {
 */
 export function UpdateTache(data) {
   return axiosInstance
-    .post(tachesapi +'/tacheedit' ,data)
+    .post(tachesapi +'/tacheedit' ,data.data)
     .then((res) => {
       return res;
     })

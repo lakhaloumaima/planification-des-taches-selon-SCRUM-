@@ -6,13 +6,28 @@ export function Login(data) {
   return axios
     .post(usersapi + "/login", data)
     .then((res) => {
+     /*
+      const token = res.data.token ;
+      localStorage.setItem('token' , token ) ;
+      selectauth(token) ;
+      */
       return res;
     })
     .catch((err) => {
       return err;
     });
 }
+/*
+export default function selectauth(token) {
+  if(token) {
+     axios.defaults.headers.common['Auth'] = 'bearer $(token)'  ;
 
+  }
+  else {
+     delete axios.defaults.headers.common['Auth'] ;
+  }
+}
+*/
 export function GetUsers(data) {
   return axiosInstance
     .post(usersapi + "/getuser",data)

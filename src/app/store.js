@@ -5,9 +5,14 @@ import developpersReducer from '../features/developper/developpersSlice' ;
 
 import projectsReducer from '../features/project/projectsSlice' ;
 import tachesReducer from '../features/tache/tachesSlice' ;
+import omit from "lodash/omit";
+import storage from "redux-persist/lib/storage";
+import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
+import thunk from "redux-thunk";
+import createTransform from "redux-persist/es/createTransform";
 
-export const store = configureStore({
-  reducer: {
+const reducers = combineReducers({
     
     users: usersReducer,
     //clients: clientsReducer,
@@ -19,7 +24,32 @@ export const store = configureStore({
 
     masters : mastersReducer,
     developpers : developpersReducer ,
+});
+let usersBalcklist = createTransform((inboundstate, key) => {
+  if (key === "users") {
+    return omit(inboundstate, ["isauth", "authstatus"]);
+  } else {
+    return inboundstate;
+  }
+});
 
+let usersauthstatus = createTransform((inboundstate, key) => {
+  if (key === "users") {
+    return omit(inboundstate, ["authstatus"]);
+  } else {
+    return inboundstate;
+  }
+});
+const persistConfig = {
+  key: "root",
+  storage,
+  trasnforms: [usersBalcklist, usersauthstatus],
+};
 
-  },
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: [thunk],
 });
