@@ -14,7 +14,7 @@ const Taches = () => {
     const tache = useSelector(selecttache)
     const user = useSelector(selectusers)
     const [isModalVisible, setIsModalVisible] = useState(false);
-  
+    const projects = useSelector(selectprojects)
 
     const handleOk = () => {
         setIsModalVisible(false);
@@ -218,8 +218,7 @@ return (
                   </Form.Item>
           </Form>
           </div>
-
-   
+          
           <div> 
           <h2>Taches by developer</h2>
         <Table columns={columns} dataSource={tache} />
@@ -260,6 +259,7 @@ return (
                 
                
             </Modal>
+           
         </div>
         
     ) 

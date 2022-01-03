@@ -31,7 +31,9 @@ const Navbar = () => {
   {isauth && user.roll ==="developer" && <a className="navbar-brand" href="/taches"><i class="glyphicon glyphicon-home"></i>Tache</a>}
   {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/project"><i class="glyphicon glyphicon-home"></i>Project</a>}
   {isauth && ( user.roll ==="admin" || user.roll ==="scrum_master" || user.roll ==="developer" || user.roll ==="client" ) && <a className="navbar-brand" href="/userbyemail"><i class="glyphicon glyphicon-home"></i>User</a>}
+
   {isauth && user.roll ==="admin" && <a className="navbar-brand" href="/updatePro"><i class="glyphicon glyphicon-home"></i>update project</a>}
+
   {isauth && user.roll ==="admin" && <a className="navbar-brand" href="/updateDev"><i class="glyphicon glyphicon-home"></i>update dev</a>}
   {isauth && user.roll ==="client" && <a className="navbar-brand" href="/Addproject"><i class="glyphicon glyphicon-home"></i>Add Project</a>}
   {isauth && user.roll ==="client" && <a className="navbar-brand" href="/listspr"><i class="glyphicon glyphicon-home"></i> Project</a>}

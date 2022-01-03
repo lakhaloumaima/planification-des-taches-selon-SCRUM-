@@ -6,8 +6,8 @@ import { selectisauth, selectautheduser , selectusers } from '../features/users/
 const PrivateRoute = ({ component: Component, roles, ...rest }) => {
     // const { isAuthenticated, user} = useContext(AuthContext);
     const isauth = useSelector(selectisauth)
-    const user = useSelector(selectautheduser)
-   // const user = useSelector(selectusers)
+   // const user = useSelector(selectautheduser)
+   const user = useSelector(selectusers)
 
     return (
         

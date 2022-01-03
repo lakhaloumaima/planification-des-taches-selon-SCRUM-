@@ -30,28 +30,27 @@ function App() {
           <Navbar /> 
           <Switch>
           <PublicRoute restricted={false} path='/Home' component={Home} ></PublicRoute>
-            
-          <PublicRoute restricted={false} path='/Addtache' component={Addtache} ></PublicRoute>
 
-          <PublicRoute restricted={false} path='/Addproject' component={Addproject} ></PublicRoute>
+          <PrivateRoute path="/updatePro" roles={["admin"]} component={UpdateProject} />          
+          <PrivateRoute path="/listUsers" roles={["admin"]} component={ListUsers} />       
+          <PrivateRoute path="/listProjects" roles={["admin"]} component={ListProjects} />
+          <PrivateRoute path="/updateDev" roles={["admin"]} component={updateDevelopper} />
+          <PrivateRoute path="/updateUser" roles={["admin"]} component={UpdateUsers} />
+         
+          <PrivateRoute path="/userbyemail" roles={["admin","client","scrum_master","developer"]} component={Userr} />
 
-          <PublicRoute restricted={false} path='/updatePro' component={UpdateProject} ></PublicRoute>
-          <PublicRoute restricted={false} path='/updateDev' component={updateDevelopper} ></PublicRoute>
-          <PublicRoute restricted={false} path='/userbyemail' component={Userr} ></PublicRoute>
-          <PublicRoute restricted={false} path='/project' component={Projectt} ></PublicRoute>
-          <PublicRoute restricted={false} path='/Addtache' component={Addtache} ></PublicRoute>
-          <PublicRoute restricted={false} path='/updateUser' component={UpdateUsers} ></PublicRoute>
+          <PrivateRoute path="/project" roles={["scrum_master"]} component={Projectt} />
+          <PrivateRoute path="/Addtache" roles={["scrum_master"]} component={Addtache} />
+          <PrivateRoute path="/Addtache" roles={["scrum_master"]} component={Addtache} />
+          <PrivateRoute path="/ListT" roles={["scrum_master"]} component={ListTaches} />
+           
+          <PrivateRoute path="/taches" roles={["developer"]} component={Taches} />
 
-
-           <PublicRoute restricted={false} path='/listUsers' component={ListUsers} ></PublicRoute>
-          <PublicRoute restricted={false} path='/ListT' component={ListTaches} ></PublicRoute>
-          
-          <PublicRoute restricted={false} path='/listProjects' component={ListProjects} ></PublicRoute>
-          <PublicRoute restricted={false} path='/taches' component={Taches} ></PublicRoute>
-          <PublicRoute restricted={false} path='/listspr' component={ListsProjects} ></PublicRoute>
-
-            <PublicRoute restricted={false} path='/Register' component={Register} ></PublicRoute>
-            <PublicRoute restricted={false} path='/Auth' component={Auth} ></PublicRoute>
+          <PrivateRoute path="/listspr" roles={["client"]} component={ListsProjects} />
+          <PrivateRoute path="/Addproject" roles={["client"]} component={Addproject} />
+        
+          <PublicRoute restricted={false} path='/Register' component={Register} ></PublicRoute>
+          <PublicRoute restricted={false} path='/Auth' component={Auth} ></PublicRoute>
             
 
             <PublicRoute restricted={false} path='/' component={Home} ></PublicRoute>
