@@ -40,7 +40,7 @@ useEffect(() => {
             description : values.description ,
             //lastName : values.lastName,
             //firstName : values.firstName,
-            roll : values.roll ,
+         //   roll : values.roll ,
             data : values ,
         }
        dispatch(getuser(data))
@@ -98,7 +98,7 @@ return (
                         initialValues={{ 
                             email : user.email , 
                             username : user.username ,
-                            roll : user.roll ,
+                           // roll : user.roll ,
                             age : user.age ,  
                             phoneNumber: user.phoneNumber ,
                           // lastName : users.lastName ,
@@ -138,13 +138,7 @@ return (
                             <Input />
                         </Form.Item>
                        
-                        <Form.Item
-                           label="roll"
-                            name="roll"
-                            rules={[{ required: false, message: 'Please input your roll !' }]}
-                        >
-                            <Input />
-                        </Form.Item>
+                       
                         
                         <Form.Item >
                             <Button type="primary" htmlType="submit">
