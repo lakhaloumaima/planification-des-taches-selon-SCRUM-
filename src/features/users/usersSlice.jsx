@@ -5,7 +5,7 @@ const initialState = {
   user: null,
   filtredusers: [],
   isauth: false,
-  
+ 
   authstatus: "",
   autherror: {
     iserror: false,
@@ -83,6 +83,7 @@ export const usersSlice = createSlice({
         state.autherror.message = "";
         state.authstatus = "success";
       } else {
+        
         state.autherror.iserror = true;
         state.autherror.message = 'invalid credantials';
       }

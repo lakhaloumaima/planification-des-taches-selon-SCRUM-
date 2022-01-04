@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { logout, selectisauth, selectusers } from '../features/users/usersSlice';
-
+import { HomeOutlined , OrderedListOutlined,UserOutlined , ContainerOutlined , FileAddOutlined , EditOutlined , LogoutOutlined} from '@ant-design/icons';
 const Navbar = () => {
   const dispatch = useDispatch()
   const isauth = useSelector(selectisauth)
@@ -23,20 +23,20 @@ const Navbar = () => {
        <div>
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
   
-   <a className="navbar-brand" href="/Home"><i class="glyphicon glyphicon-home"></i> Home</a>
-  {isauth &&  user.roll ==="admin" && <a className="navbar-brand" href="/listUsers"><i class="glyphicon glyphicon-home"></i> List Users</a>}
-  { isauth && user.roll ==="admin" && <a className="navbar-brand" href="/updateUser"><i class="glyphicon glyphicon-home"></i> update users</a>}
-  { isauth && user.roll ==="admin"  && <a className="navbar-brand" href="/listProjects"><i class="glyphicon glyphicon-home"></i> List Projects</a>}
-  {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/ListT"><i class="glyphicon glyphicon-home"></i>List Taches</a>}
-  {isauth && user.roll ==="developer" && <a className="navbar-brand" href="/taches"><i class="glyphicon glyphicon-home"></i>Tache</a>}
-  {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/project"><i class="glyphicon glyphicon-home"></i>Project</a>}
-  {isauth && ( user.roll ==="admin" || user.roll ==="scrum_master" || user.roll ==="developer" || user.roll ==="client" ) && <a className="navbar-brand" href="/userbyemail"><i class="glyphicon glyphicon-home"></i>User</a>}
+   <a className="navbar-brand" href="/Home"><HomeOutlined /> Home</a>
+   {isauth && ( user.roll ==="admin" || user.roll ==="scrum_master" || user.roll ==="developer" || user.roll ==="client" ) && <a className="navbar-brand" href="/userbyemail"><UserOutlined />User</a>}
 
-  {isauth && user.roll ==="admin" && <a className="navbar-brand" href="/updatePro"><i class="glyphicon glyphicon-home"></i>update project</a>}
+  {isauth &&  user.roll ==="admin" && <a className="navbar-brand" href="/listUsers"><ContainerOutlined /> List Users</a>}
+  { isauth && user.roll ==="admin" && <a className="navbar-brand" href="/updateUser"><EditOutlined /> update users</a>}
+  { isauth && user.roll ==="admin"  && <a className="navbar-brand" href="/listProjects"><ContainerOutlined /> List Projects</a>}
+  {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/ListT"><ContainerOutlined /> List Taches</a>}
+  {isauth && user.roll ==="developer" && <a className="navbar-brand" href="/taches"><OrderedListOutlined />Tache</a>}
+  {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/project"><ContainerOutlined />Project</a>}
+ 
+  {isauth && user.roll ==="admin" && <a className="navbar-brand" href="/updatePro"><EditOutlined />update projects</a>}
 
-  {isauth && user.roll ==="admin" && <a className="navbar-brand" href="/updateDev"><i class="glyphicon glyphicon-home"></i>update dev</a>}
-  {isauth && user.roll ==="client" && <a className="navbar-brand" href="/Addproject"><i class="glyphicon glyphicon-home"></i>Add Project</a>}
-  {isauth && user.roll ==="client" && <a className="navbar-brand" href="/listspr"><i class="glyphicon glyphicon-home"></i> Project</a>}
+  {isauth && user.roll ==="client" && <a className="navbar-brand" href="/Addproject"><FileAddOutlined /> Add Project</a>}
+  {isauth && user.roll ==="client" && <a className="navbar-brand" href="/listspr"><ContainerOutlined /> ProjectClient </a>}
 
  
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,7 @@ const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mr-auto">  
         <li className="nav-item">
-          {isauth && <li onClick={() => dispatch(logout())} ><a><i class="fa fa-lock"></i> logout</a></li>}
+          {isauth && <li onClick={() => dispatch(logout())} ><a><LogoutOutlined /> logout</a></li>}
     
         </li>        
       </ul>

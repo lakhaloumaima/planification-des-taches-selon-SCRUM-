@@ -174,7 +174,7 @@ const onFinishFailed2 = (errorInfo) => {
         ),
     },
  */
-    {
+    /* {
         title: 'Action',
         key: 'action',
         render: (text, record) => (
@@ -183,6 +183,8 @@ const onFinishFailed2 = (errorInfo) => {
             </Space>
         ),
     },
+    */
+   /*
     {
         title: 'Update',
         key: 'update',
@@ -195,6 +197,7 @@ const onFinishFailed2 = (errorInfo) => {
                  </Space>
         ),
     },
+    */
 
 ];
 

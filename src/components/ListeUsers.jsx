@@ -77,7 +77,12 @@ const ListUsers = () => {
             key: 'roll',
             render: (text, record) => (
                 <>
-                    {record.roll}
+                
+                {record.roll === "admin" && <Tag color="red">admin</Tag>}
+                {record.roll === "scrum_master" && <Tag color="cyan">scrum_master</Tag>}
+                {record.roll === "developer" && <Tag color="purple">developer</Tag>}
+                {record.roll === "client" && <Tag color="lime">client</Tag>} <br></br>
+          
                 </>
             ),
         },

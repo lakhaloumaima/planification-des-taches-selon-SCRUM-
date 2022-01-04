@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import {  getuser, login, selectauthstatus, selectusers } from '../features/users/usersSlice';
+import {  getuser, login, selectautherror, selectauthstatus, selectusers } from '../features/users/usersSlice';
 import 'antd/dist/antd.css'
 import { Form, Input, Button, Checkbox, Row, Col, Alert, message } from 'antd';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const Auth = () => {
   const authstatuss = useSelector(selectauthstatus)
@@ -39,8 +40,24 @@ const Auth = () => {
         */
         //failed();
     };
-   
+    const authentication = useSelector(selectauthstatus)
+    const history = useHistory()
+    const autherror = useSelector(selectautherror)
+    const authstatus = useSelector(selectauthstatus)
+    useEffect(() => {
 
+        console.log('hello ');
+        if (authstatus === 'success') {
+            success()
+            history.push('/Home')
+        }
+        
+        
+    }, [authstatus]);
+    const success = () => {
+        message.success('you successfuly loged in');
+    };
+   
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -74,7 +91,15 @@ const Auth = () => {
                         
                     </Col>
                 </Row>
-
+                <Row>
+                    <Col span={8} offset={7} >
+                        {
+                            authentication.authstatus === 'failure'
+                            &&
+                            <Alert style={{ marginBottom: "10px" }} message={authentication.error} type="error" showIcon />
+                        }
+                    </Col>
+                </Row>
               
                 
                 <Form.Item

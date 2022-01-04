@@ -134,12 +134,8 @@ const UpdateProject = () => {
         title: 'Update',
         key: 'update',
         render: (text, record) => (
-            <Space size="middle">
-                
-               
-                <EditOutlined onClick={() => dispatch(showModal())} style={{ color: 'green', cursor: 'pointer' }} />
-                
-                 </Space>
+            
+            <li><a onClick={() => showModal()} ><EditOutlined  style={{ color: 'green', cursor: 'pointer' }}/></a></li>
         ),
     },
 
@@ -158,7 +154,7 @@ return (
                         style={{marginTop:"20px"}}
                         layout="vertical"
                         initialValues={{ 
-                            id : projects.id ,
+                        id : projects.id ,
                          project_id : projects.project_id , 
                          description : projects.description ,
                         date_debut : projects.date_debut ,
@@ -181,35 +177,35 @@ return (
                         <Form.Item
                            label="date_debut"
                             name="date_debut"
-                            rules={[{ required: true, message: 'Please input your date_debut!' }]}
+                            rules={[{ required: false, message: 'Please input your date_debut!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                            label="date_fin"
                             name="date_fin"
-                            rules={[{ required: true, message: 'Please input your date_fin!' }]}
+                            rules={[{ required: false, message: 'Please input your date_fin!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                            label="description"
                             name="description"
-                            rules={[{ required: true, message: 'Please input your description!' }]}
+                            rules={[{ required: false, message: 'Please input your description!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                            label="emailclient"
                             name="emailclient"
-                            rules={[{ required: true, message: 'Please input your emailclient!' }]}
+                            rules={[{ required: false, message: 'Please input your emailclient!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                            label="emailmaster"
                             name="emailmaster"
-                            rules={[{ required: true, message: 'Please input your emailmaster!' }]}
+                            rules={[{ required: false, message: 'Please input your emailmaster!' }]}
                         >
                             <Input />
                         </Form.Item>
