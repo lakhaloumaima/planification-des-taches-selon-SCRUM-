@@ -55,6 +55,7 @@ const ListTaches = () => {
             data : values,
         }
         dispatch(updatetache(data))
+        
         handleCancel() 
         //failed();
     };
@@ -64,6 +65,7 @@ const ListTaches = () => {
              tache_id : values.tache_id ,      
          }
      dispatch(gettaches(data))
+     
      console.log("data one tache :" + data)
      }
      const onFinishFailed3 = (errorInfo) => {
@@ -86,6 +88,7 @@ const ListTaches = () => {
 
     useEffect(() => {
             dispatch(getprojects())
+            
     }, []);
 
  const columns = [
@@ -187,7 +190,7 @@ const ListTaches = () => {
         render: (text, record) => (
             <>
                
-               <li><a onClick={() => showModal()} ><EditOutlined /></a></li>
+               <li><a onClick={() => showModal()} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }}/></a></li>
           
                 
 
@@ -199,19 +202,19 @@ const ListTaches = () => {
 
 return (
     <div className="container" > 
-          <button style={{backgroundColor:"SteelBlue"}} class="btn btn-info" onClick={addTache}>
-        Add Tache
+        <button style={{backgroundColor:"SteelBlue"}} class="btn btn-info" onClick={addTache}>
+            Add Tache
       </button> 
-          
+      <div  class="form-group row"  >  
           <Form
           style={{marginTop:"50px"}}
               name="basic"
               labelCol={{
-                  span: 4,
+                  span: 12,
                   offset:3
               }}
               wrapperCol={{
-                  span: 8,
+                  span: 12,
               }}
               initialValues={{
                   remember: true,
@@ -236,8 +239,8 @@ return (
               
               <Form.Item
                   wrapperCol={{
-                      offset: 7,
-                      span: 8,
+                      offset: 15,
+                      span: 11,
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
@@ -246,18 +249,16 @@ return (
                   </Form.Item>
           </Form>
           
-          <div> <br></br>
-          <div>
           <Form
           style={{marginTop:"50px"}}
               name="basic"
               labelCol={{
-                  span: 4,
-                  offset:3
-              }}
-              wrapperCol={{
-                  span: 8,
-              }}
+                span: 12,
+                offset:3
+            }}
+            wrapperCol={{
+                span: 13,
+            }}
               initialValues={{
                   remember: true,
               }}
@@ -267,7 +268,7 @@ return (
               
             
             <Form.Item
-                  label="id_tache get Tache By Id "
+                  label="get Tache By Id "
                   name="tache_id"
                   rules={[
                       {
@@ -281,8 +282,8 @@ return (
               
               <Form.Item
                   wrapperCol={{
-                      offset: 7,
-                      span: 8,
+                    offset: 15,
+                    span: 12,
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
@@ -290,6 +291,7 @@ return (
                   </Button>
                   </Form.Item>
           </Form>
+        </div>
         <Descriptions style={{ marginTop: "50px" }} title="Tache ">
                 <Descriptions.Item label="tache_id">{tache.tache_id}</Descriptions.Item>
                 
@@ -301,12 +303,13 @@ return (
                 <Descriptions.Item label="Etat">{tache.etat}</Descriptions.Item>
         </Descriptions> 
 
-        </div>
+      
           <br></br>
+          
         <h2>Taches <Badge count={projects.length} showZero /> </h2>
         <Table columns={columns} dataSource={projects} />
             
-        </div>
+       
           <br></br>
           <Modal footer={null} title="Update taches" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                     <Form

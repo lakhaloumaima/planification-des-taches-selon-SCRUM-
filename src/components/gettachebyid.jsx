@@ -164,7 +164,7 @@ const Taches = () => {
             render: (text, record) => (
                 <>
                    
-                   <li><a onClick={() => showModal()} ><EditOutlined /></a></li>
+                   <li><a onClick={() => showModal()} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }} /></a></li>
     
                 </>
             ),
@@ -179,11 +179,11 @@ return (
           style={{marginTop:"50px"}}
               name="basic"
               labelCol={{
-                  span: 4,
-                  offset:3
+                  span: 15,
+                  offset:0
               }}
               wrapperCol={{
-                  span: 8,
+                  span: 10,
               }}
               initialValues={{
                   remember: true,
@@ -208,8 +208,8 @@ return (
               
               <Form.Item
                   wrapperCol={{
-                      offset: 7,
-                      span: 8,
+                      offset: 15,
+                      span: 10,
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">

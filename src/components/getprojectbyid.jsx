@@ -48,11 +48,11 @@ return (
           style={{marginTop:"50px"}}
               name="basic"
               labelCol={{
-                  span: 4,
+                  span: 10,
                   offset:3
               }}
               wrapperCol={{
-                  span: 15,
+                  span: 14,
               }}
               initialValues={{
                   remember: true,
@@ -77,7 +77,7 @@ return (
               
               <Form.Item
                   wrapperCol={{
-                      offset: 7,
+                      offset: 13,
                       span: 15,
                   }}
               >
