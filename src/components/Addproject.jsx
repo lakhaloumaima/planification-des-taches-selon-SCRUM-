@@ -1,19 +1,25 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message , DatePicker } from 'antd';
 import { createproject, getprojects, selectaddstatus  } from '../features/project/projectsSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { selectusers, selectuserss } from '../features/users/usersSlice';
 
 
 const AddProject = () => {
   const dispatch = useDispatch()
   const addstatus = useSelector(selectaddstatus)
+  const users = useSelector(selectuserss)
+  const user = useSelector(selectusers)
+
   const success = () => {
     message.success('project successfuly created');
 };
 useEffect(() => {
     if (addstatus === 'success') {
         dispatch(getprojects())
-        
+        success()
     }
 }, [addstatus]);
 
@@ -24,7 +30,7 @@ useEffect(() => {
             description : values.description ,
             date_debut : values.date_debut ,
             date_fin : values.date_fin ,
-           emailclient : values.emailclient ,
+          emailclient : values.emailclient ,
            emailmaster : values.emailmaster ,
            data : values 
         }
@@ -36,7 +42,6 @@ useEffect(() => {
     const onFinishFailed = (errorInfo) => {
       console.log('Failed:', errorInfo);
   };
-
   return (   
     <div className='products-catagories-area clearfix' style={{ marginTop: "-150px" }}  >   
         <Form
@@ -51,6 +56,7 @@ useEffect(() => {
             }}
             initialValues={{
                 remember: true,
+               
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -62,7 +68,9 @@ useEffect(() => {
                     {
                         required: true,
                         message: 'Please input your project_name !',
+                        
                     },
+                    {type:'string' , min:5}
                 ]}
             >
                 <Input />
@@ -76,6 +84,7 @@ useEffect(() => {
                         required: true,
                         message: 'Please input your description !',
                     },
+                    {type:'string' , max:200}
                 ]}
             >
                 <Input />
@@ -89,42 +98,47 @@ useEffect(() => {
                         required: true,
                         message: 'Please input your date_debut !',
                     },
+                    {type:'date' }
                 ]}
             >
-                <Input />
+                <DatePicker />
             </Form.Item>
             <Form.Item
                 label="date_fin"
                 name="date_fin"
                 rules={[
-                    {
+                    {  
                         required: true,
                         message: 'Please input your date_fin !',
                     },
+                    {type:'date' }
                 ]}
             >
-                <Input />
+                <DatePicker />
             </Form.Item>
+            
             <Form.Item
                 label="email client"
                 name="emailclient"
                 rules={[
-                    {
+                    {         
                         required: true,
                         message: 'Please input your emailclient !',
                     },
+                    {type:'email' }
                 ]}
             >
-                <Input />
+                <Input  defaultValue={user.email} />
             </Form.Item>
             <Form.Item
                 label="email master"
                 name="emailmaster"
                 rules={[
-                    {
+                    {         
                         required: true,
                         message: 'Please input your emailmaster !',
                     },
+                    { type: 'email' }
                 ]}
             >
                 <Input />

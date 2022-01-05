@@ -91,6 +91,7 @@ const onFinishFailed2 = (errorInfo) => {
         let data = {
             id : values.id ,
             project_id : values.project_id,
+            projectname : values.projectname,
             description : values.description ,
             date_debut : values.date_debut ,
             date_fin : values.date_fin ,
@@ -387,6 +388,7 @@ return (
                         initialValues={{ 
                         id : projects.id ,
                          project_id : projects.project_id , 
+                         projectname : projects.projectname,
                          description : projects.description ,
                         date_debut : projects.date_debut ,
                         date_fin : projects.date_fin ,
@@ -404,7 +406,13 @@ return (
                         >
                             <Input />
                         </Form.Item>
-                       
+                        <Form.Item
+                           label="project_name"
+                            name="projectname"
+                            rules={[{ required: true, message: 'Please input your projectname!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
                         <Form.Item
                            label="date_debut"
                             name="date_debut"

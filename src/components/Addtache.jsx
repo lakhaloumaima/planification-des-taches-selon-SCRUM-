@@ -1,12 +1,28 @@
-import React from 'react';
-import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
-import { createtache } from '../features/tache/tachesSlice';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Form, Input, Button, DatePicker ,Select, message} from 'antd';
+import { createtache, selectaddtaches, selecttache, selecttachess } from '../features/tache/tachesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getuser, selectusers, selectuserss } from '../features/users/usersSlice';
+import { getprojects } from '../features/project/projectsSlice';
 
 const Addtache = () => {
      
   const dispatch = useDispatch()
-
+  const userss = useSelector(selectusers)
+  const tache = useSelector(selecttache)
+  const taches = useSelector(selecttachess)
+  const user = useSelector(selectusers)
+  const users = useSelector(selectuserss)
+  const addstatus = useSelector(selectaddtaches)
+  const { Option } = Select;
+  useEffect(() => {
+    if (addstatus === 'success') {     
+        success()
+    }
+  }, [addstatus]);
+  const success = () => {
+    message.success('tache successfuly created');
+};
   const onFinish = (values) => {
         console.log('Success:', values);
 
@@ -20,6 +36,8 @@ const Addtache = () => {
         }
 
         dispatch(createtache(data))
+       // dispatch(getuser(data))
+       // dispatch(getuser(data))
        // window.location.href = '/ListT'
         //failed();
     };
@@ -54,12 +72,15 @@ const Addtache = () => {
                     {
                         required: true,
                         message: 'Please input your project_id !',
+                        
                     },
+                    
                 ]}
             >
                 <Input />
             </Form.Item>
-
+            
+            
             <Form.Item
                 label="Email developper"
                 name="email"
@@ -68,6 +89,7 @@ const Addtache = () => {
                         required: true,
                         message: 'Please input your email !',
                     },
+                    {type : 'email'}
                 ]}
             >
                 <Input />
@@ -82,6 +104,7 @@ const Addtache = () => {
                         required: true,
                         message: 'Please input your tache_name !',
                     },
+                    {type:'string' , min:5 , max:15}
                 ]}
             >
                 <Input />
@@ -97,7 +120,7 @@ const Addtache = () => {
                     },
                 ]}
             >
-                <Input />
+                <DatePicker />
             </Form.Item>
             <Form.Item
                 label="date_fin"
@@ -109,20 +132,22 @@ const Addtache = () => {
                     },
                 ]}
             >
-                <Input />
+                <DatePicker />
             </Form.Item>
             <Form.Item
-                label="Etat"
                 name="etat"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your etat !',
-                    },
-                ]}
+                label="Etat "
+               
+               // hasFeedback
+                rules={[{ required: true, message: 'Please select etat !' }]}
             >
-                <Input />
+                <Select placeholder="Please select etat">
+                    <Option value="en_attend">en_attend</Option>
+                    <Option value="en_cours">en_cours</Option>
+                    <Option value="terminee">terminee</Option>
+                </Select>
             </Form.Item>
+           
 
             <Form.Item
                 wrapperCol={{

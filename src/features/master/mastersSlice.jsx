@@ -3,10 +3,11 @@ import { Register } from "./mastersAPI";
 
 const initialState = {
   master : null ,
-  registration: {
+ registration: {
     registerstatus: "",
     error: "",
   },
+ // registration :"" ,
   masters :[],
 };
 
@@ -25,11 +26,10 @@ export const mastersSlice = createSlice({
   name: "masters",
   initialState,
   reducers: {},
-  extraReducers:(builder) =>  {
+  extraReducers: (builder) => {
 
-  builder.addCase(registermaster.pending, (state, action) => {
+    builder.addCase(registermaster.pending, (state, action) => {
       console.log(action.payload);
-      
       //state.registration = action.payload.data;
     });
 
@@ -38,7 +38,6 @@ export const mastersSlice = createSlice({
       
       state.registration = action.payload.data;
     });
-
   
  /*
     [registermaster.pending]: (state, action) => {
@@ -48,18 +47,18 @@ export const mastersSlice = createSlice({
       console.log(action.payload.response);
 
       if (action.payload.status === 200) {
-        state.registration.registerstatus = "success";
+        state.registration = "success";
       } else {
         const { data } = action.payload.response;
-        state.registration.registerstatus = "failure";
-        state.registration.error = data.message;
+        state.registration = "failure";
+       // state.registration.error = data.message;
       }
     },
     [registermaster.rejected]: (state, action) => {
       state.authstatus = "faiFlure";
     },
-
-    */
+*/
+  
   },
 });
 
@@ -67,6 +66,7 @@ export const {} = mastersSlice.actions;
 
 //selector
 export const selectregistration = (state) => state.masters.registration;
+export const selectregistrationstatus = (state) => state.masters.registration.registerstatus;
 //export const selectaddstatus = (state) => state.masters.master;
 
 export default mastersSlice.reducer;

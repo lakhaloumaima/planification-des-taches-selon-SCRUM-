@@ -10,11 +10,7 @@ const Auth = () => {
   const authstatuss = useSelector(selectauthstatus)
   const dispatch = useDispatch()
   const user = useSelector(selectusers)
-  useEffect(() => {
-    // storing input name
-    localStorage.setItem("email", JSON.stringify(user.email));
-  }, [user.email]);
-
+ 
 
   const onFinish = (values) => {
         console.log('Success:', values);
@@ -103,30 +99,33 @@ const Auth = () => {
               
                 
                 <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your email !',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                        name="email"
+                        label="E-mail"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'The input is not valid E-mail!',
+                            },
+                            { type: 'email'  }
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>  
 
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password !',
-                        },
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
+                    <Form.Item
+                        name="password"
+                        label="Password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                        
+                        ]}
+                        hasFeedback
+                    >
+                        <Input.Password />
+                    </Form.Item>
 
                 <Form.Item
                     name="remember"

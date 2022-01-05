@@ -1,6 +1,6 @@
 import React from 'react'
 import 'antd/dist/antd.css'
-import { Form, Input, Button, Checkbox, Row, Col, Result, Alert } from 'antd';
+import { Form, Input, Button, Checkbox, Row, Col, Result, Alert, InputNumber } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { registermaster, selectregistration } from '../features/master/mastersSlice';
 
@@ -14,29 +14,44 @@ const Register = () => {
         console.log('Success:', values);
 
         let data = {
-            firstName : values.firstName,
-            lastName : values.lastName,        
-            email: values.email,
-            roll : values.roll ,
-            age : values.age,
-            phoneNumber : values.phoneNumber,
-            password: values.password,
-
+            firstName : values.firstName+"",
+            lastName : values.lastName+"",        
+            email: values.email+"",
+            roll : values.roll+"" ,
+            age : values.age+"",
+            phoneNumber : values.phoneNumber+"",
+            password: values.password+"",
         }
+        
 
         dispatch(registermaster(data))
-        console.log(data)
+        // console.log(data)
     };
+
+
+    // const onFinish = ( ) => {
+    //     dispatch(registermaster({
+    //         firstName : 'oussema',
+    //         lastName : 'heni',        
+    //         email: 'oussema@gmail.com',
+    //         roll : 'client' ,
+    //         age : '22',
+    //         phoneNumber : '22222222',
+    //         password: 'oussema123',
+    //     }))
+    // }
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
+
     return (
         <div className="Container">
-            {registration.registerstatus === 'success' ? <RegisterResult /> : <div className='products-catagories-area clearfix' >
+            {registration === 'success' ? <RegisterResult /> : <div className='products-catagories-area clearfix' >
 
-                <Form
+              
+            <Form
                     style={{ marginTop: "20px" }}
                     name="basic"
                     labelCol={{
@@ -51,6 +66,7 @@ const Register = () => {
                     }}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
+                 //   validateMessages={validateMessages}
                 >
                     <Row>
                         <Col span={2} offset={10} >
@@ -58,19 +74,6 @@ const Register = () => {
                        Register</h1>
                              </Col>
                     </Row>
-
-                    
-
-                    <Row>
-                        <Col span={8} offset={7} >
-                            {
-                                registration.registerstatus === 'failure'
-                                &&
-                                <Alert style={{ marginBottom: "10px" }} message={registration.error} type="error" showIcon />
-                            }
-                        </Col>
-                    </Row>
-
 
                     <Form.Item
                         label="firstName"
@@ -80,6 +83,7 @@ const Register = () => {
                                 required: true,
                                 message: 'Please input your firstName!',
                             },
+                            { type: 'string', max: 14 }
                         ]}
                     >
                         <Input />
@@ -92,6 +96,7 @@ const Register = () => {
                                 required: true,
                                 message: 'Please input your lastName!',
                             },
+                            { type: 'string', max: 14 }
                         ]}
                     >
                         <Input />
@@ -101,13 +106,10 @@ const Register = () => {
                         label="E-mail"
                         rules={[
                             {
-                                type: 'email',
+                                required: true,
                                 message: 'The input is not valid E-mail!',
                             },
-                            {
-                                required: true,
-                                message: 'Please input your E-mail!',
-                            },
+                           
                         ]}
                     >
                         <Input />
@@ -135,6 +137,7 @@ const Register = () => {
                                  required: true,
                                  message: 'Please input your phoneNumber !',
                              },
+                             { type: 'string', min:8 ,max: 8 }
                          ]}
                      >
                         <Input />
@@ -147,10 +150,12 @@ const Register = () => {
                              {
                                  required: true,
                                  message: 'Please input your age !',
+                                 
                              },
+                             
                          ]}
                      >
-                        <Input />
+                       <InputNumber />
                     </Form.Item>
                     <Form.Item
                         name="password"
@@ -160,6 +165,7 @@ const Register = () => {
                                 required: true,
                                 message: 'Please input your password!',
                             },
+                            { type: 'string' }
                         ]}
                         hasFeedback
                     >
@@ -190,7 +196,7 @@ function RegisterResult() {
                 status="success"
                 title="Successfully registred login naw !"
                 extra={[
-                    <Button onClick={()=> window.location.href = '/login'}  type="primary" key="console">
+                    <Button onClick={()=> window.location.href = '/Auth'}  type="primary" key="console">
                         Login
                     </Button>
                 ]}

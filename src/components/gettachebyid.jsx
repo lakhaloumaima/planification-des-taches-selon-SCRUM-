@@ -187,6 +187,7 @@ return (
               }}
               initialValues={{
                   remember: true,
+                  email : user.email
               }}
               onFinish={onFinish2}
               onFinishFailed={onFinishFailed2}
@@ -201,6 +202,7 @@ return (
                           required: true,
                           message: 'Please input your email !',
                       },
+                      {type : 'email'}
                   ]}
               >
                   <Input />

@@ -7,7 +7,8 @@ const initialState = {
   tache: 0 ,
   taches: [],
   deletestatus : "" ,
-  tachesdev : []
+  tachesdev : [],
+  addtaches :""
 
 };
 //update user  by id
@@ -71,10 +72,11 @@ export const tachesSlice = createSlice({
 
   builder.addCase(createtache.pending, (state, action) => {
     console.log(action.payload);
-  
+    state.addtaches = "failure" ;
   });
   builder.addCase(createtache.fulfilled, (state, action) => {
     console.log(action.payload);
+    state.addtaches = "success" ;
     state.taches = action.payload.data;
   });
 
@@ -115,6 +117,7 @@ export const selecttachess = (state) => state.taches.taches;
 export const selectseletestatus = (state) => state.taches.deletestatus;
 export const selectauthedtaches = (state) => state.taches.tache;
 export const selecttache = (state) => state.taches.tache;
+export const selectaddtaches = (state) => state.taches.addtaches;
 
 export const selecttachedev = (state) => state.taches.tachesdev;
 
