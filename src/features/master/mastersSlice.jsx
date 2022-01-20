@@ -2,15 +2,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Register } from "./mastersAPI";
 
 const initialState = {
-  master : null ,
+ /* master : null ,
  registration: {
     registerstatus: "",
     error: "",
   },
  // registration :"" ,
-  masters :[],
+ // masters :[],
+ */
 };
-
+/*
 // redux register master  action
 export const registermaster = createAsyncThunk(
   "singup",
@@ -20,14 +21,14 @@ export const registermaster = createAsyncThunk(
   }
 );
 
-
+*/
 
 export const mastersSlice = createSlice({
   name: "masters",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-
+/*
     builder.addCase(registermaster.pending, (state, action) => {
       console.log(action.payload);
       //state.registration = action.payload.data;
@@ -38,7 +39,7 @@ export const mastersSlice = createSlice({
       
       state.registration = action.payload.data;
     });
-  
+ */ 
  /*
     [registermaster.pending]: (state, action) => {
       state.authstatus = "loading";
@@ -65,8 +66,8 @@ export const mastersSlice = createSlice({
 export const {} = mastersSlice.actions;
 
 //selector
-export const selectregistration = (state) => state.masters.registration;
-export const selectregistrationstatus = (state) => state.masters.registration.registerstatus;
+//export const selectregistration = (state) => state.masters.registration;
+//export const selectregistrationstatus = (state) => state.masters.registration.registerstatus;
 //export const selectaddstatus = (state) => state.masters.master;
 
 export default mastersSlice.reducer;

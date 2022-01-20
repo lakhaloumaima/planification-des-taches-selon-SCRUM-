@@ -165,7 +165,10 @@ return (
                         <Form.Item
                            label="email"
                             name="email"
-                            rules={[{ required: false, message: 'Please input your email !' }]}
+                            rules={[
+                                { required: false, message: 'Please input your email !' } ,
+                                {type:'unique'}
+                        ]}
                         >
                             <Input />
                         </Form.Item>

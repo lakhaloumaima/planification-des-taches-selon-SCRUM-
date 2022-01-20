@@ -1,3 +1,4 @@
+/*
 import axios from "axios";
 import {mastersapi} from "../config/requests";
 
@@ -13,4 +14,5 @@ export function Register(data) {
       return err;
     });
 }
+*/
 

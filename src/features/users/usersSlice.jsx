@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Login, GetUsers, DeletetUser, UpdateUser, GetUserByemail } from "./usersAPI";
+import { Login, GetUsers, DeletetUser, UpdateUser, GetUserByemail, Register } from "./usersAPI";
 
 const initialState = {
   user: null,
@@ -17,6 +17,14 @@ const initialState = {
   addstatus: "",
   datachanged : "" ,
 };
+// redux register master  action
+export const registermaster = createAsyncThunk(
+  "singup",
+  async (data) => {
+    const response = await Register(data);
+    return response;
+  }
+);
 //get user by id
 export const getuser = createAsyncThunk("oneuser", async (data) => {
   const response = await GetUserByemail(data);

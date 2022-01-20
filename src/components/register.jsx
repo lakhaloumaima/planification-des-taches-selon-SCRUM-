@@ -2,13 +2,13 @@ import React from 'react'
 import 'antd/dist/antd.css'
 import { Form, Input, Button, Checkbox, Row, Col, Result, Alert, InputNumber } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { registermaster, selectregistration } from '../features/master/mastersSlice';
+import { registermaster, selectregistration } from '../features/users/usersSlice';
 
 const Register = () => {
 
     const dispatch = useDispatch()
 
-    const registration = useSelector(selectregistration)
+  //  const registration = useSelector(selectregistration)
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -48,8 +48,7 @@ const Register = () => {
 
     return (
         <div className="Container">
-            {registration === 'success' ? <RegisterResult /> : <div className='products-catagories-area clearfix' >
-
+           
               
             <Form
                     style={{ marginTop: "20px" }}
@@ -183,7 +182,7 @@ const Register = () => {
                         <a href="/Auth">Sign in</a>
                     </Form.Item>
                 </Form>
-            </div>}
+        
         </div>
     )
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="82a41678-fde1-4e66-9ee4-9c36611186b7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/ListeUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListeUsers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/getuserbyemail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/getuserbyemail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/updateuser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/updateuser.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/master/mastersAPI.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/master/mastersAPI.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/master/mastersSlice.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/master/mastersSlice.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/users/usersAPI.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/users/usersAPI.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/users/usersSlice.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/users/usersSlice.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="23sBHHgy3frGu2lkFlWwpXfrAx2" />
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="82a41678-fde1-4e66-9ee4-9c36611186b7" name="Default Changelist" comment="" />
+      <created>1642512834911</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1642512834911</updated>
+    </task>
+    <servers />
+  </component>
+</project>

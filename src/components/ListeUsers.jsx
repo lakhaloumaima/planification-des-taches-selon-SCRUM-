@@ -277,8 +277,9 @@ const onFinish = (values) => {
                         style={{marginTop:"20px"}}
                         layout="vertical"
                         initialValues={{ 
+                            remember: true,
                             email : users.email , 
-                            
+                            //id : users.id
                          }}
                         onFinish={onFinish3}
                         onFinishFailed={onFinishFailed3}

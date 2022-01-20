@@ -1,9 +1,7 @@
 import { Avatar, Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getprojects, selectprojects } from '../features/project/projectsSlice';
-import { selecttache } from '../features/tache/tachesSlice';
-import { getuser, getusers, selectautheduser, selectdatachenged, selectusers, selectuserss, updateuser } from '../features/users/usersSlice';
+import { getuser, selectdatachenged, selectusers, selectuserss, updateuser } from '../features/users/usersSlice';
 
 
 

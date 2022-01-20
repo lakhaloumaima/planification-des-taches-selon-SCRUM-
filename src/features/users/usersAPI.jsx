@@ -2,6 +2,19 @@ import axios from "axios";
 import { axiosInstance } from "../config/axios";
 import { usersapi} from "../config/requests";
 
+export function Register(data) {
+  return axios
+    .post(usersapi + "/singup", data)
+    .then((res) => {
+      
+      return res;
+     
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+
 export function Login(data) {
   return axios
     .post(usersapi + "/login", data)

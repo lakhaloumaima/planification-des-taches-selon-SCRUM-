@@ -16,13 +16,13 @@ const Auth = () => {
         console.log('Success:', values);
 
         let data = {
-            email : values.email,
-            password : values.password
+            email : values.email+"",
+            password : values.password+""
         }
      
       //  dispatch(getprojectbyclient(data))
        // dispatch(gettachebydeveloper(data))
-        dispatch(getuser(data))
+       // dispatch(getuser(data))
 
         dispatch(login(data))
         //window.location.reload('/Home') ;
@@ -41,13 +41,11 @@ const Auth = () => {
     const autherror = useSelector(selectautherror)
     const authstatus = useSelector(selectauthstatus)
     useEffect(() => {
-
         console.log('hello ');
         if (authstatus === 'success') {
             success()
             history.push('/Home')
-        }
-        
+        }  
         
     }, [authstatus]);
     const success = () => {
@@ -59,9 +57,7 @@ const Auth = () => {
     };
 
     return (
-        <div style={{ marginTop: "-200px" }}  >
-           
-           
+        <div style={{ marginTop: "-200px" }}  >   
             <div className='products-catagories-area clearfix' >
             
             <Form
@@ -75,7 +71,7 @@ const Auth = () => {
                     span: 8,
                 }}
                 initialValues={{
-                    remember: true,
+                    remember: false,
                 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
