@@ -59,7 +59,8 @@ const Taches = () => {
         }
         //dispatch(gettachebydeveloper(data))
         dispatch(updatetache(data))
-        handleCancel() 
+        handleCancel()
+        setIsModalVisible(false)
         //failed();
     };
     const onFinishFailed = (errorInfo) => {
@@ -236,8 +237,8 @@ return (
                         layout="vertical"
                         initialValues={{ 
                             email : user.email ,
-                            id :tache.id,
-                            tache_id : tache.tache_id ,
+                           // id :tache.id,
+                           // tache_id : tache.tache_id ,
                            //tache_id : tache.tache_id,
                            //etat : tache.etat ,
                         }}
@@ -249,14 +250,14 @@ return (
                             name="tache_id"
                             rules={[{ required: true, message: 'Please input your tache_id !' }]}
                         >
-                            <Input defaultValue={tache.tache_id} />
+                            <Input />
                         </Form.Item>
                         <Form.Item
                            label="etat"
                             name="etat"
                             rules={[{ required: true, message: 'Please input your etat !' }]}
                         >
-                            <Select defaultValue={tache.etat} placeholder="Please select etat">
+                            <Select /* defaultValue={tache.etat}*/ placeholder="Please select etat">
                                 <Option value="en_attend">to do</Option>
                                 <Option value="en_cours">in progress</Option>
                                 <Option value="terminee">termined</Option>

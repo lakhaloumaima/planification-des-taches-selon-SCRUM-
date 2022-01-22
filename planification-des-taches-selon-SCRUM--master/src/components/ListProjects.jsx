@@ -90,6 +90,7 @@ const onFinishFailed2 = (errorInfo) => {
         dispatch(updateproject(data))
 
         handleCancel()
+        setIsModalVisible(false)
         // window.location.reload()
     };
     const onFinishFailed = (errorInfo) => {

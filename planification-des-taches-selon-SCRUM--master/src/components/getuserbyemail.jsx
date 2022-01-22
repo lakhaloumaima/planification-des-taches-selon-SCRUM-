@@ -42,12 +42,10 @@ useEffect(() => {
             roll : values.roll+"" ,
             data : values ,
         }
-       //dispatch(getuser(data))
         dispatch(updateuser(data))
-        // console.log(data)
+        console.log(data)
         handleCancel()
         setIsModalVisible(false)
-        //window.location.reload()
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -73,6 +71,7 @@ return (
             <img className="profile-img" style={{width:"10%" }} src="../images/avatarr.png" alt />
                     
         <Descriptions style={{ marginTop: "50px" }} title="User ">
+            
                 <Descriptions.Item label="username">{user.username}</Descriptions.Item>
                 <Descriptions.Item label="roll">{user.roll}</Descriptions.Item>
                 <Descriptions.Item label="email">{user.email}</Descriptions.Item>
@@ -95,6 +94,7 @@ return (
                             roll : user.roll ,
                             age : user.age ,  
                             phoneNumber: user.phoneNumber ,
+                            id : user.id ,
                            // lastName : user.lastName ,
                            
                          }}

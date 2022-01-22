@@ -65,7 +65,8 @@ const ListTaches = () => {
         }
         dispatch(updatetache(data))
         
-        handleCancel() 
+        handleCancel()
+        setIsModalVisible(false)
         //failed();
     };
     const onFinish3 = (values) => {     
