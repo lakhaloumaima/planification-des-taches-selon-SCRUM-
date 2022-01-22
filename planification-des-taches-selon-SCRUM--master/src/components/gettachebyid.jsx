@@ -3,19 +3,20 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { EditOutlined } from '@ant-design/icons';
 import tachesSlice, { gettachebydeveloper, gettaches, selectauthedtaches , selecttache, selecttachess, updatetache, updatetaches} from '../features/tache/tachesSlice';
-import { getprojects, selectproject, selectprojects } from '../features/project/projectsSlice';
+import { getprojects, selectproject, selectprojectclient, selectprojects } from '../features/project/projectsSlice';
 import {getuser, getusers, selectusers, selectuserss} from '../features/users/usersSlice';
-
+const { Option } = Select;
 
 const Taches = () => {
     const project = useSelector(selectproject)
     const taches = useSelector(selecttachess)
     const dispatch = useDispatch()
     const tache = useSelector(selecttache)
+   
     const user = useSelector(selectusers)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const projects = useSelector(selectprojects)
-
+   
     const handleOk = () => {
         setIsModalVisible(false);
     };
@@ -56,7 +57,7 @@ const Taches = () => {
             tache_id : values.tache_id ,  
             data : values,
         }
-       // dispatch(gettachebydeveloper(data))
+        //dispatch(gettachebydeveloper(data))
         dispatch(updatetache(data))
         handleCancel() 
         //failed();
@@ -234,7 +235,9 @@ return (
                         style={{marginTop:"20px"}}
                         layout="vertical"
                         initialValues={{ 
-                           // id : project.id ,
+                            email : user.email ,
+                            id :tache.id,
+                            tache_id : tache.tache_id ,
                            //tache_id : tache.tache_id,
                            //etat : tache.etat ,
                         }}
@@ -246,14 +249,14 @@ return (
                             name="tache_id"
                             rules={[{ required: true, message: 'Please input your tache_id !' }]}
                         >
-                            <Input />
+                            <Input defaultValue={tache.tache_id} />
                         </Form.Item>
                         <Form.Item
-                           label=" etat"
+                           label="etat"
                             name="etat"
                             rules={[{ required: true, message: 'Please input your etat !' }]}
                         >
-                            <Select placeholder="Please select etat">
+                            <Select defaultValue={tache.etat} placeholder="Please select etat">
                                 <Option value="en_attend">to do</Option>
                                 <Option value="en_cours">in progress</Option>
                                 <Option value="terminee">termined</Option>

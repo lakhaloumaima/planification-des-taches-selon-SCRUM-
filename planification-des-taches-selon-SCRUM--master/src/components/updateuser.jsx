@@ -1,4 +1,4 @@
-import { Badge, Table, Space , Button , Form , Input , Modal, Descriptions } from 'antd'
+import { Badge, Table, Space , Button , Form , Input , Modal, Descriptions, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteproject, getprojectbyclient, getprojects,  selectauthedproject,  selectdatachanged,  selectproject,  selectprojects, updateproject } from '../features/project/projectsSlice';
@@ -119,12 +119,15 @@ const UpdateUsers = () => {
         console.log('Failed:', errorInfo);
     };
     */
+    const erreur = () => {
+        message.error('email not valid');
+    };
     const onFinish2 = (values) => {
         console.log('Success:', values);
 
         let data = {
             
-            email : !exists(values.email)  ? values.email +"": erreur()  ,
+            email : !(values.email)  ? values.email +"": erreur()  ,
             // username : values.username,
             age : values.age+"" ,
             description : values.description+"" ,

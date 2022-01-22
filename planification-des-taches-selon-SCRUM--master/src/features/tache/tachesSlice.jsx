@@ -67,6 +67,7 @@ export const tachesSlice = createSlice({
     builder.addCase(gettachebydeveloper.fulfilled, (state, action) => {
       console.log(action.payload.data);
       state.tache = action.payload.data;
+     
       //state.tachesdev = action.payload.data;
     });
 

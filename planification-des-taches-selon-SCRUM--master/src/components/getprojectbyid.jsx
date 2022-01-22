@@ -1,12 +1,16 @@
-import { Badge, Button, Descriptions, Form, Input, Modal, Result, Select, Table, Tag  } from 'antd';
+import { Badge, Button, Descriptions, Form, Input, message, Modal, Result, Select, Table, Tag  } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {deletetache, getproject, getprojects, selectprojects, getprojectbyclient, selectauthedproject, selectproject, selectprojectclient, getprojectbymaster, selectprojectmaster, deleteproject, selectdatachanged } from '../features/project/projectsSlice';
 import { gettaches, selectauthedtaches, selecttache, selecttachess } from '../features/tache/tachesSlice';
 import { selectusers , getusers, getuser} from '../features/users/usersSlice';
 import { CloseCircleOutlined } from '@ant-design/icons';
+const { Option } = Select; 
 
 const Projectt = () => {
+    const handleChange = (value) => {
+        console.log(`selected ${value}`);
+      }
     const projects = useSelector(selectprojects)
     const dispatch = useDispatch()
     const project = useSelector(selectproject)
@@ -143,7 +147,7 @@ const Projectt = () => {
             dataIndex: 'tache',
             key: 'tache',
             render: (text, record) => (          
-                <Select>
+                <Select onChange={handleChange}>
                     {
                         record.tache.map((cat, i) => {
                             return (
@@ -211,9 +215,9 @@ const Projectt = () => {
                 </>
             ),
         },
-     */
+    */
     
-    ];
+];
     
     const onFinish = (values) => {   
        
@@ -260,8 +264,9 @@ return (
                   project_id : projectsmasterr.project_id ,
                   tache_id : projectsmasterr.tache_id ,
                   email : projectsmasterr.email ,
-                  tache : projectsmasterr.tache
-
+                  tache : projectsmasterr.tache ,
+                  //tache_id : tache.tache_id ,
+                  //id : tache.id ,
               }}
               onFinish={onFinish3}
               onFinishFailed={onFinishFailed3}
@@ -280,7 +285,7 @@ return (
                     { tache !== undefined ? 
                         tache.map((cat, i) => {
                             return (
-                                <Option value={cat.id}>                    
+                                <Option value={cat.tache_id}>                    
                                     {cat.tache_name} &nbsp;      
                                 </Option>                             
                             )

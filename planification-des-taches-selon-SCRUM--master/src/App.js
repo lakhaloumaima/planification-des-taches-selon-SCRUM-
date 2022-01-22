@@ -21,7 +21,7 @@ import UpdateUsers from './components/updateuser';
 import PublicRoute from './components/PublicRoute';
 import PrivateRoute from './components/PrivateRoute';
 import ListsProjects from './components/listeprojetleluser';
-import gettachebydevlelAdmin from './components/gettachebydevlelAdmin';
+import GettachebydevlelAdmin from './components/gettachebydevlelAdmin';
 
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
           <PrivateRoute path="/Addtache" roles={["scrum_master"]} component={Addtache} />
           <PrivateRoute path="/ListT" roles={["scrum_master"]} component={ListTaches} />
           
-          <PrivateRoute path="/ListTacheDev" roles={["admin"]} component={gettachebydevlelAdmin} />
+          <PrivateRoute path="/ListTacheDev" roles={["admin"]} component={GettachebydevlelAdmin} />
           <PrivateRoute path="/taches" roles={["developer"]} component={Taches} />
 
           <PrivateRoute path="/listspr" roles={["client"]} component={ListsProjects} />

@@ -6,7 +6,7 @@ import { CloseCircleOutlined , EditOutlined } from '@ant-design/icons';
 import { selectauthedtaches, updatetaches } from '../features/tache/tachesSlice';
 import { getuser, selectseletestatus } from '../features/users/usersSlice';
 
-
+const { Option } = Select;
 
 const ListProjects = () => {
     const dispatch = useDispatch()

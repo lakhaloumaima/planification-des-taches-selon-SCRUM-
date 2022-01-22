@@ -1,21 +1,23 @@
-import { Badge, Button, Descriptions, Form, Input, message, Modal, Table, Tag  } from 'antd';
+import { Badge, Button, Descriptions, Form, Input, message, Modal, Result, Select, Table, Tag  } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { EditOutlined } from '@ant-design/icons';
-import tachesSlice, { gettachebydeveloper, gettaches, selectauthedtaches , selecttache, selecttachess, updatetache, updatetaches} from '../features/tache/tachesSlice';
+import tachesSlice, { gettachebydeveloper, gettaches, selectauthedtaches , selecttache, selecttachedev, selecttachess, updatetache, updatetaches} from '../features/tache/tachesSlice';
 import { getprojects, selectproject, selectprojects } from '../features/project/projectsSlice';
-import {getuser, getusers, selectusers, selectuserss} from '../features/users/usersSlice';
+import { filtredusers, getuser, getusers, selectusers, selectuserss} from '../features/users/usersSlice';
+const { Option } = Select;
 
-
-const gettachebydevlelAdmin = () => {
+const GettachebydevlelAdmin = () => {
     const project = useSelector(selectproject)
     const taches = useSelector(selecttachess)
     const dispatch = useDispatch()
     const tache = useSelector(selecttache)
     const user = useSelector(selectusers)
+    
+    const tachedev = useSelector(selecttachedev)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const projects = useSelector(selectprojects)
-
+   // const users = useSelector(selectuserss)
     const handleOk = () => {
         setIsModalVisible(false);
     };
@@ -165,7 +167,8 @@ return (
               }}
               initialValues={{
                   remember: true,
-                 // email : user.email
+                  //id : tache.id 
+                 // email :users.email
               }}
               onFinish={onFinish2}
               onFinishFailed={onFinishFailed2}
@@ -183,7 +186,24 @@ return (
                       {type : 'email'}
                   ]}
               >
-                  <Input  />
+                  <Select style={{marginLeft:'50px' }}>
+                    { (users !== undefined  ) ? 
+                        users.map((cat, i) => {
+                            return (
+                                
+                                <Option value={cat.email}>                    
+                                    {cat.email} &nbsp;      
+                                </Option>                             
+                            )
+                        })
+                        :  <Result
+                            status="500"
+                            title="No data"
+                            // subTitle="Sorry, something went wrong."
+                            extra={<Button type="primary" href="/Home">Back Home</Button>}
+                            />
+                    }
+                    </Select>
               </Form.Item>
               
               <Form.Item
@@ -210,4 +230,4 @@ return (
     ) 
 } ;
 
-export default gettachebydevlelAdmin
+export default GettachebydevlelAdmin

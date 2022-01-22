@@ -1,4 +1,4 @@
-import { Badge, Select, Table, Tag } from 'antd'
+import { Badge, Result, Select, Table, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectdevelopper, selectdeveloppers } from '../features/developper/developpersSlice';
@@ -185,11 +185,11 @@ const onFinish = (values) => {
           style={{marginTop:"200px"}}
               name="basic"
               labelCol={{
-                  span: 4,
+                  span: 8,
                   offset:3
               }}
               wrapperCol={{
-                  span: 15,
+                  span: 12,
               }}
               initialValues={{
                   remember: true,
@@ -208,7 +208,7 @@ const onFinish = (values) => {
                       },
                   ]}
               >
-                  <Select defaultValue="" style={{ width:185 }} onChange={handleChange}>
+                  <Select defaultValue="" style={{ width:90 }} onChange={handleChange}>
                         <Option value="client">client</Option>
                         <Option value="developer">developer</Option>
                         <Option value="scrum_master">scrum_master</Option>
@@ -218,8 +218,8 @@ const onFinish = (values) => {
 
               <Form.Item
                   wrapperCol={{
-                      offset: 7,
-                      span: 15,
+                      offset: 11,
+                      span: 12,
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'125%',border:'none'}} type="primary" htmlType="submit">
@@ -230,14 +230,15 @@ const onFinish = (values) => {
           </Form>         
          
         <Form
-          style={{marginTop:"200px"}}
+        
+          style={{marginTop:"200px" }}
               name="basic"
               labelCol={{
-                  span: 4,
+                  span: 0,
                   offset:3
               }}
               wrapperCol={{
-                  span: 11,
+                  span: 25,
               }}
               initialValues={{
                   remember: true,
@@ -247,7 +248,7 @@ const onFinish = (values) => {
           >   
               
                   <Form.Item
-                  label="Delete User By Email"
+                  label="Delete"
                   name="email"
                   rules={[
                       {
@@ -257,17 +258,33 @@ const onFinish = (values) => {
                       },
                   ]}
               >
-                  <Input />
+                 <Select style={{marginLeft:'50px' }}>
+                    { users !== undefined ? 
+                        users.map((cat, i) => {
+                            return (
+                                <Option value={cat.email}>                    
+                                    {cat.email} &nbsp;      
+                                </Option>                             
+                            )
+                        })
+                        :  <Result
+                            status="500"
+                            title="No data"
+                            // subTitle="Sorry, something went wrong."
+                            extra={<Button type="primary" href="/Home">Back Home</Button>}
+                            />
+                    }
+                    </Select>
               </Form.Item>
               
               <Form.Item
                   wrapperCol={{
-                      offset: 7,
-                      span: 11,
+                      offset: 8,
+                      span: 30,
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      Delete User By Email
+                      Delete User
                   </Button>
                   </Form.Item>
           </Form>  
