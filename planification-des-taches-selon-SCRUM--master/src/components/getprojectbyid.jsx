@@ -147,7 +147,7 @@ const Projectt = () => {
             dataIndex: 'tache',
             key: 'tache',
             render: (text, record) => (          
-                <Select onChange={handleChange}>
+                <Select onChange={handleChange} style={{marginRight:'50px'}}>
                     {
                         record.tache.map((cat, i) => {
                             return (
@@ -159,7 +159,8 @@ const Projectt = () => {
                                     {cat.date_fin} &nbsp;
                                     {cat.etat === "en_attend" && <Tag color="red">to do</Tag>}
                                     {cat.etat === "en_cours" && <Tag color="cyan">in progress</Tag>}
-                                    {cat.etat === "terminee" && <Tag color="lime">terminated</Tag>} <br></br>                                   
+                                    {cat.etat === "terminee" && <Tag color="lime">terminated</Tag>} <br></br> 
+                                                           
                                 </Option>                            
                             )
                         })
@@ -168,7 +169,7 @@ const Projectt = () => {
                
             ),
         } ,
-        {
+    /*    {
             title: 'Tache',
             dataIndex: 'tache_id',
             key: 'tache_id',
@@ -187,7 +188,7 @@ const Projectt = () => {
                     }
                 </Select>
                 ),
-        } ,
+        } ,*/
     /* {
             title: 'Tache',
             dataIndex: 'tache',
@@ -234,6 +235,9 @@ const Projectt = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    const success = () => {
+        message.success('tache successfuly deleted');
+    };
     const onFinish3 = (values) => {   
        
         console.log('Success:', values);
@@ -241,6 +245,7 @@ const Projectt = () => {
                 tache_id : values.tache_id ,      
             }
             dispatch(deletetache(data))
+            success()
         }
         const onFinishFailed3 = (errorInfo) => {
             console.log('Failed:', errorInfo);
@@ -252,7 +257,7 @@ return (
           style={{marginTop:"50px"}}
               name="basic"
               labelCol={{
-                  span: 23,
+                  span: 18,
                   offset:1
               }}
               wrapperCol={{
@@ -262,7 +267,7 @@ return (
                   remember: true,
                   id : projectsmasterr.id ,
                   project_id : projectsmasterr.project_id ,
-                  tache_id : projectsmasterr.tache_id ,
+                  //tache_id : projectsmasterr.tache_id ,
                   email : projectsmasterr.email ,
                   tache : projectsmasterr.tache ,
                   //tache_id : tache.tache_id ,
@@ -281,12 +286,12 @@ return (
                       },
                   ]}
               >
-                    <Select>
-                    { tache !== undefined ? 
+                    <Select onChange={handleChange}>
+                    { (tache !== undefined ) && (tache!== null) ? 
                         tache.map((cat, i) => {
                             return (
                                 <Option value={cat.tache_id}>                    
-                                    {cat.tache_name} &nbsp;      
+                                    {cat.tache_id} &nbsp;      
                                 </Option>                             
                             )
                         })
@@ -302,8 +307,8 @@ return (
               
               <Form.Item
                   wrapperCol={{
-                      offset: 15,
-                      span: 11,
+                      offset: 0,
+                      span: 12,
                   }}
               >
                   <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">

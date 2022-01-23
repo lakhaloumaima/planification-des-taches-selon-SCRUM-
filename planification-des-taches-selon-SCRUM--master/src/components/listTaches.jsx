@@ -40,7 +40,9 @@ const ListTaches = () => {
         dispatch(updateproject(data))
     }
     */
-   
+    const success = () => {
+        message.success('tache successfuly deleted');
+    };
     const onFinish = (values) => {   
        
     console.log('Success:', values);
@@ -48,6 +50,7 @@ const ListTaches = () => {
             tache_id : values.tache_id ,      
         }
         dispatch(deletetache(data))
+        success()
     }
     const erreur = () => {
         message.error(' tache not updated , date_fin < date_debut');

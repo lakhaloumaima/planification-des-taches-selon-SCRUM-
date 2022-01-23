@@ -89,13 +89,13 @@ export const tachesSlice = createSlice({
   builder.addCase(deletetache.fulfilled, (state, action) => {
     console.log(action.payload);
     //state.deletestatus = action.payload ;
-    
+   /* 
     if (action.payload.status === 200) {
       state.deletestatus = "success";
     } else {
       state.deletestatus = "failure";
     }
-    
+    */
   });
 /*
   builder.addCase(updatetaches.fulfilled, (state, action) => {

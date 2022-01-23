@@ -1,4 +1,4 @@
-import { Badge, Table, Space , Button , Form , Input , Modal, Descriptions, Select } from 'antd'
+import { Badge, Table, Space , Button , Form , Input , Modal, Descriptions, Select, message, DatePicker } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteproject, getproject, getprojectbyclient, getprojects,  selectdatachanged,  selectproject,  selectprojects, updateproject } from '../features/project/projectsSlice';
@@ -14,7 +14,7 @@ const ListProjects = () => {
     const project = useSelector(selectproject)
   const datachanged = useSelector(selectdatachanged)
     useEffect(() => {
-            dispatch(getprojects())
+        dispatch(getprojects())
     }, [datachanged]);
 
     const tache = useSelector(selectauthedtaches)
@@ -70,7 +70,9 @@ const onFinishFailed2 = (errorInfo) => {
     };
 
 */
-
+const erreur = () => {
+    message.error('project not updated , date_fin < date_debut');
+};
     const onFinish = (values) => {
         console.log('Success:', values);
 
@@ -80,15 +82,15 @@ const onFinishFailed2 = (errorInfo) => {
             projectname : values.projectname,
             description : values.description ,
             date_debut : values.date_debut ,
-            date_fin : values.date_fin ,
+            date_fin : values.date_fin > values.date_debut ? values.date_fin : erreur() ,
             emailclient : values.emailclient ,
             emailmaster : values.emailmaster ,
             data : values ,
         }
-        dispatch(getproject(data))
-        dispatch(getprojects(data))
+       // dispatch(getproject(data))
+       // dispatch(getprojects(data))
         dispatch(updateproject(data))
-
+       // window.location.reload('/listProjects')
         handleCancel()
         setIsModalVisible(false)
         // window.location.reload()
@@ -205,6 +207,9 @@ const onFinishFailed2 = (errorInfo) => {
     },
 
 ];
+const success = () => {
+    message.success('project successfuly deleted');
+};
 const onFinish3 = (values) => {   
        
     console.log('Success:', values);
@@ -212,6 +217,7 @@ const onFinish3 = (values) => {
             id_project : values.id_project ,      
         }
         dispatch(deleteproject(data))
+        success()
     }
     const onFinishFailed3 = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -422,7 +428,7 @@ return (
                         <Form.Item
                            label="project_name"
                             name="projectname"
-                            rules={[{ required: true, message: 'Please input your projectname!' }]}
+                            rules={[{ required: false, message: 'Please input your projectname!' }]}
                         >
                             <Input />
                         </Form.Item>
@@ -431,14 +437,14 @@ return (
                             name="date_debut"
                             rules={[{ required: false, message: 'Please input your date_debut!' }]}
                         >
-                            <Input />
+                            <DatePicker />
                         </Form.Item>
                         <Form.Item
                            label="date_fin"
                             name="date_fin"
                             rules={[{ required: false, message: 'Please input your date_fin!' }]}
                         >
-                            <Input />
+                            <DatePicker />
                         </Form.Item>
                         <Form.Item
                            label="description"

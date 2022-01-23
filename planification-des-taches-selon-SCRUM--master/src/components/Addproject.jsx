@@ -24,7 +24,8 @@ const erreur2 = () => {
 };
 useEffect(() => {
     if (addstatus === 'success') {
-        dispatch(getprojects())     
+        dispatch(getprojects())
+        success()   
     }
 }, [addstatus]);
 
@@ -43,7 +44,7 @@ useEffect(() => {
         }
        // dispatch(getprojectbyclient(data))
         dispatch(createproject(data)) 
-            success()
+       
             console.log(data)
         
     

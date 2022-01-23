@@ -86,7 +86,6 @@ export const projectsSlice = createSlice({
         console.log(action.payload);
       }
      //state.projects = action.payload;
-
      state.project = action.payload ;
     // state.addstatus = action.payload.data;
     });
@@ -112,11 +111,12 @@ builder.addCase(getprojects.pending, (state, action) => {
 
   builder.addCase(deletetache.fulfilled, (state, action) => {
     console.log(action.payload);
-    if (action.payload.status === 200) {
+    
+    /* if (action.payload.status === 200) {
       state.deletestatus = "success";
     } else {
       state.deletestatus = "failure";
-    }
+    } */
   });
 
  

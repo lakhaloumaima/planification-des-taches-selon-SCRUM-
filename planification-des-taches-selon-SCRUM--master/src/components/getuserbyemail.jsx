@@ -1,21 +1,20 @@
-import { Avatar, Badge, Button, Descriptions, Form, Input, Modal, Table, Tag  } from 'antd';
+import {  Button, Descriptions, Form, Input, Modal } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getprojects, selectprojects } from '../features/project/projectsSlice';
-import { selecttache } from '../features/tache/tachesSlice';
-import { getuser, getusers, selectautheduser, selectdatachenged, selectusers, selectuserss, updateuser } from '../features/users/usersSlice';
+import { getuser, selectautheduser, selectdatachenged, selectusers, updateuser } from '../features/users/usersSlice';
 
 
 const Userr = () => {
 
     const dispatch = useDispatch()
     const user = useSelector(selectusers)
-    const users = useSelector(selectautheduser)
+
+   // const users = useSelector(selectautheduser)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const datachanged = useSelector(selectdatachenged)
 
 useEffect(() => { 
-
+    getuser()
  }, [datachanged]);
     
     
@@ -95,7 +94,7 @@ return (
                             age : user.age ,  
                             phoneNumber: user.phoneNumber ,
                             id : user.id ,
-                           // lastName : user.lastName ,
+                            firstName : user.firstName ,
                            
                          }}
                         onFinish={onFinish}
@@ -107,14 +106,14 @@ return (
                             name="email"
                             rules={[{ required: false, message: 'Please input your email !' }]}
                         >
-                            <Input />
+                            <Input defaultValue={user.email} />
                         </Form.Item>
                         <Form.Item
-                           label="FirstName"
+                           label="UserName"
                             name="username"
                             rules={[{ required: false, message: 'Please input your username !' }]}
                         >
-                            <Input />
+                            <Input defaultValue={user.username}/>
                         </Form.Item>
                        
                         <Form.Item
@@ -122,21 +121,21 @@ return (
                             name="roll"
                             rules={[{ required: false, message: 'Please input your roll !' }]}
                         >
-                            <Input disabled />
+                            <Input defaultValue={user.roll} disabled />
                         </Form.Item>
                          <Form.Item
                            label="phoneNumber"
                             name="phoneNumber"
                             rules={[{ required: false, message: 'Please input your phoneNumber !' }]}
                         >
-                            <Input />
+                            <Input defaultValue={user.phoneNumber} />
                         </Form.Item>
                         <Form.Item
                            label="age"
                             name="age"
                             rules={[{ required: false, message: 'Please input your age !' }]}
                         >
-                            <Input />
+                            <Input defaultValue={user.age}/>
                         </Form.Item>
                        
                        

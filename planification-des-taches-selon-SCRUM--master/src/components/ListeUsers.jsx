@@ -156,6 +156,9 @@ const onFinish = (values) => {
   const erreur = () => {
     message.error('email not valid');
 };
+const success = () => {
+    message.success('user successfuly deleted');
+};
   const onFinish2 = (values) => {
     console.log('Success:', values);
 
@@ -165,7 +168,7 @@ const onFinish = (values) => {
    // dispatch(getuser(data))
     dispatch(deleteuser(data))
    // window.location.reload()
-    
+    success()
 };
 
   const onFinishFailed = (errorInfo) => {

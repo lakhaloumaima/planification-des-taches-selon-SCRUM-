@@ -44,14 +44,14 @@ let usersauthstatus = createTransform((inboundstate, key) => {
 
 let projectsauthstatus = createTransform((inboundstate, key) => {
   if (key === "projects") {
-    return omit(inboundstate, ["addstatus", "authstatus"]);
+    return omit(inboundstate, ["isauth","addstatus", "authstatus"]);
   } else {
     return inboundstate;
   }
 });
 let tachesauthstatus = createTransform((inboundstate, key) => {
   if (key === "taches") {
-    return omit(inboundstate, ["tache", "authstatus"]);
+    return omit(inboundstate, ["isauth","tache", "authstatus"]);
   } else {
     return inboundstate;
   }

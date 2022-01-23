@@ -26,6 +26,7 @@ const Addtache = () => {
 const erreur = () => {
     message.error('project not created');
 };
+
   const onFinish = (values) => {
         console.log('Success:', values);
 
@@ -39,6 +40,7 @@ const erreur = () => {
         }
 
         dispatch(createtache(data))
+       
        // dispatch(getuser(data))
        // dispatch(getuser(data))
        // window.location.href = '/ListT'
