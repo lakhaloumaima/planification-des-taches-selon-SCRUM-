@@ -173,7 +173,7 @@ return (
                                 {type:'unique'}
                         ]}
                         >
-                            <Input />
+                            <Input  />
                         </Form.Item>
                         <Form.Item
                            label="firstName"

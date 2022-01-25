@@ -13,6 +13,7 @@ const ListProjects = () => {
     const projects = useSelector(selectprojects)
     const project = useSelector(selectproject)
   const datachanged = useSelector(selectdatachanged)
+
     useEffect(() => {
         dispatch(getprojects())
     }, [datachanged]);
@@ -21,9 +22,29 @@ const ListProjects = () => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const [id, setid] = useState('');
+    const [projectname, setpname] = useState('');
+    const [description, setdesc] = useState('');
+    const [date_debut, setdated] = useState(null);
+    const [date_fin, setdatef] = useState(Date);
+    const [client, setemailc] = useState('');
+    const [scrum_master, setemailm] = useState('');
+    const showModal = (cat) => {
+        setid(cat.id)
+        setpname(cat.projectname)
+        setdesc(cat.description)
+        //setdated(cat.date_debut)
+        //date_fin(cat.setdatef)
+        setemailc(cat.client)
+        setemailm(cat.scrum_master)
+
+        setIsModalVisible(true);
+    };
+    /*
     const showModal = () => {
         setIsModalVisible(true);
     };
+    */
     const handleOk = () => {
         setIsModalVisible(false);
     };
@@ -71,7 +92,7 @@ const onFinishFailed2 = (errorInfo) => {
 
 */
 const erreur = () => {
-    message.error('project not updated , date_fin < date_debut');
+    message.error('date_fin < date_debut');
 };
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -88,8 +109,9 @@ const erreur = () => {
             data : values ,
         }
        // dispatch(getproject(data))
-       // dispatch(getprojects(data))
+        
         dispatch(updateproject(data))
+        dispatch(getprojects(data))
        // window.location.reload('/listProjects')
         handleCancel()
         setIsModalVisible(false)
@@ -199,10 +221,11 @@ const erreur = () => {
     */
     {
         title: 'Update',
+        dataIndex: 'update',
         key: 'update',
         render: (text, record) => (
             
-            <li><a onClick={() => showModal()} ><EditOutlined  style={{ color: 'green', cursor: 'pointer' }}/></a></li>
+            <li><a onClick={() => showModal(record)} ><EditOutlined  style={{ color: 'green', cursor: 'pointer' }}/></a></li>
         ),
     },
 
@@ -405,15 +428,14 @@ return (
                         style={{marginTop:"20px"}}
                         layout="vertical"
                         initialValues={{ 
-                        id : projects.id ,
-                       /*  project_id : projects.project_id , 
-                         projectname : projects.projectname,
-                         description : projects.description ,
-                        date_debut : projects.date_debut ,
-                        date_fin : projects.date_fin ,
-                        emailclient : projects.emailclient ,
-                        emailmaster : projects.emailmaster ,
-                          */  
+                            project_id : id ,
+                            projectname : projectname ,
+                            description : description ,
+                            //date_debut : date_debut ,
+                            //date_fin : date_fin ,
+                            emailclient : client  ,
+                            emailmaster : scrum_master ,
+                        
                          }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}

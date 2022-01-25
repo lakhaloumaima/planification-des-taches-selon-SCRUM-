@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, DatePicker ,Select, message} from 'antd';
+import { Form, Input, Button, DatePicker ,Select, message, Result} from 'antd';
 import { createtache, selectaddtaches, selecttache, selecttachess } from '../features/tache/tachesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getuser, selectusers, selectuserss } from '../features/users/usersSlice';
-import { getprojects } from '../features/project/projectsSlice';
+import { getprojects, selectprojectmaster } from '../features/project/projectsSlice';
 
 const Addtache = () => {
      
@@ -14,8 +14,10 @@ const Addtache = () => {
   const user = useSelector(selectusers)
   const users = useSelector(selectuserss)
   const addstatus = useSelector(selectaddtaches)
+  const projectsmasterr = useSelector(selectprojectmaster)
   const { Option } = Select;
   useEffect(() => {
+      dispatch(getprojects())
     if (addstatus === 'success') {     
         success()
     }
@@ -64,6 +66,7 @@ const erreur = () => {
             }}
             initialValues={{
                 remember: true,
+                project_id : projectsmasterr.project_id ,
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -82,7 +85,25 @@ const erreur = () => {
                     
                 ]}
             >
-                <Input />
+               <Select >
+                    { (  (projectsmasterr !== undefined ) && (projectsmasterr !== null) 
+                        &&  (projectsmasterr.project_id !== null)  )
+                    ? 
+                        projectsmasterr.map((cat, i) => {
+                            return (
+                                <Option value={cat.id}>                    
+                                    {cat.id} &nbsp;      
+                                </Option>                             
+                            )
+                        })
+                        :  <Result
+                            status="500"
+                            title="No data"
+                            // subTitle="Sorry, something went wrong."
+                            extra={<Button type="primary" href="/Home">Back Home</Button>}
+                            />
+                    }
+                    </Select>
             </Form.Item>
             
             
@@ -97,7 +118,7 @@ const erreur = () => {
                     {type : 'email'}
                 ]}
             >
-                <Input />
+               <Input />
             </Form.Item>
             
             

@@ -25,9 +25,18 @@ const ListTaches = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    const showModal = () => {
+    const showModal = (cat) => {
+        setid(cat.tache_id)
+        setetat(cat.etat)
+        settachen(cat.tache_name)
+        setdev(cat.developer)
+        
         setIsModalVisible(true);
     };
+    const [tache_id, setid] = useState('');
+    const [etat, setetat] = useState('');
+    const [tache_name, settachen] = useState('');
+    const [developer, setdev] = useState('');
 /*
     const update = (tache, value) => {
         let data = {
@@ -53,7 +62,7 @@ const ListTaches = () => {
         success()
     }
     const erreur = () => {
-        message.error(' tache not updated , date_fin < date_debut');
+        message.error('date_fin < date_debut');
     };
     const onFinish2 = (values) => {   
        
@@ -223,12 +232,12 @@ const ListTaches = () => {
         },
         {
             title: 'Update',
-            dataIndex: 'Update',
-            key: 'Update',
+            dataIndex: 'tache_id',
+            key: 'tache_id',
             render: (text, record) => (
                 <>
                    
-                   <li><a onClick={() => showModal()} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }} /></a></li>
+                   <li><a onClick={() => showModal(record)} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }} /></a></li>
     
                 </>
             ),
@@ -246,8 +255,8 @@ return (
           style={{marginTop:"50px"}}
               name="basic"
               labelCol={{
-                  span: 12,
-                  offset:3
+                  span: 16,
+                  offset:1
               }}
               wrapperCol={{
                   span: 12,
@@ -261,7 +270,7 @@ return (
               
             
             <Form.Item
-                  label="Delete by Tache Id "
+                  label="Delete Tache "
                   name="tache_id"
                   rules={[
                       {
@@ -270,7 +279,23 @@ return (
                       },
                   ]}
               >
-                  <Input />
+                 <Select >
+                    { (tache !== undefined ) && (tache !== null) ? 
+                        tache.map((cat, i) => {
+                            return (
+                                <Option value={cat.tache_id}>                    
+                                    {cat.tache_id} &nbsp;      
+                                </Option>                             
+                            )
+                        })
+                        :  <Result
+                            status="500"
+                            title="No data"
+                            // subTitle="Sorry, something went wrong."
+                            extra={<Button type="primary" href="/Home">Back Home</Button>}
+                            />
+                    }
+                    </Select>
               </Form.Item>
               
               <Form.Item
@@ -398,7 +423,7 @@ return (
    
    <div> 
    <h2>Taches by developer</h2>
-   {tache !== undefined ?  
+   { (tache !== undefined) && (tache !== null) ?  
         <Table columns={columns} dataSource={tache} />
         
         :  <Result
@@ -415,9 +440,19 @@ return (
                  style={{marginTop:"20px"}}
                  layout="vertical"
                  initialValues={{ 
-                    //id : tache.id ,
-                    //tache_id : tache.tache_id,
-                    //etat : tache.etat ,
+                  /*  id : tache.id ,
+                    tache_id : taches.tache_id,
+                    tache_name : tache_name,
+                    date_debut : tache.date_debut ,
+                    date_fin : tache.date_fin ,
+                    email : email ,
+                    etat : tache.etat ,
+                    */
+                    tache_id : tache_id,
+                    tache_name : tache_name,
+                    //project_name : project_name ,
+                    email : developer ,
+                    etat : etat ,
                  }}
                  onFinish={onFinish2}
                  onFinishFailed={onFinishFailed2}
@@ -427,7 +462,7 @@ return (
                      name="tache_id"
                      rules={[{ required: true, message: 'Please input your tache_id !' }]}
                  >
-                     <Input />
+                     <Input disabled />
                  </Form.Item>
                  <Form.Item
                            label="tache name"

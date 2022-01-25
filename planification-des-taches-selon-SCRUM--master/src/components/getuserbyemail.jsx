@@ -37,7 +37,7 @@ useEffect(() => {
             age : values.age+"" ,
             description : values.description +"",
             lastName : values.lastName+"",
-            //firstName : values.firstName,
+            username : values.username,
             roll : values.roll+"" ,
             data : values ,
         }
@@ -89,12 +89,12 @@ return (
                         layout="vertical"
                         initialValues={{ 
                             email : user.email , 
-                            username : user.username ,
+                            username : user.firstName ,
                             roll : user.roll ,
                             age : user.age ,  
                             phoneNumber: user.phoneNumber ,
                             id : user.id ,
-                            firstName : user.firstName ,
+                            //firstName : user.firstName ,
                            
                          }}
                         onFinish={onFinish}
@@ -106,12 +106,13 @@ return (
                             name="email"
                             rules={[{ required: false, message: 'Please input your email !' }]}
                         >
-                            <Input defaultValue={user.email} />
+                            <Input defaultValue={user.email} disabled />
                         </Form.Item>
                         <Form.Item
                            label="UserName"
                             name="username"
-                            rules={[{ required: false, message: 'Please input your username !' }]}
+                            rules={[{ required: false, message: 'Please input your username !' } ,
+                            { type: 'string', max: 14 }]}
                         >
                             <Input defaultValue={user.username}/>
                         </Form.Item>
@@ -126,7 +127,8 @@ return (
                          <Form.Item
                            label="phoneNumber"
                             name="phoneNumber"
-                            rules={[{ required: false, message: 'Please input your phoneNumber !' }]}
+                            rules={[{ required: false, message: 'Please input your phoneNumber !' } ,
+                            { type: 'string', min:8 ,max: 8 }]}
                         >
                             <Input defaultValue={user.phoneNumber} />
                         </Form.Item>

@@ -24,9 +24,17 @@ const Taches = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
+    const showModal = (cat) => {
+        setid(cat.tache_id)
+        setetat(cat.etat)
+        setIsModalVisible(true);
+    };
+    /*
     const showModal = () => {
         setIsModalVisible(true);
     };
+    */
     const erreur = () => {
         message.error('email not valid ');
     };
@@ -43,6 +51,7 @@ const Taches = () => {
        // dispatch(getuser(data))
         //dispatch(getuser(data))
         //dispatch(getprojects())
+        
         dispatch(gettachebydeveloper(data))
         console.log("tache by de : " + data)
         
@@ -58,6 +67,7 @@ const Taches = () => {
             data : values,
         }
         //dispatch(gettachebydeveloper(data))
+        
         dispatch(updatetache(data))
         handleCancel()
         setIsModalVisible(false)
@@ -66,6 +76,8 @@ const Taches = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    const [tache_id, setid] = useState('');
+    const [etat, setetat] = useState('');
     const columns = [
         
         {
@@ -164,12 +176,12 @@ const Taches = () => {
         },
         {
             title: 'Update',
-            dataIndex: 'Update',
-            key: 'Update',
+            dataIndex: 'update',
+            key: 'update',
             render: (text, record) => (
                 <>
                    
-                   <li><a onClick={() => showModal()} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }} /></a></li>
+                   <li><a onClick={() => showModal(record)} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }} /></a></li>
     
                 </>
             ),
@@ -239,8 +251,8 @@ return (
                             email : user.email ,
                            // id :tache.id,
                            // tache_id : tache.tache_id ,
-                           //tache_id : tache.tache_id,
-                           //etat : tache.etat ,
+                           tache_id : tache_id,
+                           etat : etat ,
                         }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
@@ -250,7 +262,7 @@ return (
                             name="tache_id"
                             rules={[{ required: true, message: 'Please input your tache_id !' }]}
                         >
-                            <Input />
+                            <Input disabled />
                         </Form.Item>
                         <Form.Item
                            label="etat"

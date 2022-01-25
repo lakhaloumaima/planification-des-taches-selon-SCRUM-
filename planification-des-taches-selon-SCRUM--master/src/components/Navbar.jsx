@@ -24,19 +24,19 @@ const Navbar = () => {
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
   
    <a className="navbar-brand" href="/Home"><HomeOutlined /> Home</a>
-   {isauth && ( user.roll ==="scrum_master" || user.roll ==="developer" || user.roll ==="client" ) && <a className="navbar-brand" href="/userbyemail"><UserOutlined />User</a>}
+   {isauth && ( user.roll ==="scrum_master" || user.roll ==="developer" || user.roll ==="client" ) && <a className="navbar-brand" href="/userbyemail"><UserOutlined />Profile</a>}
 
   {isauth &&  user.roll ==="admin" && <a className="navbar-brand" href="/listUsers"><ContainerOutlined /> List Users</a>}
 
   { isauth && user.roll ==="admin"  && <a className="navbar-brand" href="/listProjects"><ContainerOutlined /> List Projects</a>}
   {isauth &&  user.roll ==="scrum_master" && <a className="navbar-brand" href="/ListT"><ContainerOutlined /> List Taches</a>}
-  {isauth && user.roll ==="developer" && <a className="navbar-brand" href="/taches"><OrderedListOutlined />Tache</a>}
-  {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/project"><ContainerOutlined />Project</a>}
+  {isauth && user.roll ==="developer" && <a className="navbar-brand" href="/taches"><OrderedListOutlined />Taches</a>}
+  {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/project"><ContainerOutlined />Projects</a>}
   
   {isauth &&  user.roll ==="admin" && <a className="navbar-brand" href="/ListTacheDev"><ContainerOutlined /> List Taches</a>}
  
   {isauth && user.roll ==="client" && <a className="navbar-brand" href="/Addproject"><FileAddOutlined /> Add Project</a>}
-  {isauth && user.roll ==="client" && <a className="navbar-brand" href="/listspr"><ContainerOutlined /> ProjectClient </a>}
+  {isauth && user.roll ==="client" && <a className="navbar-brand" href="/listspr"><ContainerOutlined /> ProjectsClient </a>}
 
  
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

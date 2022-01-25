@@ -238,84 +238,11 @@ const Projectt = () => {
     const success = () => {
         message.success('tache successfuly deleted');
     };
-    const onFinish3 = (values) => {   
-       
-        console.log('Success:', values);
-            let data = {
-                tache_id : values.tache_id ,      
-            }
-            dispatch(deletetache(data))
-            success()
-        }
-        const onFinishFailed3 = (errorInfo) => {
-            console.log('Failed:', errorInfo);
-        };
+   
 return (
     <div className="container" >  
            <div  class="form-group row"  >  
-           <Form
-          style={{marginTop:"50px"}}
-              name="basic"
-              labelCol={{
-                  span: 18,
-                  offset:1
-              }}
-              wrapperCol={{
-                  span: 12,
-              }}
-              initialValues={{
-                  remember: true,
-                  id : projectsmasterr.id ,
-                  project_id : projectsmasterr.project_id ,
-                  //tache_id : projectsmasterr.tache_id ,
-                  email : projectsmasterr.email ,
-                  tache : projectsmasterr.tache ,
-                  //tache_id : tache.tache_id ,
-                  //id : tache.id ,
-              }}
-              onFinish={onFinish3}
-              onFinishFailed={onFinishFailed3}
-          >      
-            <Form.Item
-                  label="Delete Tache By Id "
-                  name="tache_id"
-                  rules={[
-                      {
-                          required: true,
-                          message: 'Please input your tache_id !',
-                      },
-                  ]}
-              >
-                    <Select onChange={handleChange}>
-                    { (tache !== undefined ) && (tache!== null) ? 
-                        tache.map((cat, i) => {
-                            return (
-                                <Option value={cat.tache_id}>                    
-                                    {cat.tache_id} &nbsp;      
-                                </Option>                             
-                            )
-                        })
-                        :  <Result
-                            status="500"
-                            title="No data"
-                            // subTitle="Sorry, something went wrong."
-                            extra={<Button type="primary" href="/Home">Back Home</Button>}
-                            />
-                    }
-                    </Select>
-              </Form.Item>
-              
-              <Form.Item
-                  wrapperCol={{
-                      offset: 0,
-                      span: 12,
-                  }}
-              >
-                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      Delete 
-                  </Button>
-                  </Form.Item>
-          </Form>
+         
           <Form
           style={{marginTop:"50px"}}
               name="basic"
@@ -340,7 +267,7 @@ return (
           >   
               
                   <Form.Item
-                  label="get Project"
+                  label="get Projects"
                   name="email"
                   rules={[
                       {
@@ -367,7 +294,7 @@ return (
           </div>
           <div>
          
-         {projectsmasterr !== undefined ?  
+         {(projectsmasterr !== undefined) && (projectsmasterr !== null) ?  
                     ( <h2>Projects <Badge count={projectsmasterr.length} showZero /> </h2>
                          &&
                         <Table columns={columns} dataSource={projectsmasterr} /> 
@@ -382,45 +309,7 @@ return (
                 }
         </div>
           <br></br>
-          <Modal footer={null} title="Show Taches" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                    <Form
-                        name="basic"
-                        style={{marginTop:"20px"}}
-                        layout="vertical"
-                        initialValues={{ 
-                           email : projectsmasterr.email ,
-                           //tache_id : tache.tache_id,
-                           //etat : tache.etat ,
-                        }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                    >
-                         <Form.Item
-                           label="project_id"
-                            name="project_id"
-                           // rules={[{ required: true, message: 'Please input your project_id !' }]}
-                        >
-                            <Input defaultValue={projectsmasterr.project_id}/>
-                        </Form.Item>
-                        <Form.Item
-                           label="tache_id"
-                            name="tache_id"
-                           // rules={[{ required: true, message: 'Please input your tache_id !' }]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item
-                           label=" etat"
-                            name="etat"
-                            //rules={[{ required: true, message: 'Please input your etat !' }]}
-                        >
-                            <Input />
-                        </Form.Item>
-                       
-                    </Form>
-                
-               
-            </Modal>
+         
         </div>
         
     ) 

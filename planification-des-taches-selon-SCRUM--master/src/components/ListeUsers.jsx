@@ -1,4 +1,4 @@
-import { Badge, Result, Select, Table, Tag } from 'antd'
+import { Badge, InputNumber, Result, Select, Table, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectdevelopper, selectdeveloppers } from '../features/developper/developpersSlice';
@@ -24,8 +24,44 @@ const ListUsers = () => {
     }, [datachanged]);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const showModal = () => {
+    /*const showModal = () => {
         setIsModalVisible(true);
+    };*/
+    const showModal = (cat) => {
+        setemail(cat.email)
+        setusern(cat.username)
+        setage(cat.age)
+        setphone(cat.phoneNumber)
+        setroll(cat.roll)
+        setIsModalVisible(true);
+    };
+    const [email, setemail] = useState('');
+    const [username, setusern] = useState('');
+    const [age, setage] = useState('');
+    const [phoneNumber, setphone] = useState('');
+    const [roll, setroll] = useState('');
+   // const [email, setemail] = useState('');
+    const onFinish3 = (values) => {
+        console.log('Success:', values);
+
+        let data = {
+            
+            email : values.email+"",
+            firstname : values.firstname+"" ,
+            age : values.age+"" ,
+            description : values.description +"",
+            lastName : values.lastName+"",
+            username : values.username,
+            roll : values.roll+"" ,
+            data : values ,
+        }
+        dispatch(updateuser(data))
+        console.log(data)
+        handleCancel()
+        setIsModalVisible(false)
+    };
+    const onFinishFailed3 = (errorInfo) => {
+        console.log('Failed:', errorInfo);
     };
     const handleOk = () => {
         setIsModalVisible(false);
@@ -137,6 +173,18 @@ const ListUsers = () => {
                 {record.roll === "developer" && <Tag color="purple">developer</Tag>}
                 {record.roll === "client" && <Tag color="lime">client</Tag>} <br></br>
           
+                </>
+            ),
+        },
+        {
+            title: 'Update',
+            dataIndex: 'update',
+            key: 'update',
+            render: (text, record) => (
+                <>
+                   
+                   <li><a onClick={() => showModal(record)} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }} /></a></li>
+    
                 </>
             ),
         },
@@ -295,7 +343,82 @@ const success = () => {
           <div> 
           <h2>Users <Badge count={users.length} showZero /> </h2>
         <Table columns={columns} dataSource={users} />
-      
+        <Modal footer={null} title="Update users" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+               <div>
+
+                    <Form
+                        name="basic"
+                        style={{marginTop:"20px"}}
+                        layout="vertical"
+                        initialValues={{ 
+                            remember: true,
+                            email : users.email , 
+                            email :email ,
+                            username : username ,
+                            roll : roll ,
+                            age : age ,  
+                            phoneNumber: phoneNumber ,
+                            //id : users.id
+                         }}
+                        onFinish={onFinish3}
+                        onFinishFailed={onFinishFailed3}
+                    >
+                        
+                        <Form.Item
+                           label="email"
+                            name="email"
+                            rules={[{ required: false, message: 'Please input your email !' }]}
+                        >
+                            <Input disabled />
+                        </Form.Item>
+                        <Form.Item
+                           label="firstName"
+                            name="username"
+                            rules={[{ required: false, message: 'Please input your firstName !' } ,
+                            { type: 'string', max: 14 }
+                        ]} 
+                            
+                        >
+                            <Input />
+                        </Form.Item>
+                        
+                         <Form.Item
+                           label="phoneNumber"
+                            name="phoneNumber"
+                            rules={[{ required: false, message: 'Please input your phoneNumber !' } ,
+                            { type: 'string', min:8 ,max: 8 }
+                        ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                           label="age"
+                            name="age"
+                            rules={[{ required: false, message: 'Please input your age !' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                       
+                        <Form.Item
+                           label="roll"
+                            name="roll"
+                            rules={[{ required: false, message: 'Please input your roll !' }]}
+                        >
+                            <Select defaultValue="" style={{ width: 120 }} onChange={handleChange}>
+                                <Option value="client">client</Option>
+                                <Option value="developer">developer</Option>
+                                <Option value="scrum_master">scrum_master</Option>
+                            </Select>
+                        </Form.Item>
+                        
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit">
+                                Update
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            </Modal>
           </div>
       </div>
       </div>
