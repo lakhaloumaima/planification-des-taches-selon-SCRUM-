@@ -29,9 +29,10 @@ const Navbar = () => {
   {isauth &&  user.roll ==="admin" && <a className="navbar-brand" href="/listUsers"><ContainerOutlined /> List Users</a>}
 
   { isauth && user.roll ==="admin"  && <a className="navbar-brand" href="/listProjects"><ContainerOutlined /> List Projects</a>}
+  {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/project"><ContainerOutlined />Projects</a>}
   {isauth &&  user.roll ==="scrum_master" && <a className="navbar-brand" href="/ListT"><ContainerOutlined /> List Taches</a>}
   {isauth && user.roll ==="developer" && <a className="navbar-brand" href="/taches"><OrderedListOutlined />Taches</a>}
-  {isauth && user.roll ==="scrum_master" && <a className="navbar-brand" href="/project"><ContainerOutlined />Projects</a>}
+ 
   
   {isauth &&  user.roll ==="admin" && <a className="navbar-brand" href="/ListTacheDev"><ContainerOutlined /> List Taches</a>}
  
