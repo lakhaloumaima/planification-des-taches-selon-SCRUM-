@@ -229,7 +229,7 @@ return (
           >   
               
                   <Form.Item
-                  label="get Project"
+                  label="get Projects"
                   name="email"
                   rules={[
                       {

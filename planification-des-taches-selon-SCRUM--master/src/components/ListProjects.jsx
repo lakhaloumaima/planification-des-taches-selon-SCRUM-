@@ -40,6 +40,17 @@ const ListProjects = () => {
 
         setIsModalVisible(true);
     };
+    const [isModalVisible2, setIsModalVisible2] = useState(false);
+    const showModal2 = (project) => {
+        setid(project.id)
+        setIsModalVisible2(true);
+    };
+    const handleOk2 = () => {
+        setIsModalVisible(false);
+    };
+    const handleCancel2 = () => {
+        setIsModalVisible(false);
+    };
     /*
     const showModal = () => {
         setIsModalVisible(true);
@@ -228,6 +239,16 @@ const erreur = () => {
             <li><a onClick={() => showModal(record)} ><EditOutlined  style={{ color: 'green', cursor: 'pointer' }}/></a></li>
         ),
     },
+    {
+        title: 'Delete',
+        dataIndex: 'delete',
+        key: 'delete',
+        render: (text, record) => (
+          
+            <CloseCircleOutlined onClick={() => showModal2(record)} style={{ color: 'red', cursor: 'pointer' }} />
+            
+        ),
+    },
 
 ];
 const success = () => {
@@ -240,6 +261,8 @@ const onFinish3 = (values) => {
             id_project : values.id_project ,      
         }
         dispatch(deleteproject(data))
+        handleCancel2()
+        setIsModalVisible2(false)
         success()
     }
     const onFinishFailed3 = (errorInfo) => {
@@ -360,64 +383,41 @@ const columns2 = [
 
 ];
 return (
-    <div className="container"  >   
-    
-           <Form
-            style={{marginTop:"50px"}}
-              name="basic"
-              labelCol={{
-                  span: 17,
-                  offset:1
-              }}
-              
-              wrapperCol={{
-                  span: 18,
-              }}
-              initialValues={{
-                  remember: true,
-                  id_project : projects.id_project ,
-              }}
-              onFinish={onFinish3}
-              onFinishFailed={onFinishFailed3}
-          >   
-              
-            
-            <Form.Item
-                  label="Delete by Project Id "
-                  name="id_project"
-                  rules={[
-                      {
-                          required: true,
-                          message: 'Please input your id_project !',
-                      },
-                  ]}
-              >
-                   <Select  >
-                    {
-                        projects.map((cat, i) => {
-                            return (
-                                <Option value={cat.id}>                    
-                                    {cat.id} &nbsp;      
-                                </Option>                             
-                            )
-                        })
-                    }
-                    </Select>
-              </Form.Item>
-              
-              <Form.Item
-                  wrapperCol={{
-                      offset: 18,
-                      span: 10,
-                  }}
-              >
-                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      Delete 
-                  </Button>
-                  </Form.Item>
-          </Form>     
+    <div className="container"  >      
  
-        
+          <Modal footer={null} title="Delete Tache" visible={isModalVisible2} onOk={handleOk2} onCancel={handleCancel2}>
+               <div>
+
+                    <Form
+                        name="basic"
+                        style={{marginTop:"20px"}}
+                        layout="vertical"
+                        initialValues={{ 
+                            remember: true,
+                            id_project : id ,
+                           
+                            //id : users.id
+                         }}
+                        onFinish={onFinish3}
+                        onFinishFailed={onFinishFailed3}
+                    >
+                        
+                        <Form.Item
+                           label="id_project"
+                            name="id_project"
+                            rules={[{ required: true, message: 'Please input your id_project !' }]}
+                        >
+                            <Input disabled />
+                        </Form.Item>
+                        
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit">
+                                Delete
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            </Modal>
         <h2>Projects <Badge count={projects.length} showZero /> </h2>
         <Table columns={columns} dataSource={projects} />
         <Modal footer={null} title="Update projects" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
@@ -445,7 +445,7 @@ return (
                             name="project_id"
                             rules={[{ required: true, message: 'Please input your project_id!' }]}
                         >
-                            <Input />
+                            <Input disabled />
                         </Form.Item>
                         <Form.Item
                            label="project_name"

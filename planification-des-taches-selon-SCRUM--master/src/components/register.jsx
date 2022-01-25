@@ -3,6 +3,7 @@ import 'antd/dist/antd.css'
 import { Form, Input, Button, Checkbox, Row, Col, Result, Alert, InputNumber, message, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { registermaster, selectregistration } from '../features/master/mastersSlice';
+import { withSuccess } from 'antd/lib/modal/confirm';
 const { Option } = Select;
 const Register = () => {
     function handleChange(value) {
@@ -12,7 +13,10 @@ const Register = () => {
 
     const registration = useSelector(selectregistration)
     const erreur = () => {
-        message.error('project not created');
+        message.error('user not created');
+    };
+    const success = () => {
+        message.success('user succefully created');
     };
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -29,6 +33,7 @@ const Register = () => {
         
 
         dispatch(registermaster(data))
+        success()
         // console.log(data)
     };
 

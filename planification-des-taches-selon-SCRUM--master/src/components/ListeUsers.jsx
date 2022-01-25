@@ -23,10 +23,22 @@ const ListUsers = () => {
        
     }, [datachanged]);
     const [isModalVisible, setIsModalVisible] = useState(false);
-
+    const [isModalVisible2, setIsModalVisible2] = useState(false);
     /*const showModal = () => {
         setIsModalVisible(true);
     };*/
+    const showModal2 = (user) => {
+        setemail(user.email)
+        setIsModalVisible2(true);
+    };
+    const handleOk2 = () => {
+        setIsModalVisible(false);
+    };
+    const handleCancel2 = () => {
+        setIsModalVisible(false);
+    };
+
+
     const showModal = (cat) => {
         setemail(cat.email)
         setusern(cat.username)
@@ -188,6 +200,16 @@ const ListUsers = () => {
                 </>
             ),
         },
+        {
+            title: 'Delete',
+            dataIndex: 'delete',
+            key: 'delete',
+            render: (text, record) => (
+              
+                <CloseCircleOutlined onClick={() => showModal2(record)} style={{ color: 'red', cursor: 'pointer' }} />
+                
+            ),
+        },
     ];
 
     
@@ -215,6 +237,8 @@ const success = () => {
     }
    // dispatch(getuser(data))
     dispatch(deleteuser(data))
+    handleCancel2()
+    setIsModalVisible2(false)
    // window.location.reload()
     success()
 };
@@ -279,68 +303,45 @@ const success = () => {
                  </Form.Item>
                 
           </Form>         
-         
-        <Form
-        
-          style={{marginTop:"200px" }}
-              name="basic"
-              labelCol={{
-                  span: 0,
-                  offset:3
-              }}
-              wrapperCol={{
-                  span: 25,
-              }}
-              initialValues={{
-                  remember: true,
-              }}
-              onFinish={onFinish2}
-              onFinishFailed={onFinishFailed2}
-          >   
-              
-                  <Form.Item
-                  label="Delete"
-                  name="email"
-                  rules={[
-                      {
-                          required: true,
-                          message: 'Please input your email !',
-                          
-                      },
-                  ]}
-              >
-                 <Select style={{marginLeft:'50px' }}>
-                    { users !== undefined ? 
-                        users.map((cat, i) => {
-                            return (
-                                <Option value={cat.email}>                    
-                                    {cat.email} &nbsp;      
-                                </Option>                             
-                            )
-                        })
-                        :  <Result
-                            status="500"
-                            title="No data"
-                            // subTitle="Sorry, something went wrong."
-                            extra={<Button type="primary" href="/Home">Back Home</Button>}
-                            />
-                    }
-                    </Select>
-              </Form.Item>
-              
-              <Form.Item
-                  wrapperCol={{
-                      offset: 8,
-                      span: 30,
-                  }}
-              >
-                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      Delete User
-                  </Button>
-                  </Form.Item>
-          </Form>  
+          
     </div>
           <div> 
+
+          <Modal footer={null} title="Delete user" visible={isModalVisible2} onOk={handleOk2} onCancel={handleCancel2}>
+               <div>
+
+                    <Form
+                        name="basic"
+                        style={{marginTop:"20px"}}
+                        layout="vertical"
+                        initialValues={{ 
+                            remember: true,
+                            email : users.email , 
+                            email :email ,
+                           
+                            //id : users.id
+                         }}
+                        onFinish={onFinish2}
+                        onFinishFailed={onFinishFailed2}
+                    >
+                        
+                        <Form.Item
+                           label="email"
+                            name="email"
+                            rules={[{ required: true, message: 'Please input your email !' }]}
+                        >
+                            <Input disabled />
+                        </Form.Item>
+                        
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit">
+                                Delete
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            </Modal>
+
           <h2>Users <Badge count={users.length} showZero /> </h2>
         <Table columns={columns} dataSource={users} />
         <Modal footer={null} title="Update users" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

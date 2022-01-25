@@ -105,7 +105,7 @@ const Home = () => {
                     <span className="fa fa-phone" />
                   </div>
                   <div className="text pl-3">
-                    <p><span>Phone :</span>  25475864</p>
+                    <p><span>Phone :</span>  24 540 686</p>
                   </div>
                 </div>
                 <div className="dbox w-100 d-flex align-items-center">
@@ -116,7 +116,7 @@ const Home = () => {
                     <span className="fa fa-envelope" />
                   </div>
                   <div className="text pl-3">
-                    <p><span  >Email :</span>  info@planning.com</p>
+                    <p><span  >Email :</span>  lakhalouma6@gmail.com</p>
                   </div>
                 </div>
                 <div className="dbox w-100 d-flex align-items-center">

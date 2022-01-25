@@ -17,6 +17,18 @@ const ListTaches = () => {
     const taches = useSelector(selecttachess)
     const user = useSelector(selectusers)
 
+    const [isModalVisible2, setIsModalVisible2] = useState(false);
+    const showModal2 = (tachee) => {
+        setid(tachee.tache_id)
+        setIsModalVisible2(true);
+    };
+
+    const handleOk2 = () => {
+        setIsModalVisible2(false);
+    };
+    const handleCancel2 = () => {
+        setIsModalVisible2(false);
+    };
 
     const handleOk = () => {
         setIsModalVisible(false);
@@ -59,6 +71,8 @@ const ListTaches = () => {
             tache_id : values.tache_id ,      
         }
         dispatch(deletetache(data))
+        handleCancel2()
+        setIsModalVisible2(false)
         success()
     }
     const erreur = () => {
@@ -242,6 +256,16 @@ const ListTaches = () => {
                 </>
             ),
         },
+        {
+            title: 'Delete',
+            dataIndex: 'delete',
+            key: 'delete',
+            render: (text, record) => (
+              
+                <CloseCircleOutlined onClick={() => showModal2(record)} style={{ color: 'red', cursor: 'pointer' }} />
+                
+            ),
+        },
     
     ];
 
@@ -251,64 +275,6 @@ return (
             Add Tache
       </button> 
       <div  class="form-group row"  >  
-          <Form
-          style={{marginTop:"50px"}}
-              name="basic"
-              labelCol={{
-                  span: 16,
-                  offset:1
-              }}
-              wrapperCol={{
-                  span: 12,
-              }}
-              initialValues={{
-                  remember: true,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-          >   
-              
-            
-            <Form.Item
-                  label="Delete Tache "
-                  name="tache_id"
-                  rules={[
-                      {
-                          required: true,
-                          message: 'Please input your id !',
-                      },
-                  ]}
-              >
-                 <Select >
-                    { (tache !== undefined ) && (tache !== null) ? 
-                        tache.map((cat, i) => {
-                            return (
-                                <Option value={cat.tache_id}>                    
-                                    {cat.tache_id} &nbsp;      
-                                </Option>                             
-                            )
-                        })
-                        :  <Result
-                            status="500"
-                            title="No data"
-                            // subTitle="Sorry, something went wrong."
-                            extra={<Button type="primary" href="/Home">Back Home</Button>}
-                            />
-                    }
-                    </Select>
-              </Form.Item>
-              
-              <Form.Item
-                  wrapperCol={{
-                      offset: 15,
-                      span: 11,
-                  }}
-              >
-                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      Delete 
-                  </Button>
-                  </Form.Item>
-          </Form>
           
           <Form
           style={{marginTop:"50px"}}
@@ -420,7 +386,40 @@ return (
            </Form.Item>
    </Form>
    </div>
-   
+   <Modal footer={null} title="Delete Tache" visible={isModalVisible2} onOk={handleOk2} onCancel={handleCancel2}>
+               <div>
+
+                    <Form
+                        name="basic"
+                        style={{marginTop:"20px"}}
+                        layout="vertical"
+                        initialValues={{ 
+                            remember: true,
+                            email : users.email , 
+                            tache_id :tache_id ,
+                           
+                            //id : users.id
+                         }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                    >
+                        
+                        <Form.Item
+                           label="tache_id"
+                            name="tache_id"
+                            rules={[{ required: true, message: 'Please input your tache_id !' }]}
+                        >
+                            <Input disabled />
+                        </Form.Item>
+                        
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit">
+                                Delete
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            </Modal>
    <div> 
    <h2>Taches by developer</h2>
    { (tache !== undefined) && (tache !== null) ?  

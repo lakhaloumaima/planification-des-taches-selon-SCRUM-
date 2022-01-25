@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { gettachebydeveloper, selecttache, selecttachedev, selecttachess } from '../features/tache/tachesSlice';
 import { getprojects, selectproject, selectprojects ,deletetache, selectdatachanged } from '../features/project/projectsSlice';
 import {  selectusers, selectuserss} from '../features/users/usersSlice';
+import { CloseCircleOutlined } from '@ant-design/icons';
+
 const { Option } = Select;
 
 const GettachebydevlelAdmin = () => {
@@ -16,9 +18,22 @@ const GettachebydevlelAdmin = () => {
     
     const tachedev = useSelector(selecttachedev)
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalVisible2, setIsModalVisible2] = useState(false);
     const projects = useSelector(selectprojects)
    // const users = useSelector(selectuserss)
    const datachanged = useSelector(selectdatachanged)
+   const showModal2 = (tachee) => {
+        setid(tachee.tache_id)
+        setIsModalVisible2(true);
+    };
+    const [tache_id, setid] = useState('');
+
+    const handleOk2 = () => {
+        setIsModalVisible2(false);
+    };
+    const handleCancel2 = () => {
+        setIsModalVisible2(false);
+    };
     const erreur = () => {
         message.error('email not valid ');
     };
@@ -52,6 +67,8 @@ const GettachebydevlelAdmin = () => {
                 tache_id : values.tache_id ,      
             }
             dispatch(deletetache(data))
+            handleCancel2()
+            setIsModalVisible2(false)
             success()
         }
         const onFinishFailed = (errorInfo) => {
@@ -153,6 +170,16 @@ const GettachebydevlelAdmin = () => {
                 </>
             ),
         },
+        {
+            title: 'Delete',
+            dataIndex: 'delete',
+            key: 'delete',
+            render: (text, record) => (
+              
+                <CloseCircleOutlined onClick={() => showModal2(record)} style={{ color: 'red', cursor: 'pointer' }} />
+                
+            ),
+        },
     
     ];
 return (
@@ -160,11 +187,11 @@ return (
           <div class="form-group row">
    
           <Form
-          style={{marginTop:"50px"}}
+            style={{marginTop:"50px"}}
               name="basic"
               labelCol={{
-                  span: 7,
-                  offset:1
+                  span: 16,
+                  offset:0
               }}
               wrapperCol={{
                   span: 10,
@@ -221,73 +248,46 @@ return (
                   </Button>
                   </Form.Item>
           </Form>
-       
-          <Form
-          style={{marginTop:"50px"}}
-              name="basic"
-              labelCol={{
-                  span: 15,
-                  offset:4
-              }}
-              wrapperCol={{
-                  span: 14,
-              }}
-              initialValues={{
-                  remember: true,
-                 // tache_id : tache.tache_id ,
-                  id_project : projects.id_project ,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-          >   
-              
-            
-            <Form.Item
-                  label="Delete Tache "
-                  name="tache_id"
-                  rules={[
-                      {
-                          required: true,
-                          message: 'Please input your id !',
-                      },
-                  ]}
-              >
-                   <Select >
-                    { (tache !== undefined ) && (tache!== null) ? 
-                        tache.map((cat, i) => {
-                            return (
-                                <Option value={cat.tache_id}>                    
-                                    {cat.tache_id} &nbsp;      
-                                </Option>                             
-                            )
-                        })
-                        :  <Result
-                            status="500"
-                            title="No data"
-                            // subTitle="Sorry, something went wrong."
-                            extra={<Button type="primary" href="/Home">Back Home</Button>}
-                            />
-                    }
-                    </Select>
-              </Form.Item>
-              
-              <Form.Item
-                  wrapperCol={{
-                      offset: 15,
-                      span: 11,
-                  }}
-              >
-                  <Button style={{background: "SteelBlue",outline:"none",width:'100%',border:'none'}} type="primary" htmlType="submit">
-                      Delete 
-                  </Button>
-                  </Form.Item>
-          </Form>
+
           </div>
           <div> 
           <h2>Taches by developer</h2>
         <Table columns={columns} dataSource={tache} />
           </div>
-         
+          <Modal footer={null} title="Delete Tache" visible={isModalVisible2} onOk={handleOk2} onCancel={handleCancel2}>
+               <div>
+
+                    <Form
+                        name="basic"
+                        style={{marginTop:"20px"}}
+                        layout="vertical"
+                        initialValues={{ 
+                            remember: true,
+                            email : users.email , 
+                            tache_id :tache_id ,
+                           
+                            //id : users.id
+                         }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                    >
+                        
+                        <Form.Item
+                           label="tache_id"
+                            name="tache_id"
+                            rules={[{ required: true, message: 'Please input your tache_id !' }]}
+                        >
+                            <Input disabled />
+                        </Form.Item>
+                        
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit">
+                                Delete
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            </Modal>
            
         </div>
         
