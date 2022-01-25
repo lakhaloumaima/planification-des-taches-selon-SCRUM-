@@ -23,7 +23,16 @@ export function GetTacheBydeveloper(data) {
       return err;
     });
 }
-
+export function GetTachesBydeveloper(data) {
+  return axiosInstance
+    .post(tachesapi + "/gettachebydeveloper" , data)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
 export function Create(data) {
   return axiosInstance
     .post(tachesapi + "/tacheupdate" , data)

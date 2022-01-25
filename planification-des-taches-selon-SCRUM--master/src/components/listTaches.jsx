@@ -1,11 +1,11 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { deletetache, getprojects, selectauthedproject, selectprojects } from '../features/project/projectsSlice';
+import { deletetache, getprojects, selectauthedproject, selectprojectmaster, selectprojects } from '../features/project/projectsSlice';
 import {
     CheckCircleOutlined, CloseCircleOutlined, CheckOutlined, EditOutlined 
 } from '@ant-design/icons';
-import { getuser, getusers, selectusers } from '../features/users/usersSlice';
+import {  selectusers } from '../features/users/usersSlice';
 import { Badge, Button, DatePicker, Descriptions, Form, Input, message, Modal, Result, Select, Table, Tag  } from 'antd'
 import  { gettachebydeveloper, gettaches, selectauthedtaches , selecttache, selecttachess, updatetache} from '../features/tache/tachesSlice';
 const { Option } = Select;
@@ -16,7 +16,7 @@ const ListTaches = () => {
     const tache = useSelector(selecttache)
     const taches = useSelector(selecttachess)
     const user = useSelector(selectusers)
-
+    const projectsmasterr = useSelector(selectprojectmaster)
     const [isModalVisible2, setIsModalVisible2] = useState(false);
     const showModal2 = (tachee) => {
         setid(tachee.tache_id)
@@ -49,6 +49,7 @@ const ListTaches = () => {
     const [etat, setetat] = useState('');
     const [tache_name, settachen] = useState('');
     const [developer, setdev] = useState('');
+    const [project_name, setp] = useState('');
 /*
     const update = (tache, value) => {
         let data = {
@@ -123,7 +124,7 @@ const ListTaches = () => {
     const project = useSelector(selectauthedproject)
 
     useEffect(() => {
-            dispatch(getprojects())        
+        dispatch(getprojects())        
     }, []);
     const erreurEmail = () => {
         message.error(' not valid email developer ');
@@ -131,16 +132,15 @@ const ListTaches = () => {
     const onFinish4 = (values) => {
         console.log('Success:', values);
         let data = { 
-            email : values.email +"" ,  
+            email : values.email ?  values.email +"" : erreur() ,  
            // roll :  values.roll =='developer' ? values.roll +"" : erreurEmail(),  
         }
-        //dispatch(getuser(data))
-      //  dispatch(getprojects())
+        //dispatch(getprojects())
         //dispatch(getusers(data))
         
             dispatch(gettachebydeveloper(data))
             console.log("tache by de : " + data)
-        
+            
     }; 
   
     const onFinishFailed4 = (errorInfo) => {
@@ -422,7 +422,7 @@ return (
             </Modal>
    <div> 
    <h2>Taches by developer</h2>
-   { (tache !== undefined) && (tache !== null) ?  
+   { (tache !== undefined) && (tache !== null)        ?  
         <Table columns={columns} dataSource={tache} />
         
         :  <Result

@@ -1,10 +1,10 @@
 import { Badge, Button, Descriptions, Form, Input, message, Modal, Result, Select, Table, Tag  } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {deletetache, getproject, getprojects, selectprojects, getprojectbyclient, selectauthedproject, selectproject, selectprojectclient, getprojectbymaster, selectprojectmaster, deleteproject, selectdatachanged } from '../features/project/projectsSlice';
-import { gettaches, selectauthedtaches, selecttache, selecttachess } from '../features/tache/tachesSlice';
-import { selectusers , getusers, getuser} from '../features/users/usersSlice';
-import { CloseCircleOutlined } from '@ant-design/icons';
+import { getprojects, selectprojects, selectproject, selectprojectclient, getprojectbymaster, selectprojectmaster, deleteproject, selectdatachanged, deletetache } from '../features/project/projectsSlice';
+import {  selecttache, selecttachess } from '../features/tache/tachesSlice';
+import { selectusers } from '../features/users/usersSlice';
+import { CloseCircleOutlined , EditOutlined} from '@ant-design/icons';
 const { Option } = Select; 
 
 const Projectt = () => {
@@ -19,6 +19,33 @@ const Projectt = () => {
     const taches = useSelector(selecttachess)
     const projectsmasterr = useSelector(selectprojectmaster)
     const user = useSelector(selectusers)
+    const [isModalVisible2, setIsModalVisible2] = useState(false);
+    const [tache_id, setid] = useState('');
+    const showModal2 = (tachee) => {
+        setid(tachee.tache_id)
+        setIsModalVisible2(true);
+    };
+
+    const handleOk2 = () => {
+        setIsModalVisible2(false);
+    };
+    const handleCancel2 = () => {
+        setIsModalVisible2(false);
+    };
+    const onFinish3 = (values) => {   
+       
+        console.log('Success:', values);
+            let data = {
+                tache_id : values.tache_id ,      
+            }
+            dispatch(deletetache(data))
+            handleCancel2()
+            setIsModalVisible2(false)
+            success()
+     }
+     const onFinishFailed3 = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
     const [isModalVisible, setIsModalVisible] = useState(false);
     
     const showModal = () => {
@@ -33,7 +60,7 @@ const Projectt = () => {
     
     const datachanged = useSelector(selectdatachanged)
     useEffect(() => {    
-       // dispatch(getprojects())  
+        dispatch(getprojects())  
     } , [datachanged]);
 /*
     const onFinish = (values) => {     
@@ -169,54 +196,27 @@ const Projectt = () => {
                
             ),
         } ,
-    /*    {
-            title: 'Tache',
-            dataIndex: 'tache_id',
-            key: 'tache_id',
-            render: (text, record) => (  
-                <Select>
-                {
-                    record.tache.map((cat, i) => {
-                        return (
-                            <Option value={cat.id}>
-                                
-                                { <CloseCircleOutlined onClick={() => dispatch(deletetache(cat.tache_id))} style={{ color: 'red', cursor: 'pointer' }} /> }
-                                
-               </Option>                            
-                            )
-                        })
-                    }
-                </Select>
-                ),
-        } ,*/
-    /* {
-            title: 'Tache',
+     /*   {
+            title: 'Delete',
             dataIndex: 'tache',
             key: 'tache',
-            render: (text, record) => (
-                <>
-                <Select style={{ margin: '15px 0' }} class="form-select form-select-lg my-3 mb-3" aria-label=".form-select-lg example">
-                    <Option selected>shoose email developer</Option>
-                    {
-                        record.map((cat, i) => {
-                            return (
-                                <Option value={cat.id_project}>{cat.projectname}</Option>
-                            )
-                        })
-                    }
-                </Select>
-
-                    {
-                        record.tache.date_debut + 
-                        record.tache.developer +
-                        record.tache.tache_name+
-                        record.tache.etat 
-                    } 
-    
-                </>
+            render: (text, record) => ( 
+               // <li><a onClick={() => showModal2(record)} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }} /></a></li>    
+               <Select onChange={handleChange} style={{marginRight:'50px'}}>
+               {
+                   record.tache.map((cat, i) => {
+                       return (
+                           <Option value={cat.id}>
+                               
+                               <a onClick={() => deletetache(cat.tache_id)} ><EditOutlined style={{ color: 'green', cursor: 'pointer' }} /></a>    
+                             
+                           </Option>                            
+                       )
+                   })
+               }
+           </Select>
             ),
-        },
-    */
+        } , */
     
 ];
     
@@ -290,7 +290,8 @@ return (
                       See
                   </Button>
                   </Form.Item>
-          </Form>  
+          </Form> 
+
           </div>
           <div>
          
@@ -309,7 +310,7 @@ return (
                 }
         </div>
           <br></br>
-         
+     
         </div>
         
     ) 
